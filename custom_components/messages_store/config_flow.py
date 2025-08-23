@@ -11,9 +11,36 @@ class MessagesStoreConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if self._async_current_entries():
             return self.async_abort(reason="single_instance_allowed")
 
-        return self.async_create_entry(
-            title=NAME,
-            data={},  
+        ai_task_entities = [state.entity_id for state in self.hass.states.async_all() if state.domain == "ai_task"]
+
+        errors = {}
+        if not ai_task_entities:
+            errors["base"] = "no_ai_task_entities"
+            return self.async_show_form(
+                step_id="user",
+                data_schema=vol.Schema({}),
+                errors=errors,
+                description_placeholders={"message": "No ai_task entities found. Please create one before configuring."}
+            )
+
+        if user_input is not None:
+            entity_id = user_input.get("ai_task_entity_id")
+            if entity_id is not None and entity_id not in ai_task_entities:
+                errors["ai_task_entity_id"] = "invalid_entity"
+            else:
+                return self.async_create_entry(
+                    title=NAME,
+                    data={
+                        "ai_task_entity_id": entity_id
+                    },
+                )
+
+        return self.async_show_form(
+            step_id="user",
+            data_schema=vol.Schema({
+                vol.Optional("ai_task_entity_id"): vol.Any(None, vol.In(ai_task_entities))
+            }),
+            errors=errors,
         )
 
     @staticmethod
@@ -30,7 +57,35 @@ class MessagesStoreOptionsFlowHandler(config_entries.OptionsFlow):
 
     async def async_step_init(self, user_input=None):
         """Manage the options."""
-        return self.async_create_entry(
-            title="",
-            data={},  
+        ai_task_entities = [state.entity_id for state in self.hass.states.async_all() if state.domain == "ai_task"]
+        current = self.config_entry.options.get("ai_task_entity_id") or self.config_entry.data.get("ai_task_entity_id")
+        errors = {}
+
+        if not ai_task_entities:
+            errors["base"] = "no_ai_task_entities"
+            return self.async_show_form(
+                step_id="init",
+                data_schema=vol.Schema({}),
+                errors=errors,
+                description_placeholders={"message": "No ai_task entities found. Please create one before configuring."}
+            )
+        
+        if user_input is not None:
+            entity_id = user_input.get("ai_task_entity_id")
+            if entity_id is not None and entity_id not in ai_task_entities:
+                errors["ai_task_entity_id"] = "invalid_entity"
+            else:
+                return self.async_create_entry(
+                    title="",
+                    data={
+                        "ai_task_entity_id": entity_id
+                    },
+                )
+            
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema({
+                vol.Optional("ai_task_entity_id", default=current): vol.Any(None, vol.In(ai_task_entities))
+            }),
+            errors=errors,
         )
