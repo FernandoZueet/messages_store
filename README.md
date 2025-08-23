@@ -11,6 +11,7 @@
 - **State Replacement:** Automatically replace `(state:entity_id)` tags in messages with the current state of the specified Home Assistant entity, including the unit of measurement if available.
 - **Slug Replacement:** Replace `(slug:slug_name)` tags in messages with the corresponding message stored under that slug, allowing for dynamic message construction.
 - **Placeholder Replacement:** Dynamically replace `%s` placeholders in messages with values provided when retrieving the message, allowing for customizable and flexible messaging.
+ - **AI Message Generation:** Generate new messages using AI, with the option to use an existing slug as a base for the prompt.
 
 ## Installation
 
@@ -41,6 +42,7 @@
 - **[Delete messages](#4-messages_storedelete_message)** 
 - **[Retrieve multiple messages](#5-messages_storeget_messages)** 
 - **[Add multiple messages](#6-messages_storeadd_bulk_messages)** 
+- **[Generate AI messages](#7-messages_storegenerate_ai_messages)** 
 
 ## UI Panel
 
@@ -56,6 +58,19 @@
 ### Preview tags 
 ![image](https://github.com/user-attachments/assets/711fb4b0-ca92-489c-89c0-2343aedec3d1)
 
+## AI Task Configuration
+
+To use the AI message generation service, you must configure an entity of type `ai_task` in the integration options:
+
+1. Go to **Settings > Devices & Services > Integrations**.
+2. Find **Messages Store** and click **Options**.
+3. Select the desired `ai_task` entity in the **AI Task Entity** dropdown.
+4. Save the configuration.
+
+This entity will be used to call the AI service for message generation.
+
+For more details about the AI Task integration, see the official documentation:
+[Home Assistant AI Task Integration](https://www.home-assistant.io/integrations/ai_task/)
 
 ## Services
 
@@ -305,6 +320,43 @@ data:
 status: true
 message: "Successfully inserted slugs: closed_window_office_rain, alert_bedroom_climate_on_opened_door"
 ```
+
+### 7. `messages_store.generate_ai_messages`
+
+**Description:** Uses an AI Task entity to generate new messages based on instructions and optionally existing messages (by slug).
+
+**Service Data:**
+
+- `task_name` (required): Name of the AI task.
+- `instructions` (required): Instructions for the AI to generate messages.
+- `quantity` (required): Number of messages to generate.
+- `slug` (optional): Slug of existing messages to use as base.
+
+**Example:**
+
+```yaml
+service: messages_store.generate_ai_messages
+data:
+  instructions: "Generate welcome messages for new users."
+  quantity: 3
+  task_name: "welcome_generation"
+  slug: "greeting_message"
+```
+
+**Response:**
+
+```yaml
+status: true
+messages:
+  - "Welcome to our platform!"
+  - "Hello, glad to have you here!"
+  - "Enjoy your experience!"
+```
+
+**Notes:**
+- The AI Task entity must be configured in the integration options (Settings > Devices & Services > Integrations > Messages Store > Options > AI Task Entity).
+- If no AI Task entity is configured, the service will return an error.
+- The slug field is optional. If provided, the messages stored under that slug will be used as base for the AI prompt.
 
 ## License
 
