@@ -63,3 +63,12 @@ class SQLiteMessageStoreRepository(MessagesStore):
             c.execute("SELECT slug, message FROM messages_store")
             results = c.fetchall()
             return [{"slug": row[0], "message": row[1]} for row in results]
+
+    def get_by_slug(self, slug: str) -> Optional[dict]:
+        with sqlite3.connect(self.db_path) as conn:
+            c = conn.cursor()
+            c.execute("SELECT slug, message FROM messages_store WHERE slug = ?", (slug,))
+            result = c.fetchone()
+            if result:
+                return {"slug": result[0], "message": result[1]}
+            return None

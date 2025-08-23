@@ -12,6 +12,7 @@ from .services import (
     delete_message,
     add_bulk_messages
 )
+from .services.generate_ai_messages import generate_ai_messages
 from .services.schemas import (
     ADD_EDIT_SCHEMA,
     GET_SCHEMA,
@@ -89,6 +90,13 @@ async def setup_services(hass: HomeAssistant, entry: config_entries.ConfigEntry)
             'add_bulk_messages',
             wrap_service(add_bulk_messages),
             schema=ADD_BULK_MESSAGES_SCHEMA,
+            supports_response=SupportsResponse.ONLY
+        )
+
+        hass.services.async_register(
+            DOMAIN,
+            'generate_ai_messages',
+            wrap_service(generate_ai_messages),
             supports_response=SupportsResponse.ONLY
         )
 
