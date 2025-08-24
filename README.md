@@ -347,6 +347,7 @@ data:
 
 ```yaml
 status: true
+slug: greeting_message
 messages:
   - "Welcome to our platform!"
   - "Hello, glad to have you here!"

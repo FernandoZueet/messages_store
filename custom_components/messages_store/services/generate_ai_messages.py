@@ -44,6 +44,10 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
         prompt = instructions + f"\nGenerate {quantity} messages."
         if base_messages:
             prompt += f"\nBase messages: {base_messages}"
+        if not slug:
+            prompt += "\nWhen generating the slug, use only lowercase English words, no spaces, and use underscores. Example: alert_bedroom_climate_on_opened_door."
+        
+        prompt += "\nWhen creating messages, do NOT suggest or use tags like (state:entity_id) or (slug:slug_name). Only use %s as a placeholder for dynamic values."
 
         # Call AI service to generate messages
         response = await hass.services.async_call(
@@ -58,6 +62,11 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
                         "selector": {
                             "object": None
                         }
+                    },
+                    "slug": {
+                        "selector": {
+                            "text": None
+                        }
                     }
                 }
             },
@@ -71,14 +80,17 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
         if response:
             try:
                 messages_json = response.get('data', {}).get('messages', {}).get('json')
+                generated_slug = response.get('data', {}).get('slug')
                 if messages_json:
                     messages = json.loads(messages_json)
+                if slug:
+                    generated_slug = slug
             except Exception as e:
                 _LOGGER.error(f"Error parsing AI messages: {e}")
         if not messages or not isinstance(messages, list):
             return {"status": False, "message": f"AI service did not return messages. Response: {response}"}
-        
-        return {"status": True, "messages": messages}
+
+        return {"status": True, "messages": messages, "slug": generated_slug}
 
     except Exception as e:
         return log_error("generate_ai_messages", e)
