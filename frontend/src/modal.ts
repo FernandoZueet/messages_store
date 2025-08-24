@@ -1,4 +1,5 @@
 import "./styles.css";
+import "./ai_modal";
 import { LitElement, html } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
@@ -9,8 +10,11 @@ export class MessagesStoreModal extends LitElement {
 	@property({ type: Array }) initialMessages = [];
 	@property({ type: Object }) hass;
 
+    @property({ type: Object }) callService;
+
 	@state() slug = "";
 	@state() messageList = [""];
+	@state() isAIModalOpen = false;
 
 	createRenderRoot() {
 		return this;
@@ -86,6 +90,15 @@ export class MessagesStoreModal extends LitElement {
 		}
 	}
 
+	aiMessages(event: CustomEvent) {
+		const { slug, messages } = event.detail;
+
+		if (!this.slug) this.slug = slug;
+		let newList = [...this.messageList, ...messages];
+		if (newList.length > 0 && newList[0] === "") newList = newList.slice(1);
+		this.messageList = newList;
+	}
+
 	previewMessage(message) {
 		return message
 			.replace(/\(slug:([^)]+)\)/g, (match, slugName) => {
@@ -150,10 +163,17 @@ export class MessagesStoreModal extends LitElement {
 				class="fixed inset-0 flex items-center justify-center z-50 bg-zinc-900 bg-opacity-50 backdrop-blur-sm"
 			>
 				<div
-					class="bg-zinc-800 text-white p-6 rounded-lg shadow-2xl w-full max-w-lg mx-4 sm:mx-6 md:w-2/3 lg:w-1/3 border-[1px] border-zinc-700"
+					class="bg-zinc-800 text-white p-6 rounded-lg shadow-2xl w-full max-w-lg mx-4 sm:mx-6 md:w-2/3 lg:w-1/3 border-[1px] border-zinc-700 relative"
 				>
-					<h2 class="text-xl mb-5 font-bold">
+					<h2 class="text-xl mb-5 font-bold flex justify-between items-center">
 						${this.initialSlug ? "Edit Message" : "Add Message"}
+						<button
+							class="bg-blue-600 text-white font-bold px-3 py-1 rounded ml-2 text-sm"
+							style="position:absolute;top:18px;right:18px;"
+							@click=${() => (this.isAIModalOpen = true)}
+						>
+							Generate with AI
+						</button>
 					</h2>
 					<div class="mb-4">
 						<label class="block mb-2 text-sm">Slug</label>
@@ -234,6 +254,16 @@ export class MessagesStoreModal extends LitElement {
 						</button>
 					</div>
 				</div>
+				${this.isAIModalOpen
+					? html`
+						<messages-store-ai-modal
+							.hass=${this.hass}
+							.initialSlug=${this.initialSlug}
+							@close=${() => (this.isAIModalOpen = false)}
+							@aiMessages=${this.aiMessages}
+						></messages-store-ai-modal>
+					`
+					: ""}
 			</div>
 		`;
 	}
