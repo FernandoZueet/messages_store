@@ -2,7 +2,7 @@ import logging
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant, SupportsResponse
 from .view import async_setup_view
-from .services.helpers import log_error
+from .services.helpers import log_error, log_error_only
 from .const import DOMAIN, PATH_DB_SQLITE
 from .services import (
     add_message,
@@ -12,6 +12,7 @@ from .services import (
     delete_message,
     add_bulk_messages
 )
+from .services.generate_ai_messages import generate_ai_messages
 from .services.schemas import (
     ADD_EDIT_SCHEMA,
     GET_SCHEMA,
@@ -29,7 +30,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: config_entries.ConfigEnt
         await async_setup_view(hass)
         return await setup_services(hass, entry)
     except Exception as e:
-        return log_error("Setting up Messages Store", e)
+        log_error_only("Setting up Messages Store", e)
+        return False
 
 async def setup_services(hass: HomeAssistant, entry: config_entries.ConfigEntry) -> bool:
     try:
@@ -89,6 +91,13 @@ async def setup_services(hass: HomeAssistant, entry: config_entries.ConfigEntry)
             'add_bulk_messages',
             wrap_service(add_bulk_messages),
             schema=ADD_BULK_MESSAGES_SCHEMA,
+            supports_response=SupportsResponse.ONLY
+        )
+
+        hass.services.async_register(
+            DOMAIN,
+            'generate_ai_messages',
+            wrap_service(generate_ai_messages),
             supports_response=SupportsResponse.ONLY
         )
 

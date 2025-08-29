@@ -1,4 +1,5 @@
 import "./styles.css";
+import utils from "./utils";
 import { LitElement, html } from "lit";
 import { customElement, state, property } from "lit/decorators.js";
 import "./list";
@@ -113,23 +114,14 @@ export class MessagesStore extends LitElement {
 	}
 
 	async callService(domain, service, data = {}, target = {}) {
-		try {
-			const response = await this.hass.connection.sendMessagePromise({
-				type: "execute_script",
-				sequence: [
-					{
-						service: `${domain}.${service}`,
-						data,
-						target,
-						response_variable: "service_result",
-					},
-					{ stop: "done", response_variable: "service_result" },
-				],
-			});
-			return response.response;
-		} catch (error: any) {
-			this.showNotification(error.message, "error");
+		const response = await utils.callService(this.hass, domain, service, data, target);
+
+		if(response?.status == 'error') {
+			this.showNotification(response?.error?.message || "Unknown error", "error");
+			return;
 		}
+
+		return response;
 	}
 
 	handleSearch(e) {

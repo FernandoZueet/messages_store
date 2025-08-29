@@ -9,5 +9,6 @@
     "iot_class": "local_push",
     "issue_tracker": "https://github.com/FernandoZueet/messages_store/issues",
     "requirements": [],
-    "version": "1.0.0"
+    "version": "1.3.0",
+    "homeassistant": "2025.8.0"
 }

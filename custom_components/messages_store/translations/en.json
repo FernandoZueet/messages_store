@@ -3,14 +3,12 @@
         "step": {
             "user": {
                 "title": "Messages Store",
-                "description": "Path to the SQLite database for storing messages. Uses Home Assistant's database if left default.",
+                "description": "Select an AI Task entity to use with Messages Store. This is optional.",
                 "data": {
-                    "path": "SQLite database"
+                    "ai_task_entity_id": "AI Task Entity",
+                    "instructions": "Prompt"
                 }
             }
-        },
-        "error": {
-            "invalid_path": "Please provide a valid path to the SQLite database file."
         },
         "abort": {
             "single_instance_allowed": "Only one instance of this process is allowed to run at a time."
@@ -20,14 +18,12 @@
         "step": {
             "init": {
                 "title": "Messages Store",
-                "description": "Path to the SQLite database for storing messages. Uses Home Assistant's database if left default.",
+                "description": "Select an AI Task entity to use with Messages Store. This is optional.",
                 "data": {
-                    "path": "SQLite database"
+                    "ai_task_entity_id": "AI Task Entity",
+                    "instructions": "Prompt"
                 }
             }
-        },
-        "error": {
-            "invalid_path": "Please provide a valid path to the SQLite database file."
         }
     }
 }

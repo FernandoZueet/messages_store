@@ -29,3 +29,7 @@ class MessagesStore(ABC):
     @abstractmethod
     def retrieve_all_messages(self) -> List[dict]:
         pass
+
+    @abstractmethod
+    def get_by_slug(self, slug: str) -> Optional[dict]:
+        pass

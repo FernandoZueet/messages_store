@@ -1,3 +1,39 @@
+generate_ai_messages:
+  name: "Generate AI Messages"
+  description: "Generates a list of messages using AI based on instructions and optionally a base slug. Requires an AI Task entity configured in integration options."
+  fields:
+    task_name:
+      name: "Task Name"
+      description: "Name of the task."
+      required: true
+      selector:
+        text: {}
+      example: "motivation"
+    instructions:
+      name: "Instructions"
+      description: "Instructions for the AI to generate the messages."
+      required: true
+      selector:
+        text: {}
+      example: "Create motivational messages for morning routines."
+    quantity:
+      name: "Quantity"
+      description: "Number of messages to generate."
+      required: true
+      selector:
+        number:
+          min: 1
+          max: 100
+          mode: box
+      example: 5
+    slug:
+      name: "Base Slug"
+      description: "Slug of existing messages to use as a base for generation. Optional."
+      required: false
+      selector:
+        text: {}
+      example: "greeting_message"
+
 add_message:
   name: "Add Message"
   description: "Adds a new message."
