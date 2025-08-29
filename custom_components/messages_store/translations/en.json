@@ -5,12 +5,10 @@
                 "title": "Messages Store",
                 "description": "Select an AI Task entity to use with Messages Store. This is optional.",
                 "data": {
-                    "ai_task_entity_id": "AI Task Entity"
+                    "ai_task_entity_id": "AI Task Entity",
+                    "instructions": "Prompt"
                 }
             }
-        },
-        "error": {
-            "invalid_path": "Please provide a valid path to the SQLite database file."
         },
         "abort": {
             "single_instance_allowed": "Only one instance of this process is allowed to run at a time."
@@ -22,12 +20,10 @@
                 "title": "Messages Store",
                 "description": "Select an AI Task entity to use with Messages Store. This is optional.",
                 "data": {
-                    "ai_task_entity_id": "AI Task Entity"
+                    "ai_task_entity_id": "AI Task Entity",
+                    "instructions": "Prompt"
                 }
             }
-        },
-        "error": {
-            "invalid_path": "Please provide a valid path to the SQLite database file."
         }
     }
 }

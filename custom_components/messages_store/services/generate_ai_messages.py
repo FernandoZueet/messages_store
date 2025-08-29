@@ -25,10 +25,12 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
 
         # Get AI Task entity ID
         entity_id = None
+        prompt_general = None
         entries = hass.config_entries.async_entries(DOMAIN)
         if entries:
             entry = entries[0]
             entity_id = entry.options.get('ai_task_entity_id') or entry.data.get('ai_task_entity_id')
+            prompt_general = entry.options.get('instructions') or entry.data.get('instructions')
         if not entity_id:
             return {"status": False, "message": "No AI Task entity configured. Please set it in integration options."}
 
@@ -41,13 +43,13 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
             msg_str = record.get("message", "").strip()
             base_messages = [m.strip() for m in msg_str.split("|") if m.strip()] if msg_str else None
 
-        prompt = instructions + f"\nGenerate {quantity} messages."
+        prompt = prompt_general + f"\n- Generate {quantity} messages."  
         if base_messages:
-            prompt += f"\nBase messages: {base_messages}"
-        if not slug:
-            prompt += "\nWhen generating the slug, use only lowercase English words, no spaces, and use underscores. Example: alert_bedroom_climate_on_opened_door."
+            prompt += f"\n- Base messages: {base_messages}"
         
-        prompt += "\nWhen creating messages, do NOT suggest or use tags like (state:entity_id) or (slug:slug_name). Only use %s as a placeholder for dynamic values."
+        prompt += "\n\n" + instructions
+
+        _LOGGER.info(f"AI service prompt: {prompt}")
 
         # Call AI service to generate messages
         response = await hass.services.async_call(
