@@ -61,6 +61,7 @@
 ## AI Task Configuration
 
 To use the AI message generation service, you must configure an entity of type `ai_task` in the integration options:
+
 ![image](https://github.com/user-attachments/assets/6cbed4a0-7ff1-4559-b636-7c26582ce350)
 
 1. Go to **Settings > Devices & Services > Integrations**.
