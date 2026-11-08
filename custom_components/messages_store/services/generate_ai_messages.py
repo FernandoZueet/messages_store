@@ -1,11 +1,68 @@
 import logging
 import json
+import re
 from homeassistant.core import HomeAssistant, ServiceCall, ServiceResponse
 from .helpers import log_error
 from ..repository import MessagesStore
 from ..const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
+
+
+def _normalize_messages(value, quantity):
+    """Convert the AI Task response into individual message strings."""
+    if isinstance(value, dict):
+        nested = value.get("messages")
+        return _normalize_messages(nested, quantity) if nested is not None else []
+
+    if isinstance(value, list):
+        if len(value) == 1 and isinstance(value[0], str):
+            return _normalize_messages(value[0], quantity)
+        return [str(message).strip() for message in value if str(message).strip()]
+
+    if not isinstance(value, str):
+        return []
+
+    text = value.strip()
+    if not text:
+        return []
+
+    # AI Task responses may contain JSON encoded as a string, sometimes in a
+    # Markdown code fence. Decode those before trying text separators.
+    fenced = re.fullmatch(r"```(?:json)?\s*(.*?)\s*```", text, re.DOTALL | re.IGNORECASE)
+    if fenced:
+        text = fenced.group(1).strip()
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        parsed = None
+    if parsed is not None and parsed != text:
+        normalized = _normalize_messages(parsed, quantity)
+        if normalized:
+            return normalized
+
+    lines = [
+        re.sub(r"^(?:[-*•]|\d+[.)])\s*", "", line).strip().strip('"')
+        for line in text.splitlines()
+        if line.strip()
+    ]
+    if len(lines) > 1:
+        return lines
+
+    if "|" in text:
+        separated = [part.strip() for part in text.split("|") if part.strip()]
+        if len(separated) > 1:
+            return separated
+
+    # Some AI Task providers flatten a requested list into one paragraph. If
+    # sentence boundaries match the requested quantity, recover those items.
+    sentences = [part.strip() for part in re.split(
+        r"(?<=[.!?])\s+(?=[\"'“‘(\[]?[A-ZÀ-ÖØ-Þ0-9])", text
+    ) if part.strip()]
+    if len(sentences) == quantity:
+        return sentences
+
+    return [text]
 
 async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, call: ServiceCall) -> ServiceResponse:
     _LOGGER.debug("generate_ai_messages service called")
@@ -29,8 +86,12 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
         entries = hass.config_entries.async_entries(DOMAIN)
         if entries:
             entry = entries[0]
-            entity_id = entry.options.get('ai_task_entity_id') or entry.data.get('ai_task_entity_id')
-            prompt_general = entry.options.get('instructions') or entry.data.get('instructions')
+            entity_id = entry.options.get(
+                'ai_task_entity_id', entry.data.get('ai_task_entity_id')
+            )
+            prompt_general = entry.options.get(
+                'instructions', entry.data.get('instructions')
+            ) or ""
         if not entity_id:
             return {"status": False, "message": "No AI Task entity configured. Please set it in integration options."}
 
@@ -43,7 +104,12 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
             msg_str = record.get("message", "").strip()
             base_messages = [m.strip() for m in msg_str.split("|") if m.strip()] if msg_str else None
 
-        prompt = prompt_general + f"\n- Generate {quantity} messages."  
+        prompt = prompt_general + (
+            f"\n- Generate exactly {quantity} distinct messages."
+            "\n- Return every message as a separate item in the messages array."
+            "\n- Never concatenate the messages into one string or paragraph."
+            "\n- If a plain-text fallback is needed, put exactly one message on each line."
+        )
         if base_messages:
             prompt += f"\n- Base messages: {base_messages}"
         
@@ -81,10 +147,14 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
         messages = None
         if response:
             try:
-                messages_json = response.get('data', {}).get('messages', {}).get('json')
+                message_payload = response.get('data', {}).get('messages')
+                if isinstance(message_payload, dict) and "json" in message_payload:
+                    messages_json = message_payload.get("json")
+                else:
+                    messages_json = message_payload
                 generated_slug = response.get('data', {}).get('slug')
                 if messages_json:
-                    messages = json.loads(messages_json)
+                    messages = _normalize_messages(messages_json, quantity)
                 if slug:
                     generated_slug = slug
             except Exception as e:

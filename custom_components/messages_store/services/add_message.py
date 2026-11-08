@@ -18,7 +18,7 @@ async def add_message(hass: HomeAssistant, repository: MessagesStore, call: Serv
         if await hass.async_add_executor_job(repository.slug_exists, slug):
             return {"status": False, "message": f"Slug '{slug}' already exists"}
 
-        await hass.async_add_executor_job(repository.insert_message, slug, message)
+        await hass.async_add_executor_job(repository.insert_message, slug, message, call.data.get('tags', []), call.data.get('favorite', False))
         return {"status": True, "message": f"Message added with slug {slug}"}
 
     except Exception as e:

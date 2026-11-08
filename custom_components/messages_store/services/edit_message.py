@@ -18,6 +18,13 @@ async def edit_message(hass: HomeAssistant, repository: MessagesStore, call: Ser
         updated = await hass.async_add_executor_job(repository.update_message, slug, new_message)
 
         if updated:
+            if 'tags' in call.data or 'favorite' in call.data:
+                existing = await hass.async_add_executor_job(repository.get_by_slug, slug)
+                await hass.async_add_executor_job(
+                    repository.update_metadata, slug,
+                    call.data.get('tags', existing.get('tags', [])),
+                    call.data.get('favorite', existing.get('favorite', False)),
+                )
             return {"status": True, "message": f"Message updated for slug {slug}"}
         else:
             return {"status": False, "message": f"No message found for slug {slug}"}

@@ -33,9 +33,12 @@ async def get_messages(hass: HomeAssistant, repository: MessagesStore, call: Ser
                     if grouped:
                         results[slug] = message_list[0] if filter_option == "random" or force_random else message_list
                     else:
+                        metadata = repository.get_by_slug(slug) or {}
                         results.append({
                             "slug": slug,
-                            "message": message_list[0] if filter_option == "random" or force_random else message_list
+                            "message": message_list[0] if filter_option == "random" or force_random else message_list,
+                            "tags": metadata.get("tags", []),
+                            "favorite": metadata.get("favorite", False),
                         })
             return results
 
@@ -59,7 +62,9 @@ async def get_messages(hass: HomeAssistant, repository: MessagesStore, call: Ser
                         message_list = [random.choice(message_list)]
                     formatted_results.append({
                         "slug": slug,
-                        "message": message_list
+                        "message": message_list,
+                        "tags": entry.get("tags", []),
+                        "favorite": entry.get("favorite", False),
                     })
                 return formatted_results
 

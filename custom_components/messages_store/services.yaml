@@ -34,6 +34,33 @@ generate_ai_messages:
         text: {}
       example: "greeting_message"
 
+get_ai_task_configured:
+  name: "Check AI Task configuration"
+  description: "Reports whether Messages Store has a configured AI Task entity."
+
+get_ai_task_settings:
+  name: "Get AI Task settings"
+  description: "Returns the selected AI Task, shared prompt, and available AI Task entities."
+
+set_ai_task_settings:
+  name: "Save AI Task settings"
+  description: "Updates the AI Task and prompt used by Messages Store, including its integration options."
+  fields:
+    ai_task_entity_id:
+      name: "AI Task entity"
+      description: "AI Task entity ID, or null to clear the selection."
+      required: true
+      selector:
+        text: {}
+    instructions:
+      name: "General prompt"
+      description: "Shared instructions added to each AI message generation request."
+      required: true
+      selector:
+        text:
+          multiline: true
+
+
 add_message:
   name: "Add Message"
   description: "Adds a new message."
@@ -52,6 +79,18 @@ add_message:
       selector:
         object: {}
       example: "Hello, welcome home!"
+    tags:
+      name: "Tags"
+      description: "Optional collection tags."
+      required: false
+      selector:
+        object: {}
+    favorite:
+      name: "Favorite"
+      description: "Optional favorite flag."
+      required: false
+      selector:
+        boolean: {}
 
 get_message:
   name: "Get Message"
@@ -133,6 +172,18 @@ edit_message:
       selector:
         object: {}
       example: "Hello again, welcome back!"
+    tags:
+      name: "Tags"
+      description: "Optional collection tags; omitted fields keep stored metadata."
+      required: false
+      selector:
+        object: {}
+    favorite:
+      name: "Favorite"
+      description: "Optional favorite flag; omitted fields keep stored metadata."
+      required: false
+      selector:
+        boolean: {}
 
 delete_message:
   name: "Delete Message"
@@ -161,3 +212,49 @@ add_bulk_messages:
           "morning_greeting": ["Good morning!", "Have a great day!"],
           "evening_greeting": ["Good evening!", "Hope you had a great day!"]
         }
+
+update_message_metadata:
+  name: "Update message metadata"
+  description: "Updates tags and favorite status without changing messages."
+  fields:
+    slug:
+      required: true
+      selector:
+        text: {}
+    tags:
+      required: false
+      selector:
+        object: {}
+    favorite:
+      required: false
+      selector:
+        boolean: {}
+
+import_messages:
+  name: "Import message collection"
+  description: "Imports JSON or YAML; existing slugs are skipped."
+  fields:
+    content:
+      required: true
+      selector:
+        text:
+          multiline: true
+    format:
+      required: true
+      selector:
+        select:
+          options:
+            - json
+            - yaml
+
+export_messages:
+  name: "Export message collection"
+  description: "Returns the complete collection as JSON or YAML."
+  fields:
+    format:
+      required: false
+      selector:
+        select:
+          options:
+            - json
+            - yaml
