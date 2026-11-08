@@ -70,9 +70,11 @@ The form previews `(slug:some_slug)` and `(state:entity_id)` references while ed
 
 This is a frontend preview. Final tag resolution is performed by backend retrieval services.
 
-## AI message generation
+## AI settings and message generation
 
-The “Generate with AI” action appears only when the integration reports that a configured AI Task entity is available. The modal collects a task name, instructions, quantity (initially 5), and an optional base slug. The task name and instructions are required.
+The page header includes an AI Settings dialog for choosing an `ai_task` entity and editing the general prompt. It reads and writes the integration's config-entry options, so changes are shared with Home Assistant's Messages Store integration options screen. Clearing the entity selection disables AI generation while keeping the prompt. The selected task and prompt are also shown when the integration options flow is opened.
+
+The “Generate with AI” action appears only when the integration reports that a configured AI Task entity is available. The modal collects a task name, specific instructions, quantity (initially 5), and an optional base slug. The task name and instructions are required. The configured general prompt is prepended by the backend.
 
 The frontend calls `messages_store.generate_ai_messages`. While waiting, Generate is disabled and indicates progress. Errors are shown in the AI dialog. On success, returned messages are appended to the main form and a returned slug fills an empty slug field. Generation does not persist the messages; the user must save the main form.
 
@@ -88,6 +90,8 @@ The frontend calls `messages_store.generate_ai_messages`. While waiting, Generat
 | Delete a slug | `messages_store.delete_message` | `slug`. |
 | Generate suggestions | `messages_store.generate_ai_messages` | `task_name`, `instructions`, `quantity`, optional `slug`. |
 | Check AI availability | `messages_store.get_ai_task_configured` | Returns `configured`. |
+| Read AI settings | `messages_store.get_ai_task_settings` | Returns selected entity, shared prompt, and available AI Task entities. |
+| Save AI settings | `messages_store.set_ai_task_settings` | Writes the selected entity and shared prompt to config-entry options. |
 
 The backend is the source of truth; the frontend refreshes records after successful mutations and does not persist a separate message database.
 

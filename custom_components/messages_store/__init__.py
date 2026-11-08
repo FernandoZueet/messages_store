@@ -1,4 +1,5 @@
 import logging
+import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant, SupportsResponse
 from .view import async_setup_view
@@ -13,7 +14,11 @@ from .services import (
     add_bulk_messages
 )
 from .services.generate_ai_messages import generate_ai_messages
-from .services.get_ai_task_configured import get_ai_task_configured
+from .services.get_ai_task_configured import (
+    get_ai_task_configured,
+    get_ai_task_settings,
+)
+from .services.set_ai_task_settings import set_ai_task_settings
 from .services.schemas import (
     ADD_EDIT_SCHEMA,
     GET_SCHEMA,
@@ -109,6 +114,24 @@ async def setup_services(hass: HomeAssistant, entry: config_entries.ConfigEntry)
             supports_response=SupportsResponse.ONLY
         )
 
+        hass.services.async_register(
+            DOMAIN,
+            'get_ai_task_settings',
+            wrap_service(get_ai_task_settings),
+            supports_response=SupportsResponse.ONLY
+        )
+
+        hass.services.async_register(
+            DOMAIN,
+            'set_ai_task_settings',
+            wrap_service(set_ai_task_settings),
+            schema=vol.Schema({
+                vol.Required("ai_task_entity_id"): vol.Any(None, str),
+                vol.Required("instructions"): str,
+            }),
+            supports_response=SupportsResponse.ONLY
+        )
+
 
         entry.async_on_unload(entry.add_update_listener(update_listener))
 
@@ -119,6 +142,6 @@ async def setup_services(hass: HomeAssistant, entry: config_entries.ConfigEntry)
 
 async def update_listener(hass: HomeAssistant, config_entry: config_entries.ConfigEntry):
     """Handle options update."""
-    _LOGGER.debug("Config entry updated, reloading services...")
-
-    await setup_services(hass, config_entry)
+    # Service handlers read the current config entry when invoked, so no
+    # registrations need to be rebuilt when its options change.
+    _LOGGER.debug("Messages Store options updated.")

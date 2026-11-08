@@ -74,6 +74,10 @@ Fields: required `task_name`, `instructions`, and positive integer `quantity`; o
 
 No input fields. Returns `configured: true` only when a configured AI Task entity ID is set and that entity exists in Home Assistant state.
 
+### `get_ai_task_settings` and `set_ai_task_settings`
+
+These services back the panel's AI Settings dialog. The read service returns the selected entity, shared prompt, and available `ai_task` entities. The write service validates the selected entity and non-empty prompt, then updates the same config-entry options edited by Home Assistant's integration options flow. Passing `null` for the entity clears the selection. The app and integration options therefore stay synchronized.
+
 ## Tag replacement
 
 `services/tag_replacer.py` resolves message content in this order:

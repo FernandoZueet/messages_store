@@ -140,6 +140,21 @@ button {
 	color: var(--ms-text);
 }
 
+.ms-header-actions {
+	display: flex;
+	flex: 0 0 auto;
+	align-items: center;
+	gap: 12px;
+}
+
+.ms-header-actions > .ms-button {
+	width: 152px;
+	height: 40px;
+	min-height: 40px;
+	box-sizing: border-box;
+	flex: 0 0 152px;
+}
+
 .ms-ai-trigger {
 	border-color: color-mix(in srgb, var(--ms-accent) 42%, var(--ms-divider));
 	background: color-mix(in srgb, var(--ms-accent) 12%, var(--ms-surface));
@@ -172,7 +187,7 @@ button {
 .ms-search {
 	display: flex;
 	min-width: 180px;
-	max-width: 680px;
+	max-width: none;
 	min-height: 44px;
 	flex: 1;
 	align-items: center;
@@ -713,6 +728,10 @@ button {
 		box-shadow 120ms ease;
 }
 
+select.ms-input {
+	color: var(--ms-text);
+}
+
 .ms-textarea {
 	min-height: 84px;
 	resize: vertical;
@@ -876,8 +895,16 @@ button {
 		margin-bottom: 22px;
 	}
 
-	.ms-page-header > .ms-button {
-		align-self: stretch;
+	.ms-header-actions {
+		width: 100%;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 10px;
+	}
+
+	.ms-header-actions > .ms-button {
+		width: 100%;
+		flex: 0 0 40px;
 	}
 
 	.ms-toolbar {

@@ -38,6 +38,28 @@ get_ai_task_configured:
   name: "Check AI Task configuration"
   description: "Reports whether Messages Store has a configured AI Task entity."
 
+get_ai_task_settings:
+  name: "Get AI Task settings"
+  description: "Returns the selected AI Task, shared prompt, and available AI Task entities."
+
+set_ai_task_settings:
+  name: "Save AI Task settings"
+  description: "Updates the AI Task and prompt used by Messages Store, including its integration options."
+  fields:
+    ai_task_entity_id:
+      name: "AI Task entity"
+      description: "AI Task entity ID, or null to clear the selection."
+      required: true
+      selector:
+        text: {}
+    instructions:
+      name: "General prompt"
+      description: "Shared instructions added to each AI message generation request."
+      required: true
+      selector:
+        text:
+          multiline: true
+
 
 add_message:
   name: "Add Message"
