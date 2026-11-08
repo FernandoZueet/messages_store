@@ -13,6 +13,7 @@ from .services import (
     add_bulk_messages
 )
 from .services.generate_ai_messages import generate_ai_messages
+from .services.get_ai_task_configured import get_ai_task_configured
 from .services.schemas import (
     ADD_EDIT_SCHEMA,
     GET_SCHEMA,
@@ -100,6 +101,14 @@ async def setup_services(hass: HomeAssistant, entry: config_entries.ConfigEntry)
             wrap_service(generate_ai_messages),
             supports_response=SupportsResponse.ONLY
         )
+
+        hass.services.async_register(
+            DOMAIN,
+            'get_ai_task_configured',
+            wrap_service(get_ai_task_configured),
+            supports_response=SupportsResponse.ONLY
+        )
+
 
         entry.async_on_unload(entry.add_update_listener(update_listener))
 

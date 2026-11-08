@@ -1,6 +1,7 @@
 import "./styles.css";
 import "./ai_modal";
-import { LitElement, html } from "lit";
+import utils from "./utils";
+import { LitElement, html, nothing } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 
 @customElement("messages-store-modal")
@@ -10,11 +11,12 @@ export class MessagesStoreModal extends LitElement {
 	@property({ type: Array }) initialMessages = [];
 	@property({ type: Object }) hass;
 
-    @property({ type: Object }) callService;
+	@property({ type: Object }) callService;
 
 	@state() slug = "";
 	@state() messageList = [""];
 	@state() isAIModalOpen = false;
+	@state() aiTaskConfigured = false;
 
 	createRenderRoot() {
 		return this;
@@ -33,6 +35,7 @@ export class MessagesStoreModal extends LitElement {
 	}
 
 	firstUpdated() {
+		this.checkAITaskConfiguration();
 		if (!this.initialSlug) {
 			this.focusSlug();
 		} else {
@@ -40,8 +43,25 @@ export class MessagesStoreModal extends LitElement {
 		}
 	}
 
+	async checkAITaskConfiguration() {
+		try {
+			const response = await utils.callService(
+				this.hass,
+				"messages_store",
+				"get_ai_task_configured"
+			);
+			this.aiTaskConfigured = response?.configured === true;
+		} catch {
+			this.aiTaskConfigured = false;
+		}
+	}
+
 	handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === "Escape") {
+			if (this.isAIModalOpen) {
+				this.isAIModalOpen = false;
+				return;
+			}
 			this.closeModal();
 		}
 		if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "s") {
@@ -73,6 +93,10 @@ export class MessagesStoreModal extends LitElement {
 
 	closeModal() {
 		this.dispatchEvent(new CustomEvent("close"));
+	}
+
+	handleBackdropClick(event: MouseEvent) {
+		if (event.target === event.currentTarget) this.closeModal();
 	}
 
 	focusSlug() {
@@ -122,77 +146,131 @@ export class MessagesStoreModal extends LitElement {
 
 				return selectedMessage;
 			})
-			.replace(/\(state:([a-zA-Z0-9_\.]+)(?:\((.*?)\))?\)/g, (match, entityId, filters) => {
-				const stateObj = this.hass.states[entityId];
-				if (!stateObj) {
-					return match;
-				}
-	
-				let stateValue = stateObj.state;
-				const unit = stateObj.attributes.unit_of_measurement || "";
-				let finalValue = stateValue;
+			.replace(
+				/\(state:([a-zA-Z0-9_\.]+)(?:\((.*?)\))?\)/g,
+				(match, entityId, filters) => {
+					const stateObj = this.hass.states[entityId];
+					if (!stateObj) {
+						return match;
+					}
 
-				const isNumeric = !isNaN(parseFloat(stateValue)) && isFinite(stateValue);
-				filters = filters ? filters.split(',').map(f => f.trim()) : [];
+					let stateValue = stateObj.state;
+					const unit = stateObj.attributes.unit_of_measurement || "";
+					let finalValue = stateValue;
 
-				if (isNumeric) {
-					stateValue = parseFloat(stateValue);
+					const isNumeric =
+						!isNaN(parseFloat(stateValue)) && isFinite(stateValue);
+					filters = filters
+						? filters.split(",").map((f) => f.trim())
+						: [];
 
-					if (filters.includes('round')) {
-						finalValue = Math.round(stateValue);
-					} else {
-						const roundFilter = filters.find(f => f.startsWith('round'));
-						if (roundFilter) {
-							const decimals = parseInt(roundFilter.replace('round', ''), 10);
-							finalValue = stateValue.toFixed(decimals);
+					if (isNumeric) {
+						stateValue = parseFloat(stateValue);
+
+						if (filters.includes("round")) {
+							finalValue = Math.round(stateValue);
+						} else {
+							const roundFilter = filters.find((f) =>
+								f.startsWith("round")
+							);
+							if (roundFilter) {
+								const decimals = parseInt(
+									roundFilter.replace("round", ""),
+									10
+								);
+								finalValue = stateValue.toFixed(decimals);
+							}
 						}
 					}
-				}
 
-				if (filters.includes('unit') && unit) {
-					finalValue = `${finalValue} ${unit}`;
-				}
+					if (filters.includes("unit") && unit) {
+						finalValue = `${finalValue} ${unit}`;
+					}
 
-				return finalValue;
-			});
+					return finalValue;
+				}
+			);
 	}
 
 	render() {
 		return html`
-			<div
-				class="fixed inset-0 flex items-center justify-center z-50 bg-zinc-900 bg-opacity-50 backdrop-blur-sm"
-			>
-				<div
-					class="bg-zinc-800 text-white p-6 rounded-lg shadow-2xl w-full max-w-lg mx-4 sm:mx-6 md:w-2/3 lg:w-1/3 border-[1px] border-zinc-700 relative"
+			<div class="ms-dialog-backdrop" @click=${this.handleBackdropClick}>
+				<section
+					class="ms-dialog"
+					role="dialog"
+					aria-modal="true"
+					aria-labelledby="ms-message-dialog-title"
+					@click=${(event) => event.stopPropagation()}
 				>
-					<h2 class="text-xl mb-5 font-bold flex justify-between items-center">
-						${this.initialSlug ? "Edit Message" : "Add Message"}
+					<header class="ms-dialog-header">
+						<div class="ms-dialog-heading">
+							<h2 id="ms-message-dialog-title">
+								${this.initialSlug
+									? "Edit message"
+									: "Add message"}
+							</h2>
+							<p>
+								${this.initialSlug
+									? "Update the messages stored under this slug."
+									: "Create a reusable message for your automations."}
+							</p>
+						</div>
 						<button
-							class="bg-blue-600 text-white font-bold px-3 py-1 rounded ml-2 text-sm"
-							style="position:absolute;top:18px;right:18px;"
-							@click=${() => (this.isAIModalOpen = true)}
+							class="ms-dialog-close"
+							@click=${this.closeModal}
+							aria-label="Close dialog"
+							title="Close"
 						>
-							Generate with AI
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="m6 6 12 12M18 6 6 18" />
+							</svg>
 						</button>
-					</h2>
-					<div class="mb-4">
-						<label class="block mb-2 text-sm">Slug</label>
-						<input
-							type="text"
-							class="text-sm outline-none border-b-2 border-zinc-600 bg-zinc-700 focus:border-zinc-400 focus:outline-none w-full p-2 text-white"
-							.value=${this.slug}
-							@input=${(e) => (this.slug = e.target.value)}
-							?disabled=${!!this.initialSlug}
-						/>
-					</div>
-					<div class="mb-4">
-						<label class="block mb-2 text-sm">Message</label>
-						${this.messageList.map(
-							(message, index) => html`
-								<div class="flex flex-col mb-2">
-									<div class="flex items-center">
+					</header>
+					<div class="ms-dialog-body">
+						<div class="ms-field">
+							<label for="ms-message-slug">Slug</label>
+							<input
+								id="ms-message-slug"
+								type="text"
+								class="ms-input"
+								.value=${this.slug}
+								@input=${(e) => (this.slug = e.target.value)}
+								?disabled=${!!this.initialSlug}
+								autocomplete="off"
+							/>
+						</div>
+						<div class="ms-field">
+							<div class="ms-message-editor-top">
+								<span class="ms-field-label">Messages</span
+								><button
+									class="ms-inline-button"
+									@click=${this.handleAddMessage}
+								>
+									Add another
+								</button>
+							</div>
+							${this.messageList.map(
+								(message, index) => html`
+									<div class="ms-message-editor">
+										<div class="ms-message-editor-top">
+											<span>Message ${index + 1}</span>
+											${this.messageList.length > 1
+												? html`<button
+														class="ms-inline-button ms-inline-button-danger"
+														@click=${() =>
+															this.handleRemoveMessage(
+																index
+															)}
+														aria-label="Remove message ${index +
+														1}"
+													>
+														Remove
+													</button>`
+												: nothing}
+										</div>
 										<textarea
-											class="text-sm outline-none border-b-2 border-zinc-600 bg-zinc-700 focus:border-zinc-400 focus:outline-none w-full p-2 text-white mr-2"
+											class="ms-textarea"
+											aria-label="Message ${index + 1}"
 											.value=${message}
 											@input=${(e) => {
 												this.messageList[index] =
@@ -200,69 +278,58 @@ export class MessagesStoreModal extends LitElement {
 												this.requestUpdate();
 											}}
 										></textarea>
-										${this.messageList.length > 1
-											? html`
-													<button
-														class="bg-zinc-600 text-white px-3 py-1 font-bold rounded"
-														@click=${() =>
-															this.handleRemoveMessage(
-																index
-															)}
-													>
-														x
-													</button>
-												`
-											: ""}
-									</div>
-									${/\(slug:[^)]+\)/.test(message) ||
-									/\(state:[^)]+\)/.test(message)
-										? html`
-												<div
-													class="text-sm text-zinc-400 mt-2 mb-2"
-												>
-													<span class="text-zinc-300"
-														>Preview:</span
-													>
-													${this.previewMessage(
+										${/(\(slug:[^)]+\)|\(state:[^)]+\))/.test(
+											message
+										)
+											? html`<div class="ms-preview">
+													<strong>Preview</strong
+													>${this.previewMessage(
 														message
 													)}
-												</div>
-											`
-										: ""}
-								</div>
-							`
-						)}
-						<button
-							class="bg-zinc-500 text-white font-bold px-3 py-1 rounded mt-2"
-							@click=${this.handleAddMessage}
-						>
-							+
-						</button>
+												</div>`
+											: nothing}
+									</div>
+								`
+							)}
+						</div>
+					${this.aiTaskConfigured
+						? html`<button
+								class="ms-button ms-button-secondary ms-ai-trigger"
+								@click=${() => (this.isAIModalOpen = true)}
+								aria-haspopup="dialog"
+							>
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<path d="m12 2 1.7 6.3L20 10l-6.3 1.7L12 18l-1.7-6.3L4 10l6.3-1.7L12 2Z" />
+									<path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z" />
+								</svg>
+								<span>Generate with AI</span>
+							</button>`
+						: nothing}
 					</div>
-					<div class="flex justify-end">
+					<footer class="ms-dialog-footer">
 						<button
-							class="bg-green-500 text-white font-bold px-7 py-2 rounded mr-2"
-							@click=${this.handleSave}
-						>
-							Save
-						</button>
-						<button
-							class="bg-zinc-500 font-bold text-white px-7 py-2 rounded"
+							class="ms-button ms-button-secondary"
 							@click=${this.closeModal}
 						>
 							Cancel
 						</button>
-					</div>
-				</div>
+						<button
+							class="ms-button ms-button-primary"
+							@click=${this.handleSave}
+						>
+							Save message
+						</button>
+					</footer>
+				</section>
 				${this.isAIModalOpen
 					? html`
-						<messages-store-ai-modal
-							.hass=${this.hass}
-							.initialSlug=${this.initialSlug}
-							@close=${() => (this.isAIModalOpen = false)}
-							@aiMessages=${this.aiMessages}
-						></messages-store-ai-modal>
-					`
+							<messages-store-ai-modal
+								.hass=${this.hass}
+								.initialSlug=${this.initialSlug}
+								@close=${() => (this.isAIModalOpen = false)}
+								@aiMessages=${this.aiMessages}
+							></messages-store-ai-modal>
+						`
 					: ""}
 			</div>
 		`;

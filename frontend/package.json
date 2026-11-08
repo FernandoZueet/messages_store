@@ -6,6 +6,7 @@
 	"scripts": {
 		"start": "rollup -c --watch --bundleConfigAsCjs",
 		"build": "rollup -c --bundleConfigAsCjs",
+		"build:integration": "npm run build && cp dist/app.js ../custom_components/messages_store/app.js",
 		"format": "prettier --write ."
 	},
 	"license": "ISC",

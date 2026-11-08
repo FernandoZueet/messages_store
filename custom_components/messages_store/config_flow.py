@@ -53,8 +53,12 @@ class MessagesStoreOptionsFlowHandler(config_entries.OptionsFlow):
 
     async def async_step_init(self, user_input=None):
         """Manage the options."""
-        ai_task_entity_id = self.config_entry.options.get("ai_task_entity_id") or self.config_entry.data.get("ai_task_entity_id")
-        instructions = self.config_entry.options.get("instructions") or self.config_entry.data.get("instructions") or DEFAULT_INSTRUCTIONS
+        ai_task_entity_id = self.config_entry.options.get(
+            "ai_task_entity_id", self.config_entry.data.get("ai_task_entity_id")
+        )
+        instructions = self.config_entry.options.get(
+            "instructions", self.config_entry.data.get("instructions")
+        ) or DEFAULT_INSTRUCTIONS
         ai_task_entities = [state.entity_id for state in self.hass.states.async_all() if state.domain == "ai_task"]
         errors = {}
 

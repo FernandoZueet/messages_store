@@ -29,8 +29,12 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
         entries = hass.config_entries.async_entries(DOMAIN)
         if entries:
             entry = entries[0]
-            entity_id = entry.options.get('ai_task_entity_id') or entry.data.get('ai_task_entity_id')
-            prompt_general = entry.options.get('instructions') or entry.data.get('instructions')
+            entity_id = entry.options.get(
+                'ai_task_entity_id', entry.data.get('ai_task_entity_id')
+            )
+            prompt_general = entry.options.get(
+                'instructions', entry.data.get('instructions')
+            ) or ""
         if not entity_id:
             return {"status": False, "message": "No AI Task entity configured. Please set it in integration options."}
 
@@ -84,7 +88,26 @@ async def generate_ai_messages(hass: HomeAssistant, repository: MessagesStore, c
                 messages_json = response.get('data', {}).get('messages', {}).get('json')
                 generated_slug = response.get('data', {}).get('slug')
                 if messages_json:
-                    messages = json.loads(messages_json)
+                    if isinstance(messages_json, list):
+                        messages = messages_json
+                    elif isinstance(messages_json, str):
+                        try:
+                            parsed_messages = json.loads(messages_json)
+                        except json.JSONDecodeError:
+                            parsed_messages = messages_json
+
+                        if isinstance(parsed_messages, list):
+                            messages = parsed_messages
+                        elif isinstance(parsed_messages, str):
+                            messages = [
+                                message.strip()
+                                for message in parsed_messages.split("|")
+                                if message.strip()
+                            ]
+                        elif isinstance(parsed_messages, dict):
+                            nested_messages = parsed_messages.get("messages")
+                            if isinstance(nested_messages, list):
+                                messages = nested_messages
                 if slug:
                     generated_slug = slug
             except Exception as e:

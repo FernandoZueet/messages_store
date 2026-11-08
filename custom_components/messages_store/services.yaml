@@ -34,6 +34,11 @@ generate_ai_messages:
         text: {}
       example: "greeting_message"
 
+get_ai_task_configured:
+  name: "Check AI Task configuration"
+  description: "Reports whether Messages Store has a configured AI Task entity."
+
+
 add_message:
   name: "Add Message"
   description: "Adds a new message."

@@ -1,0 +1,12 @@
+services:
+  homeassistant:
+    container_name: messages-store-homeassistant
+    image: ghcr.io/home-assistant/home-assistant:stable
+    restart: unless-stopped
+    ports:
+      - "8123:8123"
+    environment:
+      TZ: America/Sao_Paulo
+    volumes:
+      - ./config:/config
+      - ./custom_components/messages_store:/config/custom_components/messages_store:ro
