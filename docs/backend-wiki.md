@@ -28,7 +28,7 @@ The AI Task selector is restricted to the `ai_task` entity domain. The default g
 
 ## Persistence and repository
 
-`SQLiteMessageStoreRepository` implements the abstract `MessagesStore` interface. It opens SQLite connections for repository operations and creates a `messages_store` table with an autoincrement ID, slug, and message text. The configured path is `home-assistant_v2.db`, the Home Assistant database file. Messages for a slug are stored in one text field joined with the `|` separator.
+`SQLiteMessageStoreRepository` implements the abstract `MessagesStore` interface. It opens SQLite connections for repository operations and creates a `messages_store` table with an autoincrement ID, slug, and message text. The configured path is `home-assistant_v2.db`, the Home Assistant database file. Messages for a slug are stored in one text field joined with the `|` separator. Idempotent setup adds `tags` (JSON array, default `[]`) and `favorite` (integer boolean, default `0`) columns when absent; existing rows and messages remain untouched.
 
 The repository exposes create, existence, read, update, delete, list, and lookup operations. Database work for the CRUD services is dispatched through `hass.async_add_executor_job` so synchronous SQLite calls do not block the Home Assistant event loop.
 
@@ -44,11 +44,11 @@ All service handlers return response dictionaries with a `status` boolean and ei
 
 ### `add_message`
 
-Fields: `slug`, `message` (a string or a list of strings). Slugs must be 1–150 ASCII letters, digits, or underscores. Message text must be 1–2000 characters and cannot contain the reserved `|` separator. A list is joined into the stored string with `| `. Existing slugs produce a failure response.
+Fields: `slug`, `message` (a string or a list of strings), optional `tags` (string list), and optional `favorite` (boolean). Slugs must be 1–150 ASCII letters, digits, or underscores. Message text must be 1–2000 characters and cannot contain the reserved `|` separator. A list is joined into the stored string with `| `. Existing slugs produce a failure response. Omitted metadata defaults to no tags and not favorite.
 
 ### `edit_message`
 
-Fields match `add_message`. A list is joined with the message separator, then the stored value for the slug is replaced. It reports a failure if no matching row exists. Because persistence is per slug, editing replaces the complete message collection for that slug.
+Fields match `add_message`. A list is joined with the message separator, then the stored value for the slug is replaced. Optional metadata is updated when supplied; omitted metadata fields retain current values, preserving old service calls. It reports a failure if no matching row exists. Because persistence is per slug, editing replaces the complete message collection for that slug.
 
 ### `delete_message`
 
@@ -60,11 +60,21 @@ Fields: `slug`, optional `replace` list, optional `filter` (`random`). It resolv
 
 ### `get_messages`
 
-Optional fields: `filter`, `grouped`, and `force_random`. With no filter it retrieves all rows. With filters it retrieves only the specified slugs and applies each filter item's replacements and random selection. Grouped mode returns an object keyed by slug; ungrouped mode returns a list of `{slug, message}` records. `force_random` chooses one message per slug.
+Optional fields: `filter`, `grouped`, and `force_random`. With no filter it retrieves all rows. With filters it retrieves only the specified slugs and applies each filter item's replacements and random selection. Grouped mode retains the legacy object keyed by slug; ungrouped mode returns a list of `{slug, message, tags, favorite}` records. `force_random` chooses one message per slug. Metadata fields are additive on ungrouped records; grouped output is unchanged for compatibility.
 
 ### `add_bulk_messages`
 
 Field: `data`, a mapping from slug to message list. Each slug is checked and inserted independently. Invalid or already existing slugs are reported in the response. The implementation does not wrap the entire batch in a transaction, so earlier valid inserts can remain if a later slug is invalid or already exists.
+
+### `update_message_metadata`
+
+Fields: `slug`, optional `tags`, optional `favorite`. Updates only supplied metadata and leaves message text unchanged.
+
+### `import_messages` and `export_messages`
+
+Import accepts serialized `content` and `format` (`json` or `yaml`). Collections may be a list of `{slug, message, tags?, favorite?}` records, a `messages` list wrapper, or a slug-to-message mapping. Message values can be strings or lists of variants. Legacy files without metadata default to empty tags and `favorite: false`. Invalid records are skipped and counted. Existing slugs are skipped and listed, never overwritten. Valid inserts are applied in one database transaction.
+
+Export returns `content`, `count`, and `format`. The versioned collection includes all slugs, message variants, tags, and favorites. YAML uses `safe_dump`; YAML import uses `safe_load`.
 
 ### `generate_ai_messages`
 
@@ -122,5 +132,6 @@ Operational points for maintainers:
 | [`custom_components/messages_store/repository/sqlite_messages_store_repository.py`](../custom_components/messages_store/repository/sqlite_messages_store_repository.py) | SQLite persistence implementation. |
 | [`custom_components/messages_store/services/schemas.py`](../custom_components/messages_store/services/schemas.py) | Home Assistant service input validation. |
 | [`custom_components/messages_store/services/tag_replacer.py`](../custom_components/messages_store/services/tag_replacer.py) | Slug/state expansion and placeholder substitution. |
+| [`custom_components/messages_store/services/message_library.py`](../custom_components/messages_store/services/message_library.py) | Metadata updates and JSON/YAML collection import/export. |
 | [`custom_components/messages_store/services.yaml`](../custom_components/messages_store/services.yaml) | Service descriptions, fields, selectors, and examples. |
 | [`custom_components/messages_store/services/`](../custom_components/messages_store/services/) | Individual CRUD, retrieval, bulk, and AI service handlers. |

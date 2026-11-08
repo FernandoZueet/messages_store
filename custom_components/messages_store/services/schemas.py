@@ -21,7 +21,22 @@ FILTER_ITEM_SCHEMA = vol.Schema({
 ADD_EDIT_SCHEMA = vol.Schema({
     vol.Required('slug'): SLUG_SCHEMA,
     vol.Required('message'): MESSAGE_SCHEMA,
+    vol.Optional('tags'): [vol.All(str, vol.Length(min=1, max=40))],
+    vol.Optional('favorite'): vol.Boolean(),
 })
+
+METADATA_SCHEMA = vol.Schema({
+    vol.Required('slug'): SLUG_SCHEMA,
+    vol.Optional('tags'): [vol.All(str, vol.Length(min=1, max=40))],
+    vol.Optional('favorite'): vol.Boolean(),
+})
+
+IMPORT_SCHEMA = vol.Schema({
+    vol.Required('content'): vol.All(str, vol.Length(min=1, max=2000000)),
+    vol.Required('format'): vol.In(['json', 'yaml']),
+})
+
+EXPORT_SCHEMA = vol.Schema({vol.Optional('format', default='json'): vol.In(['json', 'yaml'])})
 
 DELETE_SCHEMA = vol.Schema({
     vol.Required('slug'): SLUG_SCHEMA,

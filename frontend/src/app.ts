@@ -19,15 +19,20 @@ export class MessagesStore extends LitElement {
 		message: string;
 		originalMessage: string[];
 		messageIndex?: number;
+		tags?: string[];
+		favorite?: boolean;
 	}> = [];
 	@state() messages: Array<{
 		slug: string;
 		message: string;
 		originalMessage: string[];
 		messageIndex?: number;
+		tags?: string[];
+		favorite?: boolean;
 	}> = [];
-	@state() message = { slug: "", message: "", originalMessage: [""] };
+	@state() message: any = { slug: "", message: "", originalMessage: [""], tags: [], favorite: false };
 	@state() isModalOpen = false;
+	@state() editingMessage = false;
 	@state() notification: { message: string; type: string } | null = null;
 	@state() searchTerm = "";
 	@state() sortOrder: "asc" | "desc" = "asc";
@@ -42,6 +47,13 @@ export class MessagesStore extends LitElement {
 	@state() aiTaskEntityId = "";
 	@state() aiInstructions = "";
 	@state() aiTaskEntities: Array<{ entity_id: string; name: string }> = [];
+	@state() favoriteOnly = false;
+	@state() selectedTag = "";
+	@state() filtersDialogOpen = false;
+	@state() importDialogOpen = false;
+	@state() importContent = "";
+	@state() importFormat: "json" | "yaml" = "json";
+	@state() exportMenuOpen = false;
 
 	@property({ type: Object }) hass;
 
@@ -64,6 +76,14 @@ export class MessagesStore extends LitElement {
 	handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === "Escape" && this.pendingDelete) {
 			this.cancelDelete();
+			return;
+		}
+		if (e.key === "Escape" && this.exportMenuOpen) {
+			this.exportMenuOpen = false;
+			return;
+		}
+		if (e.key === "Escape" && this.filtersDialogOpen) {
+			this.filtersDialogOpen = false;
 			return;
 		}
 		if (e.key === "Escape" && this.isAISettingsOpen) {
@@ -122,6 +142,8 @@ export class MessagesStore extends LitElement {
 			message: string;
 			originalMessage: string[];
 			messageIndex?: number;
+		tags?: string[];
+		favorite?: boolean;
 		}> = [];
 
 		if (Array.isArray(data)) {
@@ -132,6 +154,7 @@ export class MessagesStore extends LitElement {
 							slug: msg.slug,
 							message: msg.message[0],
 							originalMessage: msg.message,
+							tags: msg.tags || [], favorite: !!msg.favorite,
 						});
 					} else {
 						msg.message.forEach((message, messageIndex) => {
@@ -140,6 +163,7 @@ export class MessagesStore extends LitElement {
 								message: message.trim(),
 								originalMessage: msg.message,
 								messageIndex,
+								tags: msg.tags || [], favorite: !!msg.favorite,
 							});
 						});
 					}
@@ -195,30 +219,34 @@ export class MessagesStore extends LitElement {
 
 	filterMessages() {
 		const term = this.searchTerm.toLowerCase();
-		if (!term) {
-			this.messages = [...this.allMessages];
-		} else {
-			this.messages = this.allMessages.filter(
+		this.messages = this.allMessages.filter(
 				(msg) =>
-					msg.slug.toLowerCase().includes(term) ||
+				(!term || msg.slug.toLowerCase().includes(term) ||
 					msg.message.toLowerCase().includes(term) ||
+					(msg.tags || []).some((tag) => tag.toLowerCase().includes(term)) ||
 					(this.groupMessages &&
 						msg.originalMessage.some((message) =>
 							message.toLowerCase().includes(term)
-						))
+						))) &&
+				(this.selectedTag ? (msg.tags || []).includes(this.selectedTag) : true) &&
+				(!this.favoriteOnly || msg.favorite)
 			);
-		}
 		this.sortMessages();
 	}
 
 	editModal(msg) {
 		msg = msg.detail;
-		this.message = msg;
+		this.message = {
+			...msg,
+			initialFocusIndex: this.groupMessages ? 0 : (msg.messageIndex ?? 0),
+		};
+		this.editingMessage = true;
 		this.isModalOpen = true;
 	}
 
 	addModal() {
-		this.message = { slug: "", message: "", originalMessage: [""] };
+		this.message = { slug: "", message: "", originalMessage: [""], tags: [], favorite: false };
+		this.editingMessage = false;
 		this.isModalOpen = true;
 	}
 
@@ -254,6 +282,10 @@ export class MessagesStore extends LitElement {
 		this.aiSettingsError = "";
 	}
 
+	closeFiltersDialog() {
+		this.filtersDialogOpen = false;
+	}
+
 	async saveAISettings(event) {
 		event.preventDefault();
 		this.aiSettingsSaving = true;
@@ -276,10 +308,11 @@ export class MessagesStore extends LitElement {
 	}
 
 	async saveMessage(e) {
-		const { slug, messages, service } = e.detail;
+		const { slug, messages, service, tags = [], favorite = false } = e.detail;
 		const response = await this.callService("messages_store", service, {
 			slug,
 			message: messages,
+			tags, favorite,
 		});
 		this.showNotification(
 			response?.message || "Unable to save the message.",
@@ -290,6 +323,33 @@ export class MessagesStore extends LitElement {
 			await this.loadMessages();
 			this.filterMessages();
 		}
+	}
+
+	get availableTags() { return [...new Set(this.allMessages.reduce((tags, msg) => tags.concat(msg.tags || []), [] as string[]))].sort(); }
+
+	async exportCollection(format: "json" | "yaml") {
+		this.exportMenuOpen = false;
+		const result = await this.callService("messages_store", "export_messages", { format });
+		if (!result?.status) { this.showNotification(result?.message || "Unable to export the collection.", "error"); return; }
+		const blob = new Blob([result.content], { type: format === "json" ? "application/json" : "text/yaml" });
+		const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `messages-store.${format}`; link.click(); URL.revokeObjectURL(link.href);
+	}
+
+	async importCollection() {
+		const result = await this.callService("messages_store", "import_messages", { content: this.importContent, format: this.importFormat });
+		if (result?.status) {
+			this.showNotification(`Imported ${result.imported.length}; skipped existing: ${result.skipped.join(", ") || "none"}; invalid ${result.invalid_count}.`, "success");
+			this.importDialogOpen = false; this.importContent = ""; await this.loadMessages();
+		} else this.showNotification(result?.message || "Unable to import the collection.", "error");
+	}
+
+	async duplicateSlug(event) {
+		const source = event.detail;
+		let slug = `${source.slug}_copy`, suffix = 2;
+		while (this.allMessages.some((item) => item.slug === slug)) slug = `${source.slug}_copy_${suffix++}`;
+		this.message = { slug, message: source.message, originalMessage: [...source.originalMessage], tags: [...(source.tags || [])], favorite: false };
+		this.editingMessage = false;
+		this.isModalOpen = true;
 	}
 
 	async deleteMessage(e) {
@@ -345,18 +405,20 @@ export class MessagesStore extends LitElement {
 
 	render() {
 		return html`
-			<div class="ms-page">
+			<div class="ms-page" @click=${() => { if (this.exportMenuOpen) this.exportMenuOpen = false; }}>
+			<div class="ms-app-shell">
 				<header class="ms-page-header">
 					<div class="ms-heading-copy">
-						<h1>Messages Store</h1>
-						<p>
-							Manage reusable messages for automations,
-							notifications, and TTS.
-						</p>
+						<a class="ms-back-button" href="/home" target="_top" aria-label="Back to Home Assistant" title="Back to Home Assistant">
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6M9 12h12" /></svg>
+						</a>
+						<div class="ms-heading-text">
+							<h1>Messages Store</h1>
+						</div>
 					</div>
 					<div class="ms-header-actions">
 						<button
-							class="ms-button ms-button-secondary"
+							class="ms-button ms-button-secondary ms-button-small"
 							@click=${this.openAISettings}
 						>
 							<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -366,7 +428,7 @@ export class MessagesStore extends LitElement {
 							<span>AI settings</span>
 						</button>
 						<button
-							class="ms-button ms-button-primary"
+							class="ms-button ms-button-primary ms-button-small"
 							@click=${this.addModal}
 						>
 							<svg viewBox="0 0 24 24" aria-hidden="true">
@@ -377,7 +439,14 @@ export class MessagesStore extends LitElement {
 					</div>
 				</header>
 
+				<div class="ms-library-layout">
+				<main class="ms-library-results">
 				<section class="ms-toolbar" aria-label="Message list controls">
+					<button class="ms-filter-chip ${this.selectedTag || this.favoriteOnly ? "is-active" : ""}" aria-haspopup="dialog" aria-expanded=${this.filtersDialogOpen} @click=${() => this.filtersDialogOpen = true}>
+						<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4" /></svg>
+						<span>Filters</span>
+						${this.selectedTag || this.favoriteOnly ? html`<span class="ms-filter-chip-count">${Number(!!this.selectedTag) + Number(this.favoriteOnly)}</span>` : ""}
+					</button>
 					<label class="ms-search">
 						<svg viewBox="0 0 24 24" aria-hidden="true">
 							<circle cx="11" cy="11" r="7" />
@@ -391,33 +460,17 @@ export class MessagesStore extends LitElement {
 							@input=${this.handleSearch}
 						/>
 					</label>
-					<label class="ms-group-toggle">
-						<input
-							type="checkbox"
-							.checked=${this.groupMessages}
-							@change=${this.toggleGroupMessages}
-						/>
-						<span>Group slugs</span>
-					</label>
+					<div class="ms-library-actions">
+						<div class="ms-export-menu" @click=${(event) => event.stopPropagation()}>
+							<button class="ms-button ms-button-secondary" aria-label="Export messages" title="Export messages" aria-haspopup="menu" aria-expanded=${this.exportMenuOpen} @click=${() => this.exportMenuOpen = !this.exportMenuOpen}>
+								<svg class="ms-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 16v4h14v-4"/></svg><svg class="ms-action-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+							</button>
+							${this.exportMenuOpen ? html`<div class="ms-export-dropdown" role="menu"><button role="menuitem" @click=${() => this.exportCollection("json")}>JSON (.json)</button><button role="menuitem" @click=${() => this.exportCollection("yaml")}>YAML (.yaml)</button></div>` : ""}
+						</div>
+						<button class="ms-button ms-button-secondary ms-import-button" aria-label="Import collection" title="Import collection" @click=${() => this.importDialogOpen = true}><svg class="ms-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0 4 4m-4-4L8 8"/><path d="M5 14v6h14v-6"/></svg></button>
+					</div>
 				</section>
-
-				<div class="ms-list-heading">
-					<h2>Messages</h2>
-					${!this.isLoading &&
-					!this.loadError &&
-					this.allMessages.length
-						? html`<span class="ms-count"
-								>${this.messages.length}
-								${this.groupMessages
-									? this.messages.length === 1
-										? "slug"
-										: "slugs"
-									: this.messages.length === 1
-										? "message"
-										: "messages"}</span
-							>`
-						: ""}
-				</div>
+				${this.filtersDialogOpen ? html`<div class="ms-dialog-backdrop" @click=${(event) => { if (event.target === event.currentTarget) this.closeFiltersDialog(); }}><section class="ms-dialog ms-filter-dialog" role="dialog" aria-modal="true" aria-labelledby="filters-title"><header class="ms-dialog-header"><div class="ms-dialog-heading"><h2 id="filters-title">Filters</h2><p>Choose how to group and filter messages.</p></div><button class="ms-icon-button ms-dialog-close" aria-label="Close filters" title="Close filters" @click=${this.closeFiltersDialog}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button></header><div class="ms-dialog-body"><label class="ms-field"><span class="ms-field-label">Group by</span><select class="ms-input" aria-label="Group by" .value=${this.groupMessages ? "slug" : "none"} @change=${(event) => { this.groupMessages = event.target.value === "slug"; this.saveConfig(); this.loadMessages(); }}><option value="slug">Slug</option><option value="none">None</option></select></label><label class="ms-field"><span class="ms-field-label">Tags</span><select class="ms-input" aria-label="Filter by tag" .value=${this.selectedTag} @change=${(event) => { this.selectedTag = event.target.value; this.filterMessages(); }}><option value="">All tags</option>${this.availableTags.map((tag) => html`<option value=${tag}>${tag}</option>`)}</select></label><label class="ms-filter-favorite ms-filter-dialog-favorite"><input type="checkbox" .checked=${this.favoriteOnly} @change=${(event) => { this.favoriteOnly = event.target.checked; this.filterMessages(); }} /><span>Favorites only</span></label></div><footer class="ms-dialog-footer"><button class="ms-button ms-button-secondary" @click=${this.closeFiltersDialog}>Cancel</button><button class="ms-button ms-button-primary" @click=${this.closeFiltersDialog}>Show results</button></footer></section></div>` : ""}
 
 				${this.isLoading
 					? html`<div class="ms-state-card" role="status">
@@ -448,6 +501,8 @@ export class MessagesStore extends LitElement {
 									.groupMessages=${this.groupMessages}
 									@edit=${this.editModal}
 								@confirm-delete=${this.requestDelete}
+								@duplicate=${this.duplicateSlug}
+								@favorite=${async (event) => { const row = event.detail; const result = await this.callService("messages_store", "update_message_metadata", { slug: row.slug, tags: row.tags || [], favorite: !row.favorite }); if (result?.status) await this.loadMessages(); }}
 									@save=${this.saveMessage}
 									@sort=${this.toggleSortOrder}
 									.sortOrder=${this.sortOrder}
@@ -507,14 +562,21 @@ export class MessagesStore extends LitElement {
 												/></svg
 											><span>Add message</span>
 										</button>
-									</section>`}
+										</section>`}
+				</main>
+				</div>
+			</div>
 				${this.isModalOpen
 					? html`
 							<messages-store-modal
 								.hass=${this.hass}
 								.messages=${this.allMessages}
 								.initialSlug=${this.message.slug}
+								.isEditing=${this.editingMessage}
 								.initialMessages=${this.message.originalMessage}
+								.initialTags=${this.message.tags || []}
+								.initialFavorite=${this.message.favorite || false}
+								.initialFocusIndex=${this.message.initialFocusIndex || 0}
 								@save=${this.saveMessage}
 								@close=${this.closeModal}
 							></messages-store-modal>
@@ -564,6 +626,7 @@ export class MessagesStore extends LitElement {
 							</section>
 						</div>`
 					: ""}
+				${this.importDialogOpen ? html`<div class="ms-dialog-backdrop" @click=${(e) => { if (e.target === e.currentTarget) this.importDialogOpen = false; }}><section class="ms-dialog" role="dialog" aria-modal="true" aria-labelledby="import-title"><header class="ms-dialog-header"><div class="ms-dialog-heading"><h2 id="import-title">Import collection</h2><p>Existing slugs are skipped and reported.</p></div><button class="ms-icon-button ms-dialog-close" aria-label="Close" title="Close" @click=${() => this.importDialogOpen = false}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button></header><div class="ms-dialog-body"><label class="ms-field">Choose JSON or YAML file<input class="ms-input" type="file" accept=".json,.yaml,.yml,application/json,text/yaml" @change=${async (e) => { const file = e.target.files?.[0]; if (file) { this.importContent = await file.text(); this.importFormat = /\.ya?ml$/i.test(file.name) ? "yaml" : "json"; } }} /></label><label class="ms-field">Format<select class="ms-input" .value=${this.importFormat} @change=${(e) => this.importFormat = e.target.value}><option value="json">JSON</option><option value="yaml">YAML</option></select></label><label class="ms-field">Collection<textarea class="ms-textarea" rows="12" .value=${this.importContent} @input=${(e) => this.importContent = e.target.value} placeholder="Paste JSON or YAML"></textarea></label></div><footer class="ms-dialog-footer"><button class="ms-button ms-button-secondary" @click=${() => this.importDialogOpen = false}>Cancel</button><button class="ms-button ms-button-primary" @click=${this.importCollection} ?disabled=${!this.importContent.trim()}>Import</button></footer></section></div>` : ""}
 				${this.notification
 					? html`
 							<messages-store-notification

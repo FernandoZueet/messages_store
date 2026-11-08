@@ -24,7 +24,15 @@ from .services.schemas import (
     GET_SCHEMA,
     GET_MESSAGES_SCHEMA,
     DELETE_SCHEMA,
-    ADD_BULK_MESSAGES_SCHEMA
+    ADD_BULK_MESSAGES_SCHEMA,
+    METADATA_SCHEMA,
+    IMPORT_SCHEMA,
+    EXPORT_SCHEMA,
+)
+from .services.message_library import (
+    update_message_metadata,
+    import_messages,
+    export_messages,
 )
 from .repository.sqlite_messages_store_repository import SQLiteMessageStoreRepository
 
@@ -99,6 +107,10 @@ async def setup_services(hass: HomeAssistant, entry: config_entries.ConfigEntry)
             schema=ADD_BULK_MESSAGES_SCHEMA,
             supports_response=SupportsResponse.ONLY
         )
+
+        hass.services.async_register(DOMAIN, 'update_message_metadata', wrap_service(update_message_metadata), schema=METADATA_SCHEMA, supports_response=SupportsResponse.ONLY)
+        hass.services.async_register(DOMAIN, 'import_messages', wrap_service(import_messages), schema=IMPORT_SCHEMA, supports_response=SupportsResponse.ONLY)
+        hass.services.async_register(DOMAIN, 'export_messages', wrap_service(export_messages), schema=EXPORT_SCHEMA, supports_response=SupportsResponse.ONLY)
 
         hass.services.async_register(
             DOMAIN,
