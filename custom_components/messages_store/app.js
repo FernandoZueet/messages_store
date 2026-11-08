@@ -1,37 +1,37 @@
-function t(t,e,n,s){var i,r=arguments.length,o=r<3?e:null===s?s=Object.getOwnPropertyDescriptor(e,n):s;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(t,e,n,s);else for(var a=t.length-1;a>=0;a--)(i=t[a])&&(o=(r<3?i(o):r>3?i(e,n,o):i(e,n))||o);return r>3&&o&&Object.defineProperty(e,n,o),o}"function"==typeof SuppressedError&&SuppressedError;!function(t,e){void 0===e&&(e={});var n=e.insertAt;if("undefined"!=typeof document){var s=document.head||document.getElementsByTagName("head")[0],i=document.createElement("style");i.type="text/css","top"===n&&s.firstChild?s.insertBefore(i,s.firstChild):s.appendChild(i),i.styleSheet?i.styleSheet.cssText=t:i.appendChild(document.createTextNode(t))}}("/*\n! tailwindcss v3.4.10 | MIT License | https://tailwindcss.com\n*//*\n1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)\n2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)\n*/\n\n*,\n::before,\n::after {\n  box-sizing: border-box; /* 1 */\n  border-width: 0; /* 2 */\n  border-style: solid; /* 2 */\n  border-color: #e5e7eb; /* 2 */\n}\n\n::before,\n::after {\n  --tw-content: '';\n}\n\n/*\n1. Use a consistent sensible line-height in all browsers.\n2. Prevent adjustments of font size after orientation changes in iOS.\n3. Use a more readable tab size.\n4. Use the user's configured `sans` font-family by default.\n5. Use the user's configured `sans` font-feature-settings by default.\n6. Use the user's configured `sans` font-variation-settings by default.\n7. Disable tap highlights on iOS\n*/\n\nhtml,\n:host {\n  line-height: 1.5; /* 1 */\n  -webkit-text-size-adjust: 100%; /* 2 */\n  -moz-tab-size: 4; /* 3 */\n  -o-tab-size: 4;\n     tab-size: 4; /* 3 */\n  font-family: ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"; /* 4 */\n  font-feature-settings: normal; /* 5 */\n  font-variation-settings: normal; /* 6 */\n  -webkit-tap-highlight-color: transparent; /* 7 */\n}\n\n/*\n1. Remove the margin in all browsers.\n2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.\n*/\n\nbody {\n  margin: 0; /* 1 */\n  line-height: inherit; /* 2 */\n}\n\n/*\n1. Add the correct height in Firefox.\n2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)\n3. Ensure horizontal rules are visible by default.\n*/\n\nhr {\n  height: 0; /* 1 */\n  color: inherit; /* 2 */\n  border-top-width: 1px; /* 3 */\n}\n\n/*\nAdd the correct text decoration in Chrome, Edge, and Safari.\n*/\n\nabbr:where([title]) {\n  -webkit-text-decoration: underline dotted;\n          text-decoration: underline dotted;\n}\n\n/*\nRemove the default font size and weight for headings.\n*/\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-size: inherit;\n  font-weight: inherit;\n}\n\n/*\nReset links to optimize for opt-in styling instead of opt-out.\n*/\n\na {\n  color: inherit;\n  text-decoration: inherit;\n}\n\n/*\nAdd the correct font weight in Edge and Safari.\n*/\n\nb,\nstrong {\n  font-weight: bolder;\n}\n\n/*\n1. Use the user's configured `mono` font-family by default.\n2. Use the user's configured `mono` font-feature-settings by default.\n3. Use the user's configured `mono` font-variation-settings by default.\n4. Correct the odd `em` font sizing in all browsers.\n*/\n\ncode,\nkbd,\nsamp,\npre {\n  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace; /* 1 */\n  font-feature-settings: normal; /* 2 */\n  font-variation-settings: normal; /* 3 */\n  font-size: 1em; /* 4 */\n}\n\n/*\nAdd the correct font size in all browsers.\n*/\n\nsmall {\n  font-size: 80%;\n}\n\n/*\nPrevent `sub` and `sup` elements from affecting the line height in all browsers.\n*/\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -0.25em;\n}\n\nsup {\n  top: -0.5em;\n}\n\n/*\n1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)\n2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)\n3. Remove gaps between table borders by default.\n*/\n\ntable {\n  text-indent: 0; /* 1 */\n  border-color: inherit; /* 2 */\n  border-collapse: collapse; /* 3 */\n}\n\n/*\n1. Change the font styles in all browsers.\n2. Remove the margin in Firefox and Safari.\n3. Remove default padding in all browsers.\n*/\n\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  font-family: inherit; /* 1 */\n  font-feature-settings: inherit; /* 1 */\n  font-variation-settings: inherit; /* 1 */\n  font-size: 100%; /* 1 */\n  font-weight: inherit; /* 1 */\n  line-height: inherit; /* 1 */\n  letter-spacing: inherit; /* 1 */\n  color: inherit; /* 1 */\n  margin: 0; /* 2 */\n  padding: 0; /* 3 */\n}\n\n/*\nRemove the inheritance of text transform in Edge and Firefox.\n*/\n\nbutton,\nselect {\n  text-transform: none;\n}\n\n/*\n1. Correct the inability to style clickable types in iOS and Safari.\n2. Remove default button styles.\n*/\n\nbutton,\ninput:where([type='button']),\ninput:where([type='reset']),\ninput:where([type='submit']) {\n  -webkit-appearance: button; /* 1 */\n  background-color: transparent; /* 2 */\n  background-image: none; /* 2 */\n}\n\n/*\nUse the modern Firefox focus style for all focusable elements.\n*/\n\n:-moz-focusring {\n  outline: auto;\n}\n\n/*\nRemove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)\n*/\n\n:-moz-ui-invalid {\n  box-shadow: none;\n}\n\n/*\nAdd the correct vertical alignment in Chrome and Firefox.\n*/\n\nprogress {\n  vertical-align: baseline;\n}\n\n/*\nCorrect the cursor style of increment and decrement buttons in Safari.\n*/\n\n::-webkit-inner-spin-button,\n::-webkit-outer-spin-button {\n  height: auto;\n}\n\n/*\n1. Correct the odd appearance in Chrome and Safari.\n2. Correct the outline style in Safari.\n*/\n\n[type='search'] {\n  -webkit-appearance: textfield; /* 1 */\n  outline-offset: -2px; /* 2 */\n}\n\n/*\nRemove the inner padding in Chrome and Safari on macOS.\n*/\n\n::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n\n/*\n1. Correct the inability to style clickable types in iOS and Safari.\n2. Change font properties to `inherit` in Safari.\n*/\n\n::-webkit-file-upload-button {\n  -webkit-appearance: button; /* 1 */\n  font: inherit; /* 2 */\n}\n\n/*\nAdd the correct display in Chrome and Safari.\n*/\n\nsummary {\n  display: list-item;\n}\n\n/*\nRemoves the default spacing and border for appropriate elements.\n*/\n\nblockquote,\ndl,\ndd,\nh1,\nh2,\nh3,\nh4,\nh5,\nh6,\nhr,\nfigure,\np,\npre {\n  margin: 0;\n}\n\nfieldset {\n  margin: 0;\n  padding: 0;\n}\n\nlegend {\n  padding: 0;\n}\n\nol,\nul,\nmenu {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n\n/*\nReset default styling for dialogs.\n*/\ndialog {\n  padding: 0;\n}\n\n/*\nPrevent resizing textareas horizontally by default.\n*/\n\ntextarea {\n  resize: vertical;\n}\n\n/*\n1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)\n2. Set the default placeholder color to the user's configured gray 400 color.\n*/\n\ninput::-moz-placeholder, textarea::-moz-placeholder {\n  opacity: 1; /* 1 */\n  color: #9ca3af; /* 2 */\n}\n\ninput::placeholder,\ntextarea::placeholder {\n  opacity: 1; /* 1 */\n  color: #9ca3af; /* 2 */\n}\n\n/*\nSet the default cursor for buttons.\n*/\n\nbutton,\n[role=\"button\"] {\n  cursor: pointer;\n}\n\n/*\nMake sure disabled buttons don't get the pointer cursor.\n*/\n:disabled {\n  cursor: default;\n}\n\n/*\n1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)\n2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)\n   This can trigger a poorly considered lint error in some tools but is included by design.\n*/\n\nimg,\nsvg,\nvideo,\ncanvas,\naudio,\niframe,\nembed,\nobject {\n  display: block; /* 1 */\n  vertical-align: middle; /* 2 */\n}\n\n/*\nConstrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)\n*/\n\nimg,\nvideo {\n  max-width: 100%;\n  height: auto;\n}\n\n/* Make elements with the HTML hidden attribute stay hidden by default */\n[hidden] {\n  display: none;\n}\n\n*, ::before, ::after {\n  --tw-border-spacing-x: 0;\n  --tw-border-spacing-y: 0;\n  --tw-translate-x: 0;\n  --tw-translate-y: 0;\n  --tw-rotate: 0;\n  --tw-skew-x: 0;\n  --tw-skew-y: 0;\n  --tw-scale-x: 1;\n  --tw-scale-y: 1;\n  --tw-pan-x:  ;\n  --tw-pan-y:  ;\n  --tw-pinch-zoom:  ;\n  --tw-scroll-snap-strictness: proximity;\n  --tw-gradient-from-position:  ;\n  --tw-gradient-via-position:  ;\n  --tw-gradient-to-position:  ;\n  --tw-ordinal:  ;\n  --tw-slashed-zero:  ;\n  --tw-numeric-figure:  ;\n  --tw-numeric-spacing:  ;\n  --tw-numeric-fraction:  ;\n  --tw-ring-inset:  ;\n  --tw-ring-offset-width: 0px;\n  --tw-ring-offset-color: #fff;\n  --tw-ring-color: rgb(59 130 246 / 0.5);\n  --tw-ring-offset-shadow: 0 0 #0000;\n  --tw-ring-shadow: 0 0 #0000;\n  --tw-shadow: 0 0 #0000;\n  --tw-shadow-colored: 0 0 #0000;\n  --tw-blur:  ;\n  --tw-brightness:  ;\n  --tw-contrast:  ;\n  --tw-grayscale:  ;\n  --tw-hue-rotate:  ;\n  --tw-invert:  ;\n  --tw-saturate:  ;\n  --tw-sepia:  ;\n  --tw-drop-shadow:  ;\n  --tw-backdrop-blur:  ;\n  --tw-backdrop-brightness:  ;\n  --tw-backdrop-contrast:  ;\n  --tw-backdrop-grayscale:  ;\n  --tw-backdrop-hue-rotate:  ;\n  --tw-backdrop-invert:  ;\n  --tw-backdrop-opacity:  ;\n  --tw-backdrop-saturate:  ;\n  --tw-backdrop-sepia:  ;\n  --tw-contain-size:  ;\n  --tw-contain-layout:  ;\n  --tw-contain-paint:  ;\n  --tw-contain-style:  ;\n}\n\n::backdrop {\n  --tw-border-spacing-x: 0;\n  --tw-border-spacing-y: 0;\n  --tw-translate-x: 0;\n  --tw-translate-y: 0;\n  --tw-rotate: 0;\n  --tw-skew-x: 0;\n  --tw-skew-y: 0;\n  --tw-scale-x: 1;\n  --tw-scale-y: 1;\n  --tw-pan-x:  ;\n  --tw-pan-y:  ;\n  --tw-pinch-zoom:  ;\n  --tw-scroll-snap-strictness: proximity;\n  --tw-gradient-from-position:  ;\n  --tw-gradient-via-position:  ;\n  --tw-gradient-to-position:  ;\n  --tw-ordinal:  ;\n  --tw-slashed-zero:  ;\n  --tw-numeric-figure:  ;\n  --tw-numeric-spacing:  ;\n  --tw-numeric-fraction:  ;\n  --tw-ring-inset:  ;\n  --tw-ring-offset-width: 0px;\n  --tw-ring-offset-color: #fff;\n  --tw-ring-color: rgb(59 130 246 / 0.5);\n  --tw-ring-offset-shadow: 0 0 #0000;\n  --tw-ring-shadow: 0 0 #0000;\n  --tw-shadow: 0 0 #0000;\n  --tw-shadow-colored: 0 0 #0000;\n  --tw-blur:  ;\n  --tw-brightness:  ;\n  --tw-contrast:  ;\n  --tw-grayscale:  ;\n  --tw-hue-rotate:  ;\n  --tw-invert:  ;\n  --tw-saturate:  ;\n  --tw-sepia:  ;\n  --tw-drop-shadow:  ;\n  --tw-backdrop-blur:  ;\n  --tw-backdrop-brightness:  ;\n  --tw-backdrop-contrast:  ;\n  --tw-backdrop-grayscale:  ;\n  --tw-backdrop-hue-rotate:  ;\n  --tw-backdrop-invert:  ;\n  --tw-backdrop-opacity:  ;\n  --tw-backdrop-saturate:  ;\n  --tw-backdrop-sepia:  ;\n  --tw-contain-size:  ;\n  --tw-contain-layout:  ;\n  --tw-contain-paint:  ;\n  --tw-contain-style:  ;\n}\r\n.fixed {\n  position: fixed;\n}\r\n.relative {\n  position: relative;\n}\r\n.inset-0 {\n  inset: 0px;\n}\r\n.bottom-4 {\n  bottom: 1rem;\n}\r\n.right-4 {\n  right: 1rem;\n}\r\n.z-50 {\n  z-index: 50;\n}\r\n.mx-4 {\n  margin-left: 1rem;\n  margin-right: 1rem;\n}\r\n.mb-1 {\n  margin-bottom: 0.25rem;\n}\r\n.mb-2 {\n  margin-bottom: 0.5rem;\n}\r\n.mb-3 {\n  margin-bottom: 0.75rem;\n}\r\n.mb-4 {\n  margin-bottom: 1rem;\n}\r\n.mb-5 {\n  margin-bottom: 1.25rem;\n}\r\n.ml-2 {\n  margin-left: 0.5rem;\n}\r\n.ml-4 {\n  margin-left: 1rem;\n}\r\n.mr-2 {\n  margin-right: 0.5rem;\n}\r\n.mt-2 {\n  margin-top: 0.5rem;\n}\r\n.mt-4 {\n  margin-top: 1rem;\n}\r\n.block {\n  display: block;\n}\r\n.flex {\n  display: flex;\n}\r\n.inline-flex {\n  display: inline-flex;\n}\r\n.table {\n  display: table;\n}\r\n.min-h-screen {\n  min-height: 100vh;\n}\r\n.w-1\\/5 {\n  width: 20%;\n}\r\n.w-full {\n  width: 100%;\n}\r\n.min-w-full {\n  min-width: 100%;\n}\r\n.max-w-lg {\n  max-width: 32rem;\n}\r\n.flex-grow {\n  flex-grow: 1;\n}\r\n.border-collapse {\n  border-collapse: collapse;\n}\r\n.cursor-pointer {\n  cursor: pointer;\n}\r\n.flex-col {\n  flex-direction: column;\n}\r\n.items-center {\n  align-items: center;\n}\r\n.justify-end {\n  justify-content: flex-end;\n}\r\n.justify-center {\n  justify-content: center;\n}\r\n.justify-between {\n  justify-content: space-between;\n}\r\n.overflow-x-auto {\n  overflow-x: auto;\n}\r\n.rounded {\n  border-radius: 0.25rem;\n}\r\n.rounded-lg {\n  border-radius: 0.5rem;\n}\r\n.border-\\[1px\\] {\n  border-width: 1px;\n}\r\n.border-b {\n  border-bottom-width: 1px;\n}\r\n.border-b-2 {\n  border-bottom-width: 2px;\n}\r\n.border-zinc-600 {\n  --tw-border-opacity: 1;\n  border-color: rgb(82 82 91 / var(--tw-border-opacity));\n}\r\n.border-zinc-700 {\n  --tw-border-opacity: 1;\n  border-color: rgb(63 63 70 / var(--tw-border-opacity));\n}\r\n.bg-blue-600 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(37 99 235 / var(--tw-bg-opacity));\n}\r\n.bg-green-500 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(34 197 94 / var(--tw-bg-opacity));\n}\r\n.bg-red-500 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(239 68 68 / var(--tw-bg-opacity));\n}\r\n.bg-zinc-500 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(113 113 122 / var(--tw-bg-opacity));\n}\r\n.bg-zinc-600 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(82 82 91 / var(--tw-bg-opacity));\n}\r\n.bg-zinc-700 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(63 63 70 / var(--tw-bg-opacity));\n}\r\n.bg-zinc-800 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(39 39 42 / var(--tw-bg-opacity));\n}\r\n.bg-zinc-900 {\n  --tw-bg-opacity: 1;\n  background-color: rgb(24 24 27 / var(--tw-bg-opacity));\n}\r\n.bg-opacity-50 {\n  --tw-bg-opacity: 0.5;\n}\r\n.p-0 {\n  padding: 0px;\n}\r\n.p-1 {\n  padding: 0.25rem;\n}\r\n.p-2 {\n  padding: 0.5rem;\n}\r\n.p-4 {\n  padding: 1rem;\n}\r\n.p-6 {\n  padding: 1.5rem;\n}\r\n.px-0 {\n  padding-left: 0px;\n  padding-right: 0px;\n}\r\n.px-2 {\n  padding-left: 0.5rem;\n  padding-right: 0.5rem;\n}\r\n.px-3 {\n  padding-left: 0.75rem;\n  padding-right: 0.75rem;\n}\r\n.px-4 {\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\r\n.px-6 {\n  padding-left: 1.5rem;\n  padding-right: 1.5rem;\n}\r\n.px-7 {\n  padding-left: 1.75rem;\n  padding-right: 1.75rem;\n}\r\n.py-1 {\n  padding-top: 0.25rem;\n  padding-bottom: 0.25rem;\n}\r\n.py-2 {\n  padding-top: 0.5rem;\n  padding-bottom: 0.5rem;\n}\r\n.py-3 {\n  padding-top: 0.75rem;\n  padding-bottom: 0.75rem;\n}\r\n.text-left {\n  text-align: left;\n}\r\n.text-right {\n  text-align: right;\n}\r\n.text-2xl {\n  font-size: 1.5rem;\n  line-height: 2rem;\n}\r\n.text-sm {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n}\r\n.text-xl {\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n}\r\n.font-bold {\n  font-weight: 700;\n}\r\n.font-semibold {\n  font-weight: 600;\n}\r\n.text-gray-500 {\n  --tw-text-opacity: 1;\n  color: rgb(107 114 128 / var(--tw-text-opacity));\n}\r\n.text-red-300 {\n  --tw-text-opacity: 1;\n  color: rgb(252 165 165 / var(--tw-text-opacity));\n}\r\n.text-red-400 {\n  --tw-text-opacity: 1;\n  color: rgb(248 113 113 / var(--tw-text-opacity));\n}\r\n.text-white {\n  --tw-text-opacity: 1;\n  color: rgb(255 255 255 / var(--tw-text-opacity));\n}\r\n.text-zinc-300 {\n  --tw-text-opacity: 1;\n  color: rgb(212 212 216 / var(--tw-text-opacity));\n}\r\n.text-zinc-400 {\n  --tw-text-opacity: 1;\n  color: rgb(161 161 170 / var(--tw-text-opacity));\n}\r\n.shadow {\n  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);\n  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\r\n.shadow-2xl {\n  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);\n  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\r\n.shadow-lg {\n  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);\n  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);\n  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);\n}\r\n.outline-none {\n  outline: 2px solid transparent;\n  outline-offset: 2px;\n}\r\n.filter {\n  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);\n}\r\n.backdrop-blur-sm {\n  --tw-backdrop-blur: blur(4px);\n  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);\n  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);\n}\r\n.hover\\:bg-zinc-800:hover {\n  --tw-bg-opacity: 1;\n  background-color: rgb(39 39 42 / var(--tw-bg-opacity));\n}\r\n.hover\\:text-red-400:hover {\n  --tw-text-opacity: 1;\n  color: rgb(248 113 113 / var(--tw-text-opacity));\n}\r\n.hover\\:text-zinc-400:hover {\n  --tw-text-opacity: 1;\n  color: rgb(161 161 170 / var(--tw-text-opacity));\n}\r\n.focus\\:border-zinc-400:focus {\n  --tw-border-opacity: 1;\n  border-color: rgb(161 161 170 / var(--tw-border-opacity));\n}\r\n.focus\\:border-zinc-500:focus {\n  --tw-border-opacity: 1;\n  border-color: rgb(113 113 122 / var(--tw-border-opacity));\n}\r\n.focus\\:outline-none:focus {\n  outline: 2px solid transparent;\n  outline-offset: 2px;\n}\r\n@media (min-width: 640px) {\n\n  .sm\\:mx-6 {\n    margin-left: 1.5rem;\n    margin-right: 1.5rem;\n  }\n\n  .sm\\:mb-0 {\n    margin-bottom: 0px;\n  }\n\n  .sm\\:mr-4 {\n    margin-right: 1rem;\n  }\n\n  .sm\\:flex-row {\n    flex-direction: row;\n  }\n\n  .sm\\:items-center {\n    align-items: center;\n  }\n\n  .sm\\:justify-between {\n    justify-content: space-between;\n  }\n}\r\n@media (min-width: 768px) {\n\n  .md\\:w-2\\/3 {\n    width: 66.666667%;\n  }\n}\r\n@media (min-width: 1024px) {\n\n  .lg\\:w-1\\/3 {\n    width: 33.333333%;\n  }\n}\r\n@media (prefers-color-scheme: dark) {\n\n  .dark\\:bg-zinc-900 {\n    --tw-bg-opacity: 1;\n    background-color: rgb(24 24 27 / var(--tw-bg-opacity));\n  }\n\n  .dark\\:text-white {\n    --tw-text-opacity: 1;\n    color: rgb(255 255 255 / var(--tw-text-opacity));\n  }\n}\r\n");var e=async(t,e,n,s={},i={})=>{try{return(await t.connection.sendMessagePromise({type:"execute_script",sequence:[{service:`${e}.${n}`,data:s,target:i,response_variable:"service_result"},{stop:"done",response_variable:"service_result"}]})).response}catch(t){return{status:"error",error:t}}};
+function t(t,e,s,n){var i,a=arguments.length,o=a<3?e:null===n?n=Object.getOwnPropertyDescriptor(e,s):n;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(t,e,s,n);else for(var r=t.length-1;r>=0;r--)(i=t[r])&&(o=(a<3?i(o):a>3?i(e,s,o):i(e,s))||o);return a>3&&o&&Object.defineProperty(e,s,o),o}"function"==typeof SuppressedError&&SuppressedError;!function(t,e){void 0===e&&(e={});var s=e.insertAt;if("undefined"!=typeof document){var n=document.head||document.getElementsByTagName("head")[0],i=document.createElement("style");i.type="text/css","top"===s&&n.firstChild?n.insertBefore(i,n.firstChild):n.appendChild(i),i.styleSheet?i.styleSheet.cssText=t:i.appendChild(document.createTextNode(t))}}(':root {\n\t--ms-background: var(--primary-background-color, #f5f6f7);\n\t--ms-surface: var(--card-background-color, #ffffff);\n\t--ms-surface-muted: var(--secondary-background-color, #f1f3f4);\n\t--ms-text: var(--primary-text-color, #202124);\n\t--ms-text-muted: var(--secondary-text-color, #6b7075);\n\t--ms-divider: var(--divider-color, #d9dcdf);\n\t--ms-accent: var(--primary-color, #03a9f4);\n\t--ms-error: var(--error-color, #db4437);\n\t--ms-success: var(--success-color, #388e3c);\n\t--ms-radius: var(--ha-card-border-radius, 12px);\n\tcolor-scheme: light dark;\n}\n\n@media (prefers-color-scheme: dark) {\n\t:root {\n\t\t--ms-background: var(--primary-background-color, #111111);\n\t\t--ms-surface: var(--card-background-color, #1c1c1c);\n\t\t--ms-surface-muted: var(--secondary-background-color, #282828);\n\t\t--ms-text: var(--primary-text-color, #f1f1f1);\n\t\t--ms-text-muted: var(--secondary-text-color, #a8a8a8);\n\t\t--ms-divider: var(--divider-color, #3b3b3b);\n\t}\n}\n\nhtml,\nbody {\n\tmin-height: 100%;\n\tmargin: 0;\n\tbackground: var(--ms-background);\n\tcolor: var(--ms-text);\n\tfont-family: var(\n\t\t--paper-font-body1_-_font-family,\n\t\tRoboto,\n\t\t"Noto Sans",\n\t\tsans-serif\n\t);\n}\n\n* {\n\tbox-sizing: border-box;\n}\n\nbutton,\ninput,\ntextarea {\n\tfont: inherit;\n}\n\nbutton {\n\tcolor: inherit;\n}\n\n.ms-page {\n\tmin-height: 100vh;\n\tmax-width: 1440px;\n\tmargin: 0 auto;\n\tpadding: 28px clamp(16px, 3vw, 40px) 48px;\n\tbackground: var(--ms-background);\n\tcolor: var(--ms-text);\n}\n\n.ms-page-header {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: space-between;\n\tgap: 24px;\n\tmargin-bottom: 28px;\n}\n\n.ms-heading-copy h1 {\n\tmargin: 0;\n\tfont-size: 24px;\n\tfont-weight: 500;\n\tline-height: 1.3;\n}\n\n.ms-heading-copy p {\n\tmargin: 6px 0 0;\n\tcolor: var(--ms-text-muted);\n\tfont-size: 14px;\n\tline-height: 1.5;\n}\n\n.ms-button {\n\tdisplay: inline-flex;\n\tmin-height: 40px;\n\talign-items: center;\n\tjustify-content: center;\n\tgap: 9px;\n\tpadding: 0 16px;\n\tborder: 1px solid transparent;\n\tborder-radius: 8px;\n\tfont-size: 14px;\n\tfont-weight: 600;\n\tline-height: 1.2;\n\twhite-space: nowrap;\n\tcursor: pointer;\n\ttransition:\n\t\tbackground-color 120ms ease,\n\t\tborder-color 120ms ease,\n\t\tfilter 120ms ease;\n}\n\n.ms-button:hover {\n\tfilter: brightness(0.94);\n}\n\n.ms-button:focus-visible,\n.ms-icon-button:focus-visible,\n.ms-sort-button:focus-visible,\n.ms-dialog-close:focus-visible {\n\toutline: 2px solid var(--ms-accent);\n\toutline-offset: 2px;\n}\n\n.ms-button svg,\n.ms-icon-button svg,\n.ms-dialog-close svg,\n.ms-search svg,\n.ms-state-icon svg,\n.ms-sort-button svg {\n\twidth: 20px;\n\theight: 20px;\n\tfill: none;\n\tstroke: currentColor;\n\tstroke-linecap: round;\n\tstroke-linejoin: round;\n\tstroke-width: 1.8;\n}\n\n.ms-button-primary {\n\tbackground: var(--ms-accent);\n\tcolor: var(--text-primary-color, #ffffff);\n}\n\n.ms-button-secondary {\n\tborder-color: var(--ms-divider);\n\tbackground: var(--ms-surface);\n\tcolor: var(--ms-text);\n}\n\n.ms-header-actions {\n\tdisplay: flex;\n\tflex: 0 0 auto;\n\talign-items: center;\n\tgap: 12px;\n}\n\n.ms-header-actions > .ms-button {\n\twidth: 152px;\n\theight: 40px;\n\tmin-height: 40px;\n\tbox-sizing: border-box;\n\tflex: 0 0 152px;\n}\n\n.ms-ai-trigger {\n\tborder-color: color-mix(in srgb, var(--ms-accent) 42%, var(--ms-divider));\n\tbackground: color-mix(in srgb, var(--ms-accent) 12%, var(--ms-surface));\n\tcolor: var(--ms-accent);\n\tfont-weight: 600;\n}\n\n.ms-ai-trigger:hover {\n\tbackground: color-mix(in srgb, var(--ms-accent) 20%, var(--ms-surface));\n}\n\n.ms-ai-trigger svg {\n\tfill: currentColor;\n\tstroke: currentColor;\n\tstroke-width: 1.5;\n}\n\n.ms-button-danger {\n\tbackground: var(--ms-error);\n\tcolor: var(--text-primary-color, #ffffff);\n}\n\n.ms-toolbar {\n\tdisplay: flex;\n\talign-items: center;\n\tgap: 20px;\n\tmargin-bottom: 28px;\n}\n\n.ms-search {\n\tdisplay: flex;\n\tmin-width: 180px;\n\tmax-width: none;\n\tmin-height: 44px;\n\tflex: 1;\n\talign-items: center;\n\tgap: 10px;\n\tpadding: 0 13px;\n\tborder: 1px solid var(--ms-divider);\n\tborder-radius: 8px;\n\tbackground: var(--ms-surface);\n\tcolor: var(--ms-text-muted);\n\ttransition:\n\t\tborder-color 120ms ease,\n\t\tbox-shadow 120ms ease;\n}\n\n.ms-search:focus-within {\n\tborder-color: var(--ms-accent);\n\tbox-shadow: 0 0 0 1px var(--ms-accent);\n}\n\n.ms-search svg {\n\tflex: 0 0 auto;\n}\n\n.ms-search input {\n\twidth: 100%;\n\tmin-width: 0;\n\tborder: 0;\n\toutline: 0;\n\tbackground: transparent;\n\tcolor: var(--ms-text);\n\tfont-size: 14px;\n}\n\n.ms-search input::-moz-placeholder {\n\tcolor: var(--ms-text-muted);\n\topacity: 1;\n}\n\n.ms-search input::placeholder {\n\tcolor: var(--ms-text-muted);\n\topacity: 1;\n}\n\n.ms-group-toggle {\n\tdisplay: inline-flex;\n\tmin-height: 40px;\n\talign-items: center;\n\tgap: 10px;\n\tcolor: var(--ms-text);\n\tfont-size: 14px;\n\twhite-space: nowrap;\n\tcursor: pointer;\n}\n\n.ms-group-toggle input {\n\twidth: 18px;\n\theight: 18px;\n\tmargin: 0;\n\taccent-color: var(--ms-accent);\n}\n\n.ms-list-heading {\n\tdisplay: flex;\n\talign-items: baseline;\n\tjustify-content: space-between;\n\tgap: 16px;\n\tmargin: 0 0 12px;\n}\n\n.ms-list-heading h2 {\n\tmargin: 0;\n\tfont-size: 18px;\n\tfont-weight: 500;\n}\n\n.ms-count,\n.ms-row-meta {\n\tcolor: var(--ms-text-muted);\n\tfont-size: 13px;\n}\n\n.ms-table-wrap {\n\toverflow: visible;\n\tborder: 1px solid var(--ms-divider);\n\tborder-radius: var(--ms-radius);\n\tbackground: var(--ms-surface);\n}\n\n.ms-table {\n\twidth: 100%;\n\tborder-collapse: collapse;\n\ttext-align: left;\n}\n\n.ms-table thead {\n\tbackground: var(--ms-surface-muted);\n}\n\n.ms-table thead th:first-child {\n\tborder-top-left-radius: var(--ms-radius);\n}\n\n.ms-table thead th:last-child {\n\tborder-top-right-radius: var(--ms-radius);\n}\n\n.ms-table th {\n\tpadding: 12px 18px;\n\tcolor: var(--ms-text-muted);\n\tfont-size: 12px;\n\tfont-weight: 600;\n\tletter-spacing: 0.02em;\n}\n\n.ms-table td {\n\tpadding: 15px 18px;\n\tborder-top: 1px solid var(--ms-divider);\n\tfont-size: 14px;\n\tvertical-align: middle;\n}\n\n.ms-message-row:first-child td {\n\tborder-top: 0;\n}\n\n.ms-message-row:hover {\n\tbackground: color-mix(in srgb, var(--ms-surface-muted) 55%, transparent);\n}\n\n.ms-sort-button {\n\tdisplay: inline-flex;\n\talign-items: center;\n\tgap: 4px;\n\tpadding: 0;\n\tborder: 0;\n\tbackground: transparent;\n\tcolor: inherit;\n\tfont-size: inherit;\n\tfont-weight: inherit;\n\tcursor: pointer;\n}\n\n.ms-sort-button svg {\n\twidth: 16px;\n\theight: 16px;\n\ttransition: transform 120ms ease;\n}\n\n.ms-sort-button svg.is-desc {\n\ttransform: rotate(180deg);\n}\n\n.ms-slug {\n\tfont-weight: 600;\n\tword-break: break-word;\n}\n\n.ms-row-meta {\n\tmargin-top: 4px;\n}\n\n.ms-message-preview {\n\tmax-width: 840px;\n\tcolor: var(--ms-text);\n\tline-height: 1.55;\n\tword-break: break-word;\n}\n\n.ms-message-preview > div + div {\n\tmargin-top: 4px;\n}\n\n.ms-message-hover {\n\tposition: relative;\n\twidth: -moz-fit-content;\n\twidth: fit-content;\n\tmax-width: 100%;\n}\n\n.ms-message-hover.has-state-tooltip {\n\tcursor: help;\n}\n\n.ms-message-hover:hover,\n.ms-message-hover:focus {\n\tz-index: 25;\n}\n\n.ms-message-tooltip {\n\tposition: absolute;\n\ttop: calc(100% + 8px);\n\tleft: 0;\n\tz-index: 30;\n\tdisplay: flex;\n\twidth: -moz-max-content;\n\twidth: max-content;\n\tmax-width: min(380px, calc(100vw - 40px));\n\tflex-direction: column;\n\tgap: 6px;\n\tpadding: 10px 12px;\n\tborder: 1px solid var(--ms-divider);\n\tborder-radius: 8px;\n\tbackground: var(--ms-surface);\n\tcolor: var(--ms-text);\n\tbox-shadow: 0 4px 14px rgb(0 0 0 / 22%);\n\tfont-size: 13px;\n\tline-height: 1.45;\n\twhite-space: normal;\n\tword-break: break-word;\n\topacity: 0;\n\tvisibility: hidden;\n\ttransform: translateY(-3px);\n\ttransition:\n\t\topacity 120ms ease,\n\t\ttransform 120ms ease,\n\t\tvisibility 120ms ease;\n\tpointer-events: none;\n}\n\n.ms-message-tooltip strong {\n\tcolor: var(--ms-text-muted);\n\tfont-size: 12px;\n\tfont-weight: 600;\n}\n\n.ms-message-hover:hover .ms-message-tooltip,\n.ms-message-hover:focus .ms-message-tooltip {\n\topacity: 1;\n\tvisibility: visible;\n\ttransform: translateY(0);\n}\n\n.ms-message-token {\n\tdisplay: inline-block;\n\tpadding: 1px 6px;\n\tborder-radius: 5px;\n\tbackground: var(--ms-surface-muted);\n\tcolor: var(--ms-text);\n\tfont-family: var(--paper-font-code1_-_font-family, monospace);\n\tfont-size: 0.92em;\n}\n\n.ms-row-actions {\n\twidth: 1%;\n\twhite-space: nowrap;\n}\n\n.ms-actions-heading {\n\twidth: 1%;\n}\n\n.ms-row-actions > * + * {\n\tmargin-left: 4px;\n}\n\n.ms-icon-button,\n.ms-dialog-close {\n\tdisplay: inline-grid;\n\twidth: 38px;\n\theight: 38px;\n\tplace-items: center;\n\tpadding: 0;\n\tborder: 0;\n\tborder-radius: 50%;\n\tbackground: transparent;\n\tcolor: var(--ms-text-muted);\n\tcursor: pointer;\n}\n\n.ms-tooltip-trigger {\n\tposition: relative;\n}\n\n.ms-tooltip-trigger::after {\n\tposition: absolute;\n\ttop: calc(100% + 7px);\n\tleft: 50%;\n\tz-index: 40;\n\twidth: -moz-max-content;\n\twidth: max-content;\n\tmax-width: 220px;\n\tpadding: 6px 9px;\n\tborder: 1px solid var(--ms-divider);\n\tborder-radius: 6px;\n\tbackground: var(--ms-surface);\n\tcolor: var(--ms-text);\n\tbox-shadow: 0 3px 10px rgb(0 0 0 / 18%);\n\tcontent: attr(data-tooltip);\n\tfont-size: 12px;\n\tfont-weight: 500;\n\tline-height: 1.2;\n\twhite-space: nowrap;\n\topacity: 0;\n\tvisibility: hidden;\n\ttransform: translate(-50%, -2px);\n\ttransition:\n\t\topacity 120ms ease,\n\t\ttransform 120ms ease,\n\t\tvisibility 120ms ease;\n\tpointer-events: none;\n}\n\n.ms-tooltip-trigger:hover::after,\n.ms-tooltip-trigger:focus-visible::after {\n\topacity: 1;\n\tvisibility: visible;\n\ttransform: translate(-50%, 0);\n}\n\n.ms-icon-button:hover,\n.ms-dialog-close:hover {\n\tbackground: var(--ms-surface-muted);\n\tcolor: var(--ms-text);\n}\n\n.ms-icon-button svg,\n.ms-dialog-close svg {\n\twidth: 19px;\n\theight: 19px;\n}\n\n.ms-icon-danger:hover {\n\tcolor: var(--ms-error);\n}\n\n.ms-state-card {\n\tdisplay: flex;\n\tmin-height: 260px;\n\tflex-direction: column;\n\talign-items: center;\n\tjustify-content: center;\n\tgap: 10px;\n\tpadding: 32px 20px;\n\tborder: 1px solid var(--ms-divider);\n\tborder-radius: var(--ms-radius);\n\tbackground: var(--ms-surface);\n\ttext-align: center;\n}\n\n.ms-state-card h2 {\n\tmargin: 2px 0 0;\n\tfont-size: 18px;\n\tfont-weight: 500;\n}\n\n.ms-state-card p {\n\tmax-width: 440px;\n\tmargin: 0 0 8px;\n\tcolor: var(--ms-text-muted);\n\tfont-size: 14px;\n\tline-height: 1.5;\n}\n\n.ms-state-icon {\n\tdisplay: grid;\n\twidth: 52px;\n\theight: 52px;\n\tplace-items: center;\n\tmargin-bottom: 4px;\n\tborder-radius: 50%;\n\tbackground: var(--ms-surface-muted);\n\tcolor: var(--ms-text-muted);\n}\n\n.ms-state-icon svg {\n\twidth: 26px;\n\theight: 26px;\n}\n\n.ms-state-error .ms-state-icon {\n\tbackground: color-mix(in srgb, var(--ms-error) 12%, var(--ms-surface));\n\tcolor: var(--ms-error);\n\tfont-size: 24px;\n\tfont-weight: 600;\n}\n\n.ms-spinner {\n\twidth: 22px;\n\theight: 22px;\n\tborder: 2px solid var(--ms-divider);\n\tborder-top-color: var(--ms-accent);\n\tborder-radius: 50%;\n\tanimation: ms-spin 800ms linear infinite;\n}\n\n@keyframes ms-spin {\n\tto {\n\t\ttransform: rotate(360deg);\n\t}\n}\n\n.ms-dialog-backdrop {\n\tposition: fixed;\n\tinset: 0;\n\tz-index: 1000;\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\tpadding: 24px;\n\tbackground: rgb(0 0 0 / 48%);\n\t-webkit-backdrop-filter: blur(2px);\n\t        backdrop-filter: blur(2px);\n}\n\n.ms-dialog-backdrop.ms-dialog-nested {\n\tz-index: 1010;\n}\n\n.ms-confirm-backdrop {\n\tz-index: 1020;\n}\n\n.ms-confirm-dialog {\n\twidth: min(100%, 440px);\n\tpadding: 24px;\n\tborder: 1px solid var(--ms-divider);\n\tborder-radius: var(--ms-radius);\n\tbackground: var(--ms-surface);\n\tcolor: var(--ms-text);\n\tbox-shadow: 0 16px 48px rgb(0 0 0 / 28%);\n}\n\n.ms-confirm-icon {\n\tdisplay: grid;\n\twidth: 42px;\n\theight: 42px;\n\tplace-items: center;\n\tmargin-bottom: 16px;\n\tborder-radius: 50%;\n\tbackground: color-mix(in srgb, var(--ms-error) 12%, var(--ms-surface));\n\tcolor: var(--ms-error);\n}\n\n.ms-confirm-icon svg {\n\twidth: 22px;\n\theight: 22px;\n\tfill: none;\n\tstroke: currentColor;\n\tstroke-linecap: round;\n\tstroke-linejoin: round;\n\tstroke-width: 1.8;\n}\n\n.ms-confirm-dialog h2 {\n\tmargin: 0;\n\tfont-size: 20px;\n\tfont-weight: 500;\n}\n\n.ms-confirm-dialog p {\n\tmargin: 10px 0 24px;\n\tcolor: var(--ms-text-muted);\n\tfont-size: 14px;\n\tline-height: 1.5;\n}\n\n.ms-confirm-dialog p strong {\n\tcolor: var(--ms-text);\n\tfont-weight: 600;\n}\n\n.ms-confirm-actions {\n\tdisplay: flex;\n\tjustify-content: flex-end;\n\tgap: 10px;\n}\n\n.ms-dialog {\n\tdisplay: flex;\n\twidth: min(100%, 620px);\n\tmax-height: min(90vh, 900px);\n\tmax-height: min(90dvh, 900px);\n\tflex-direction: column;\n\toverflow: hidden;\n\tborder: 1px solid var(--ms-divider);\n\tborder-radius: var(--ms-radius);\n\tbackground: var(--ms-surface);\n\tcolor: var(--ms-text);\n\tbox-shadow: 0 16px 48px rgb(0 0 0 / 28%);\n}\n\n.ms-dialog-header {\n\tdisplay: flex;\n\talign-items: flex-start;\n\tjustify-content: space-between;\n\tgap: 16px;\n\tpadding: 22px 24px 18px;\n\tborder-bottom: 1px solid var(--ms-divider);\n}\n\n.ms-dialog-heading h2 {\n\tmargin: 0;\n\tfont-size: 20px;\n\tfont-weight: 500;\n}\n\n.ms-dialog-heading p {\n\tmargin: 5px 0 0;\n\tcolor: var(--ms-text-muted);\n\tfont-size: 13px;\n\tline-height: 1.45;\n}\n\n.ms-dialog-close {\n\tflex: 0 0 auto;\n\tmargin: -6px -8px 0 0;\n}\n\n.ms-dialog-body {\n\tmin-height: 0;\n\toverflow-y: auto;\n\tpadding: 22px 24px;\n}\n\n.ms-field {\n\tdisplay: flex;\n\tflex-direction: column;\n\tgap: 7px;\n\tmargin-bottom: 20px;\n}\n\n.ms-field > label,\n.ms-field-label {\n\tcolor: var(--ms-text);\n\tfont-size: 14px;\n\tfont-weight: 500;\n}\n\n.ms-required {\n\tcolor: var(--ms-error);\n}\n\n.ms-input,\n.ms-textarea {\n\twidth: 100%;\n\tmin-height: 42px;\n\tpadding: 10px 12px;\n\tborder: 1px solid var(--ms-divider);\n\tborder-radius: 7px;\n\toutline: 0;\n\tbackground: var(--ms-background);\n\tcolor: var(--ms-text);\n\tfont-size: 14px;\n\tline-height: 1.45;\n\ttransition:\n\t\tborder-color 120ms ease,\n\t\tbox-shadow 120ms ease;\n}\n\nselect.ms-input {\n\tcolor: var(--ms-text);\n}\n\n.ms-textarea {\n\tmin-height: 84px;\n\tresize: vertical;\n}\n\n.ms-input:focus,\n.ms-textarea:focus {\n\tborder-color: var(--ms-accent);\n\tbox-shadow: 0 0 0 1px var(--ms-accent);\n}\n\n.ms-input:disabled {\n\tcolor: var(--ms-text-muted);\n\topacity: 0.8;\n}\n\n.ms-message-editor {\n\tmargin-top: 10px;\n\tpadding: 12px;\n\tborder: 1px solid var(--ms-divider);\n\tborder-radius: 9px;\n\tbackground: var(--ms-surface);\n}\n\n.ms-message-editor-top {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: space-between;\n\tgap: 12px;\n\tmargin-bottom: 8px;\n}\n\n.ms-message-editor-top span {\n\tcolor: var(--ms-text-muted);\n\tfont-size: 12px;\n\tfont-weight: 600;\n}\n\n.ms-message-editor .ms-textarea {\n\tmin-height: 76px;\n}\n\n.ms-inline-button {\n\tmin-height: 34px;\n\tpadding: 0 10px;\n\tborder: 0;\n\tborder-radius: 7px;\n\tbackground: transparent;\n\tcolor: var(--ms-accent);\n\tfont-size: 13px;\n\tfont-weight: 600;\n\tcursor: pointer;\n}\n\n.ms-inline-button:hover {\n\tbackground: var(--ms-surface-muted);\n}\n\n.ms-inline-button-danger {\n\tcolor: var(--ms-error);\n}\n\n.ms-preview {\n\tmargin-top: 10px;\n\tpadding: 10px 12px;\n\tborder-left: 3px solid var(--ms-accent);\n\tborder-radius: 0 6px 6px 0;\n\tbackground: var(--ms-surface-muted);\n\tcolor: var(--ms-text-muted);\n\tfont-size: 13px;\n\tline-height: 1.5;\n\tword-break: break-word;\n}\n\n.ms-preview strong {\n\tmargin-right: 6px;\n\tcolor: var(--ms-text);\n}\n\n.ms-dialog-footer {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: flex-end;\n\tgap: 10px;\n\tpadding: 16px 24px;\n\tborder-top: 1px solid var(--ms-divider);\n\tbackground: var(--ms-surface);\n}\n\n.ms-ai-form .ms-dialog-body {\n\tpadding-bottom: 8px;\n}\n\n.ms-ai-hint {\n\tmargin: 2px 0 0;\n\tcolor: var(--ms-text-muted);\n\tfont-size: 12px;\n\tline-height: 1.5;\n}\n\n.ms-form-error {\n\tmargin: 0 0 16px;\n\tpadding: 10px 12px;\n\tborder-radius: 7px;\n\tbackground: color-mix(in srgb, var(--ms-error) 12%, var(--ms-surface));\n\tcolor: var(--ms-error);\n\tfont-size: 13px;\n\tline-height: 1.45;\n}\n\n.ms-toast {\n\tposition: fixed;\n\tright: 24px;\n\tbottom: 24px;\n\tz-index: 1100;\n\tdisplay: flex;\n\tmin-width: min(320px, calc(100vw - 32px));\n\tmax-width: min(520px, calc(100vw - 32px));\n\talign-items: center;\n\tgap: 12px;\n\tpadding: 12px 12px 12px 16px;\n\tborder: 1px solid var(--ms-divider);\n\tborder-left: 4px solid var(--ms-success);\n\tborder-radius: 9px;\n\tbackground: var(--ms-surface);\n\tcolor: var(--ms-text);\n\tbox-shadow: 0 5px 20px rgb(0 0 0 / 18%);\n\tfont-size: 14px;\n}\n\n.ms-toast-error {\n\tborder-left-color: var(--ms-error);\n}\n\n.ms-toast-message {\n\tflex: 1;\n\tline-height: 1.4;\n}\n\n.sr-only {\n\tposition: absolute;\n\twidth: 1px;\n\theight: 1px;\n\tpadding: 0;\n\tmargin: -1px;\n\toverflow: hidden;\n\tclip: rect(0, 0, 0, 0);\n\twhite-space: nowrap;\n\tborder: 0;\n}\n\n@media (max-width: 600px) {\n\t.ms-page {\n\t\tpadding: 22px 16px 36px;\n\t}\n\n\t.ms-page-header {\n\t\talign-items: flex-start;\n\t\tflex-direction: column;\n\t\tgap: 16px;\n\t\tmargin-bottom: 22px;\n\t}\n\n\t.ms-header-actions {\n\t\twidth: 100%;\n\t\tflex-direction: column;\n\t\talign-items: stretch;\n\t\tgap: 10px;\n\t}\n\n\t.ms-header-actions > .ms-button {\n\t\twidth: 100%;\n\t\tflex: 0 0 40px;\n\t}\n\n\t.ms-toolbar {\n\t\talign-items: stretch;\n\t\tflex-direction: column;\n\t\tgap: 8px;\n\t\tmargin-bottom: 22px;\n\t}\n\n\t.ms-search {\n\t\tmax-width: none;\n\t}\n\n\t.ms-group-toggle {\n\t\talign-self: flex-start;\n\t}\n\n\t.ms-table-wrap {\n\t\tborder: 0;\n\t\tbackground: transparent;\n\t}\n\n\t.ms-table,\n\t.ms-table tbody {\n\t\tdisplay: block;\n\t\twidth: 100%;\n\t}\n\n\t.ms-table thead {\n\t\tposition: absolute;\n\t\twidth: 1px;\n\t\theight: 1px;\n\t\tpadding: 0;\n\t\tmargin: -1px;\n\t\toverflow: hidden;\n\t\tclip: rect(0, 0, 0, 0);\n\t\twhite-space: nowrap;\n\t\tborder: 0;\n\t}\n\n\t.ms-table tbody tr {\n\t\tdisplay: grid;\n\t\tgrid-template-columns: minmax(0, 1fr) auto;\n\t\tgap: 10px 14px;\n\t\tmargin-bottom: 10px;\n\t\tpadding: 14px;\n\t\tborder: 1px solid var(--ms-divider);\n\t\tborder-radius: 10px;\n\t\tbackground: var(--ms-surface);\n\t}\n\n\t.ms-table td {\n\t\tpadding: 0;\n\t\tborder: 0;\n\t}\n\n\t.ms-table td[data-label="Message"] {\n\t\tgrid-column: 1 / -1;\n\t}\n\n\t.ms-row-actions {\n\t\tdisplay: flex;\n\t\twidth: auto;\n\t\talign-items: flex-start;\n\t\tjustify-content: flex-end;\n\t}\n\n\t.ms-dialog-backdrop {\n\t\talign-items: flex-end;\n\t\tpadding: 0;\n\t}\n\n\t.ms-confirm-backdrop {\n\t\talign-items: flex-end;\n\t}\n\n\t.ms-confirm-dialog {\n\t\twidth: 100%;\n\t\tpadding: 22px 18px calc(18px + env(safe-area-inset-bottom, 0px));\n\t\tborder-radius: 16px 16px 0 0;\n\t}\n\n\t.ms-confirm-actions .ms-button {\n\t\tflex: 1;\n\t}\n\n\t.ms-dialog {\n\t\twidth: 100%;\n\t\tmax-height: 92vh;\n\t\tmax-height: 92dvh;\n\t\tborder-radius: 16px 16px 0 0;\n\t}\n\n\t.ms-dialog-header {\n\t\tpadding: 18px 18px 15px;\n\t}\n\n\t.ms-dialog-body {\n\t\tpadding: 18px;\n\t}\n\n\t.ms-dialog-footer {\n\t\tpadding: 14px 18px calc(14px + env(safe-area-inset-bottom, 0px));\n\t}\n\n\t.ms-dialog-footer .ms-button {\n\t\tflex: 1;\n\t}\n\n\t.ms-toast {\n\t\tright: 16px;\n\t\tbottom: calc(16px + env(safe-area-inset-bottom, 0px));\n\t}\n}\n\n@media (prefers-reduced-motion: reduce) {\n\t*,\n\t*::before,\n\t*::after {\n\t\tanimation-duration: 0.01ms !important;\n\t\tanimation-iteration-count: 1 !important;\n\t\tscroll-behavior: auto !important;\n\t\ttransition-duration: 0.01ms !important;\n\t}\n}\n');var e=async(t,e,s,n={},i={})=>{try{return(await t.connection.sendMessagePromise({type:"execute_script",sequence:[{service:`${e}.${s}`,data:n,target:i,response_variable:"service_result"},{stop:"done",response_variable:"service_result"}]})).response}catch(t){return{status:"error",error:t}}};
 /**
  * @license
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const n=window,s=n.ShadowRoot&&(void 0===n.ShadyCSS||n.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,i=Symbol(),r=new WeakMap;let o=class{constructor(t,e,n){if(this._$cssResult$=!0,n!==i)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o;const e=this.t;if(s&&void 0===t){const n=void 0!==e&&1===e.length;n&&(t=r.get(e)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),n&&r.set(e,t))}return t}toString(){return this.cssText}};const a=s?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const n of t.cssRules)e+=n.cssText;return(t=>new o("string"==typeof t?t:t+"",void 0,i))(e)})(t):t
+ */const s=window,n=s.ShadowRoot&&(void 0===s.ShadyCSS||s.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,i=Symbol(),a=new WeakMap;let o=class{constructor(t,e,s){if(this._$cssResult$=!0,s!==i)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o;const e=this.t;if(n&&void 0===t){const s=void 0!==e&&1===e.length;s&&(t=a.get(e)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),s&&a.set(e,t))}return t}toString(){return this.cssText}};const r=n?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const s of t.cssRules)e+=s.cssText;return(t=>new o("string"==typeof t?t:t+"",void 0,i))(e)})(t):t
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */;var l;const d=window,c=d.trustedTypes,h=c?c.emptyScript:"",p=d.reactiveElementPolyfillSupport,u={toAttribute(t,e){switch(e){case Boolean:t=t?h:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t)}return t},fromAttribute(t,e){let n=t;switch(e){case Boolean:n=null!==t;break;case Number:n=null===t?null:Number(t);break;case Object:case Array:try{n=JSON.parse(t)}catch(t){n=null}}return n}},g=(t,e)=>e!==t&&(e==e||t==t),m={attribute:!0,type:String,converter:u,reflect:!1,hasChanged:g},b="finalized";let f=class extends HTMLElement{constructor(){super(),this._$Ei=new Map,this.isUpdatePending=!1,this.hasUpdated=!1,this._$El=null,this._$Eu()}static addInitializer(t){var e;this.finalize(),(null!==(e=this.h)&&void 0!==e?e:this.h=[]).push(t)}static get observedAttributes(){this.finalize();const t=[];return this.elementProperties.forEach(((e,n)=>{const s=this._$Ep(n,e);void 0!==s&&(this._$Ev.set(s,n),t.push(s))})),t}static createProperty(t,e=m){if(e.state&&(e.attribute=!1),this.finalize(),this.elementProperties.set(t,e),!e.noAccessor&&!this.prototype.hasOwnProperty(t)){const n="symbol"==typeof t?Symbol():"__"+t,s=this.getPropertyDescriptor(t,n,e);void 0!==s&&Object.defineProperty(this.prototype,t,s)}}static getPropertyDescriptor(t,e,n){return{get(){return this[e]},set(s){const i=this[t];this[e]=s,this.requestUpdate(t,i,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)||m}static finalize(){if(this.hasOwnProperty(b))return!1;this[b]=!0;const t=Object.getPrototypeOf(this);if(t.finalize(),void 0!==t.h&&(this.h=[...t.h]),this.elementProperties=new Map(t.elementProperties),this._$Ev=new Map,this.hasOwnProperty("properties")){const t=this.properties,e=[...Object.getOwnPropertyNames(t),...Object.getOwnPropertySymbols(t)];for(const n of e)this.createProperty(n,t[n])}return this.elementStyles=this.finalizeStyles(this.styles),!0}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const n=new Set(t.flat(1/0).reverse());for(const t of n)e.unshift(a(t))}else void 0!==t&&e.push(a(t));return e}static _$Ep(t,e){const n=e.attribute;return!1===n?void 0:"string"==typeof n?n:"string"==typeof t?t.toLowerCase():void 0}_$Eu(){var t;this._$E_=new Promise((t=>this.enableUpdating=t)),this._$AL=new Map,this._$Eg(),this.requestUpdate(),null===(t=this.constructor.h)||void 0===t||t.forEach((t=>t(this)))}addController(t){var e,n;(null!==(e=this._$ES)&&void 0!==e?e:this._$ES=[]).push(t),void 0!==this.renderRoot&&this.isConnected&&(null===(n=t.hostConnected)||void 0===n||n.call(t))}removeController(t){var e;null===(e=this._$ES)||void 0===e||e.splice(this._$ES.indexOf(t)>>>0,1)}_$Eg(){this.constructor.elementProperties.forEach(((t,e)=>{this.hasOwnProperty(e)&&(this._$Ei.set(e,this[e]),delete this[e])}))}createRenderRoot(){var t;const e=null!==(t=this.shadowRoot)&&void 0!==t?t:this.attachShadow(this.constructor.shadowRootOptions);return((t,e)=>{s?t.adoptedStyleSheets=e.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet)):e.forEach((e=>{const s=document.createElement("style"),i=n.litNonce;void 0!==i&&s.setAttribute("nonce",i),s.textContent=e.cssText,t.appendChild(s)}))})(e,this.constructor.elementStyles),e}connectedCallback(){var t;void 0===this.renderRoot&&(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),null===(t=this._$ES)||void 0===t||t.forEach((t=>{var e;return null===(e=t.hostConnected)||void 0===e?void 0:e.call(t)}))}enableUpdating(t){}disconnectedCallback(){var t;null===(t=this._$ES)||void 0===t||t.forEach((t=>{var e;return null===(e=t.hostDisconnected)||void 0===e?void 0:e.call(t)}))}attributeChangedCallback(t,e,n){this._$AK(t,n)}_$EO(t,e,n=m){var s;const i=this.constructor._$Ep(t,n);if(void 0!==i&&!0===n.reflect){const r=(void 0!==(null===(s=n.converter)||void 0===s?void 0:s.toAttribute)?n.converter:u).toAttribute(e,n.type);this._$El=t,null==r?this.removeAttribute(i):this.setAttribute(i,r),this._$El=null}}_$AK(t,e){var n;const s=this.constructor,i=s._$Ev.get(t);if(void 0!==i&&this._$El!==i){const t=s.getPropertyOptions(i),r="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==(null===(n=t.converter)||void 0===n?void 0:n.fromAttribute)?t.converter:u;this._$El=i,this[i]=r.fromAttribute(e,t.type),this._$El=null}}requestUpdate(t,e,n){let s=!0;void 0!==t&&(((n=n||this.constructor.getPropertyOptions(t)).hasChanged||g)(this[t],e)?(this._$AL.has(t)||this._$AL.set(t,e),!0===n.reflect&&this._$El!==t&&(void 0===this._$EC&&(this._$EC=new Map),this._$EC.set(t,n))):s=!1),!this.isUpdatePending&&s&&(this._$E_=this._$Ej())}async _$Ej(){this.isUpdatePending=!0;try{await this._$E_}catch(t){Promise.reject(t)}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var t;if(!this.isUpdatePending)return;this.hasUpdated,this._$Ei&&(this._$Ei.forEach(((t,e)=>this[e]=t)),this._$Ei=void 0);let e=!1;const n=this._$AL;try{e=this.shouldUpdate(n),e?(this.willUpdate(n),null===(t=this._$ES)||void 0===t||t.forEach((t=>{var e;return null===(e=t.hostUpdate)||void 0===e?void 0:e.call(t)})),this.update(n)):this._$Ek()}catch(t){throw e=!1,this._$Ek(),t}e&&this._$AE(n)}willUpdate(t){}_$AE(t){var e;null===(e=this._$ES)||void 0===e||e.forEach((t=>{var e;return null===(e=t.hostUpdated)||void 0===e?void 0:e.call(t)})),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$Ek(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$E_}shouldUpdate(t){return!0}update(t){void 0!==this._$EC&&(this._$EC.forEach(((t,e)=>this._$EO(e,this[e],t))),this._$EC=void 0),this._$Ek()}updated(t){}firstUpdated(t){}};
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */
-var v;f[b]=!0,f.elementProperties=new Map,f.elementStyles=[],f.shadowRootOptions={mode:"open"},null==p||p({ReactiveElement:f}),(null!==(l=d.reactiveElementVersions)&&void 0!==l?l:d.reactiveElementVersions=[]).push("1.6.3");const w=window,y=w.trustedTypes,x=y?y.createPolicy("lit-html",{createHTML:t=>t}):void 0,$="$lit$",_=`lit$${(Math.random()+"").slice(9)}$`,k="?"+_,A=`<${k}>`,S=document,M=()=>S.createComment(""),E=t=>null===t||"object"!=typeof t&&"function"!=typeof t,z=Array.isArray,C="[ \t\n\f\r]",O=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,R=/-->/g,N=/>/g,U=RegExp(`>|${C}(?:([^\\s"'>=/]+)(${C}*=${C}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),P=/'/g,T=/"/g,L=/^(?:script|style|textarea|title)$/i,j=(t=>(e,...n)=>({_$litType$:t,strings:e,values:n}))(1),H=Symbol.for("lit-noChange"),I=Symbol.for("lit-nothing"),D=new WeakMap,q=S.createTreeWalker(S,129,null,!1);function B(t,e){if(!Array.isArray(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==x?x.createHTML(e):e}const F=(t,e)=>{const n=t.length-1,s=[];let i,r=2===e?"<svg>":"",o=O;for(let e=0;e<n;e++){const n=t[e];let a,l,d=-1,c=0;for(;c<n.length&&(o.lastIndex=c,l=o.exec(n),null!==l);)c=o.lastIndex,o===O?"!--"===l[1]?o=R:void 0!==l[1]?o=N:void 0!==l[2]?(L.test(l[2])&&(i=RegExp("</"+l[2],"g")),o=U):void 0!==l[3]&&(o=U):o===U?">"===l[0]?(o=null!=i?i:O,d=-1):void 0===l[1]?d=-2:(d=o.lastIndex-l[2].length,a=l[1],o=void 0===l[3]?U:'"'===l[3]?T:P):o===T||o===P?o=U:o===R||o===N?o=O:(o=U,i=void 0);const h=o===U&&t[e+1].startsWith("/>")?" ":"";r+=o===O?n+A:d>=0?(s.push(a),n.slice(0,d)+$+n.slice(d)+_+h):n+_+(-2===d?(s.push(void 0),e):h)}return[B(t,r+(t[n]||"<?>")+(2===e?"</svg>":"")),s]};class K{constructor({strings:t,_$litType$:e},n){let s;this.parts=[];let i=0,r=0;const o=t.length-1,a=this.parts,[l,d]=F(t,e);if(this.el=K.createElement(l,n),q.currentNode=this.el.content,2===e){const t=this.el.content,e=t.firstChild;e.remove(),t.append(...e.childNodes)}for(;null!==(s=q.nextNode())&&a.length<o;){if(1===s.nodeType){if(s.hasAttributes()){const t=[];for(const e of s.getAttributeNames())if(e.endsWith($)||e.startsWith(_)){const n=d[r++];if(t.push(e),void 0!==n){const t=s.getAttribute(n.toLowerCase()+$).split(_),e=/([.?@])?(.*)/.exec(n);a.push({type:1,index:i,name:e[2],strings:t,ctor:"."===e[1]?Z:"?"===e[1]?X:"@"===e[1]?Y:J})}else a.push({type:6,index:i})}for(const e of t)s.removeAttribute(e)}if(L.test(s.tagName)){const t=s.textContent.split(_),e=t.length-1;if(e>0){s.textContent=y?y.emptyScript:"";for(let n=0;n<e;n++)s.append(t[n],M()),q.nextNode(),a.push({type:2,index:++i});s.append(t[e],M())}}}else if(8===s.nodeType)if(s.data===k)a.push({type:2,index:i});else{let t=-1;for(;-1!==(t=s.data.indexOf(_,t+1));)a.push({type:7,index:i}),t+=_.length-1}i++}}static createElement(t,e){const n=S.createElement("template");return n.innerHTML=t,n}}function G(t,e,n=t,s){var i,r,o,a;if(e===H)return e;let l=void 0!==s?null===(i=n._$Co)||void 0===i?void 0:i[s]:n._$Cl;const d=E(e)?void 0:e._$litDirective$;return(null==l?void 0:l.constructor)!==d&&(null===(r=null==l?void 0:l._$AO)||void 0===r||r.call(l,!1),void 0===d?l=void 0:(l=new d(t),l._$AT(t,n,s)),void 0!==s?(null!==(o=(a=n)._$Co)&&void 0!==o?o:a._$Co=[])[s]=l:n._$Cl=l),void 0!==l&&(e=G(t,l._$AS(t,e.values),l,s)),e}class V{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){var e;const{el:{content:n},parts:s}=this._$AD,i=(null!==(e=null==t?void 0:t.creationScope)&&void 0!==e?e:S).importNode(n,!0);q.currentNode=i;let r=q.nextNode(),o=0,a=0,l=s[0];for(;void 0!==l;){if(o===l.index){let e;2===l.type?e=new W(r,r.nextSibling,this,t):1===l.type?e=new l.ctor(r,l.name,l.strings,this,t):6===l.type&&(e=new tt(r,this,t)),this._$AV.push(e),l=s[++a]}o!==(null==l?void 0:l.index)&&(r=q.nextNode(),o++)}return q.currentNode=S,i}v(t){let e=0;for(const n of this._$AV)void 0!==n&&(void 0!==n.strings?(n._$AI(t,n,e),e+=n.strings.length-2):n._$AI(t[e])),e++}}class W{constructor(t,e,n,s){var i;this.type=2,this._$AH=I,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=n,this.options=s,this._$Cp=null===(i=null==s?void 0:s.isConnected)||void 0===i||i}get _$AU(){var t,e;return null!==(e=null===(t=this._$AM)||void 0===t?void 0:t._$AU)&&void 0!==e?e:this._$Cp}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return void 0!==e&&11===(null==t?void 0:t.nodeType)&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=G(this,t,e),E(t)?t===I||null==t||""===t?(this._$AH!==I&&this._$AR(),this._$AH=I):t!==this._$AH&&t!==H&&this._(t):void 0!==t._$litType$?this.g(t):void 0!==t.nodeType?this.$(t):(t=>z(t)||"function"==typeof(null==t?void 0:t[Symbol.iterator]))(t)?this.T(t):this._(t)}k(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}$(t){this._$AH!==t&&(this._$AR(),this._$AH=this.k(t))}_(t){this._$AH!==I&&E(this._$AH)?this._$AA.nextSibling.data=t:this.$(S.createTextNode(t)),this._$AH=t}g(t){var e;const{values:n,_$litType$:s}=t,i="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=K.createElement(B(s.h,s.h[0]),this.options)),s);if((null===(e=this._$AH)||void 0===e?void 0:e._$AD)===i)this._$AH.v(n);else{const t=new V(i,this),e=t.u(this.options);t.v(n),this.$(e),this._$AH=t}}_$AC(t){let e=D.get(t.strings);return void 0===e&&D.set(t.strings,e=new K(t)),e}T(t){z(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let n,s=0;for(const i of t)s===e.length?e.push(n=new W(this.k(M()),this.k(M()),this,this.options)):n=e[s],n._$AI(i),s++;s<e.length&&(this._$AR(n&&n._$AB.nextSibling,s),e.length=s)}_$AR(t=this._$AA.nextSibling,e){var n;for(null===(n=this._$AP)||void 0===n||n.call(this,!1,!0,e);t&&t!==this._$AB;){const e=t.nextSibling;t.remove(),t=e}}setConnected(t){var e;void 0===this._$AM&&(this._$Cp=t,null===(e=this._$AP)||void 0===e||e.call(this,t))}}class J{constructor(t,e,n,s,i){this.type=1,this._$AH=I,this._$AN=void 0,this.element=t,this.name=e,this._$AM=s,this.options=i,n.length>2||""!==n[0]||""!==n[1]?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=I}get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}_$AI(t,e=this,n,s){const i=this.strings;let r=!1;if(void 0===i)t=G(this,t,e,0),r=!E(t)||t!==this._$AH&&t!==H,r&&(this._$AH=t);else{const s=t;let o,a;for(t=i[0],o=0;o<i.length-1;o++)a=G(this,s[n+o],e,o),a===H&&(a=this._$AH[o]),r||(r=!E(a)||a!==this._$AH[o]),a===I?t=I:t!==I&&(t+=(null!=a?a:"")+i[o+1]),this._$AH[o]=a}r&&!s&&this.j(t)}j(t){t===I?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"")}}class Z extends J{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===I?void 0:t}}const Q=y?y.emptyScript:"";class X extends J{constructor(){super(...arguments),this.type=4}j(t){t&&t!==I?this.element.setAttribute(this.name,Q):this.element.removeAttribute(this.name)}}class Y extends J{constructor(t,e,n,s,i){super(t,e,n,s,i),this.type=5}_$AI(t,e=this){var n;if((t=null!==(n=G(this,t,e,0))&&void 0!==n?n:I)===H)return;const s=this._$AH,i=t===I&&s!==I||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,r=t!==I&&(s===I||i);i&&this.element.removeEventListener(this.name,this,s),r&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){var e,n;"function"==typeof this._$AH?this._$AH.call(null!==(n=null===(e=this.options)||void 0===e?void 0:e.host)&&void 0!==n?n:this.element,t):this._$AH.handleEvent(t)}}class tt{constructor(t,e,n){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(t){G(this,t)}}const et=w.litHtmlPolyfillSupport;null==et||et(K,W),(null!==(v=w.litHtmlVersions)&&void 0!==v?v:w.litHtmlVersions=[]).push("2.8.0");
+ */;var l;const d=window,c=d.trustedTypes,h=c?c.emptyScript:"",p=d.reactiveElementPolyfillSupport,g={toAttribute(t,e){switch(e){case Boolean:t=t?h:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t)}return t},fromAttribute(t,e){let s=t;switch(e){case Boolean:s=null!==t;break;case Number:s=null===t?null:Number(t);break;case Object:case Array:try{s=JSON.parse(t)}catch(t){s=null}}return s}},m=(t,e)=>e!==t&&(e==e||t==t),u={attribute:!0,type:String,converter:g,reflect:!1,hasChanged:m},v="finalized";let f=class extends HTMLElement{constructor(){super(),this._$Ei=new Map,this.isUpdatePending=!1,this.hasUpdated=!1,this._$El=null,this._$Eu()}static addInitializer(t){var e;this.finalize(),(null!==(e=this.h)&&void 0!==e?e:this.h=[]).push(t)}static get observedAttributes(){this.finalize();const t=[];return this.elementProperties.forEach(((e,s)=>{const n=this._$Ep(s,e);void 0!==n&&(this._$Ev.set(n,s),t.push(n))})),t}static createProperty(t,e=u){if(e.state&&(e.attribute=!1),this.finalize(),this.elementProperties.set(t,e),!e.noAccessor&&!this.prototype.hasOwnProperty(t)){const s="symbol"==typeof t?Symbol():"__"+t,n=this.getPropertyDescriptor(t,s,e);void 0!==n&&Object.defineProperty(this.prototype,t,n)}}static getPropertyDescriptor(t,e,s){return{get(){return this[e]},set(n){const i=this[t];this[e]=n,this.requestUpdate(t,i,s)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)||u}static finalize(){if(this.hasOwnProperty(v))return!1;this[v]=!0;const t=Object.getPrototypeOf(this);if(t.finalize(),void 0!==t.h&&(this.h=[...t.h]),this.elementProperties=new Map(t.elementProperties),this._$Ev=new Map,this.hasOwnProperty("properties")){const t=this.properties,e=[...Object.getOwnPropertyNames(t),...Object.getOwnPropertySymbols(t)];for(const s of e)this.createProperty(s,t[s])}return this.elementStyles=this.finalizeStyles(this.styles),!0}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const s=new Set(t.flat(1/0).reverse());for(const t of s)e.unshift(r(t))}else void 0!==t&&e.push(r(t));return e}static _$Ep(t,e){const s=e.attribute;return!1===s?void 0:"string"==typeof s?s:"string"==typeof t?t.toLowerCase():void 0}_$Eu(){var t;this._$E_=new Promise((t=>this.enableUpdating=t)),this._$AL=new Map,this._$Eg(),this.requestUpdate(),null===(t=this.constructor.h)||void 0===t||t.forEach((t=>t(this)))}addController(t){var e,s;(null!==(e=this._$ES)&&void 0!==e?e:this._$ES=[]).push(t),void 0!==this.renderRoot&&this.isConnected&&(null===(s=t.hostConnected)||void 0===s||s.call(t))}removeController(t){var e;null===(e=this._$ES)||void 0===e||e.splice(this._$ES.indexOf(t)>>>0,1)}_$Eg(){this.constructor.elementProperties.forEach(((t,e)=>{this.hasOwnProperty(e)&&(this._$Ei.set(e,this[e]),delete this[e])}))}createRenderRoot(){var t;const e=null!==(t=this.shadowRoot)&&void 0!==t?t:this.attachShadow(this.constructor.shadowRootOptions);return((t,e)=>{n?t.adoptedStyleSheets=e.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet)):e.forEach((e=>{const n=document.createElement("style"),i=s.litNonce;void 0!==i&&n.setAttribute("nonce",i),n.textContent=e.cssText,t.appendChild(n)}))})(e,this.constructor.elementStyles),e}connectedCallback(){var t;void 0===this.renderRoot&&(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),null===(t=this._$ES)||void 0===t||t.forEach((t=>{var e;return null===(e=t.hostConnected)||void 0===e?void 0:e.call(t)}))}enableUpdating(t){}disconnectedCallback(){var t;null===(t=this._$ES)||void 0===t||t.forEach((t=>{var e;return null===(e=t.hostDisconnected)||void 0===e?void 0:e.call(t)}))}attributeChangedCallback(t,e,s){this._$AK(t,s)}_$EO(t,e,s=u){var n;const i=this.constructor._$Ep(t,s);if(void 0!==i&&!0===s.reflect){const a=(void 0!==(null===(n=s.converter)||void 0===n?void 0:n.toAttribute)?s.converter:g).toAttribute(e,s.type);this._$El=t,null==a?this.removeAttribute(i):this.setAttribute(i,a),this._$El=null}}_$AK(t,e){var s;const n=this.constructor,i=n._$Ev.get(t);if(void 0!==i&&this._$El!==i){const t=n.getPropertyOptions(i),a="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==(null===(s=t.converter)||void 0===s?void 0:s.fromAttribute)?t.converter:g;this._$El=i,this[i]=a.fromAttribute(e,t.type),this._$El=null}}requestUpdate(t,e,s){let n=!0;void 0!==t&&(((s=s||this.constructor.getPropertyOptions(t)).hasChanged||m)(this[t],e)?(this._$AL.has(t)||this._$AL.set(t,e),!0===s.reflect&&this._$El!==t&&(void 0===this._$EC&&(this._$EC=new Map),this._$EC.set(t,s))):n=!1),!this.isUpdatePending&&n&&(this._$E_=this._$Ej())}async _$Ej(){this.isUpdatePending=!0;try{await this._$E_}catch(t){Promise.reject(t)}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var t;if(!this.isUpdatePending)return;this.hasUpdated,this._$Ei&&(this._$Ei.forEach(((t,e)=>this[e]=t)),this._$Ei=void 0);let e=!1;const s=this._$AL;try{e=this.shouldUpdate(s),e?(this.willUpdate(s),null===(t=this._$ES)||void 0===t||t.forEach((t=>{var e;return null===(e=t.hostUpdate)||void 0===e?void 0:e.call(t)})),this.update(s)):this._$Ek()}catch(t){throw e=!1,this._$Ek(),t}e&&this._$AE(s)}willUpdate(t){}_$AE(t){var e;null===(e=this._$ES)||void 0===e||e.forEach((t=>{var e;return null===(e=t.hostUpdated)||void 0===e?void 0:e.call(t)})),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$Ek(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$E_}shouldUpdate(t){return!0}update(t){void 0!==this._$EC&&(this._$EC.forEach(((t,e)=>this._$EO(e,this[e],t))),this._$EC=void 0),this._$Ek()}updated(t){}firstUpdated(t){}};
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-var nt,st;class it extends f{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var t,e;const n=super.createRenderRoot();return null!==(t=(e=this.renderOptions).renderBefore)&&void 0!==t||(e.renderBefore=n.firstChild),n}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=((t,e,n)=>{var s,i;const r=null!==(s=null==n?void 0:n.renderBefore)&&void 0!==s?s:e;let o=r._$litPart$;if(void 0===o){const t=null!==(i=null==n?void 0:n.renderBefore)&&void 0!==i?i:null;r._$litPart$=o=new W(e.insertBefore(M(),t),t,void 0,null!=n?n:{})}return o._$AI(t),o})(e,this.renderRoot,this.renderOptions)}connectedCallback(){var t;super.connectedCallback(),null===(t=this._$Do)||void 0===t||t.setConnected(!0)}disconnectedCallback(){var t;super.disconnectedCallback(),null===(t=this._$Do)||void 0===t||t.setConnected(!1)}render(){return H}}it.finalized=!0,it._$litElement$=!0,null===(nt=globalThis.litElementHydrateSupport)||void 0===nt||nt.call(globalThis,{LitElement:it});const rt=globalThis.litElementPolyfillSupport;null==rt||rt({LitElement:it}),(null!==(st=globalThis.litElementVersions)&&void 0!==st?st:globalThis.litElementVersions=[]).push("3.3.3");
+var b;f[v]=!0,f.elementProperties=new Map,f.elementStyles=[],f.shadowRootOptions={mode:"open"},null==p||p({ReactiveElement:f}),(null!==(l=d.reactiveElementVersions)&&void 0!==l?l:d.reactiveElementVersions=[]).push("1.6.3");const x=window,y=x.trustedTypes,$=y?y.createPolicy("lit-html",{createHTML:t=>t}):void 0,w="$lit$",_=`lit$${(Math.random()+"").slice(9)}$`,k="?"+_,S=`<${k}>`,A=document,M=()=>A.createComment(""),E=t=>null===t||"object"!=typeof t&&"function"!=typeof t,C=Array.isArray,T="[ \t\n\f\r]",O=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,I=/-->/g,L=/>/g,N=RegExp(`>|${T}(?:([^\\s"'>=/]+)(${T}*=${T}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),z=/'/g,U=/"/g,D=/^(?:script|style|textarea|title)$/i,R=(t=>(e,...s)=>({_$litType$:t,strings:e,values:s}))(1),P=Symbol.for("lit-noChange"),H=Symbol.for("lit-nothing"),j=new WeakMap,B=A.createTreeWalker(A,129,null,!1);function q(t,e){if(!Array.isArray(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==$?$.createHTML(e):e}const K=(t,e)=>{const s=t.length-1,n=[];let i,a=2===e?"<svg>":"",o=O;for(let e=0;e<s;e++){const s=t[e];let r,l,d=-1,c=0;for(;c<s.length&&(o.lastIndex=c,l=o.exec(s),null!==l);)c=o.lastIndex,o===O?"!--"===l[1]?o=I:void 0!==l[1]?o=L:void 0!==l[2]?(D.test(l[2])&&(i=RegExp("</"+l[2],"g")),o=N):void 0!==l[3]&&(o=N):o===N?">"===l[0]?(o=null!=i?i:O,d=-1):void 0===l[1]?d=-2:(d=o.lastIndex-l[2].length,r=l[1],o=void 0===l[3]?N:'"'===l[3]?U:z):o===U||o===z?o=N:o===I||o===L?o=O:(o=N,i=void 0);const h=o===N&&t[e+1].startsWith("/>")?" ":"";a+=o===O?s+S:d>=0?(n.push(r),s.slice(0,d)+w+s.slice(d)+_+h):s+_+(-2===d?(n.push(void 0),e):h)}return[q(t,a+(t[s]||"<?>")+(2===e?"</svg>":"")),n]};class G{constructor({strings:t,_$litType$:e},s){let n;this.parts=[];let i=0,a=0;const o=t.length-1,r=this.parts,[l,d]=K(t,e);if(this.el=G.createElement(l,s),B.currentNode=this.el.content,2===e){const t=this.el.content,e=t.firstChild;e.remove(),t.append(...e.childNodes)}for(;null!==(n=B.nextNode())&&r.length<o;){if(1===n.nodeType){if(n.hasAttributes()){const t=[];for(const e of n.getAttributeNames())if(e.endsWith(w)||e.startsWith(_)){const s=d[a++];if(t.push(e),void 0!==s){const t=n.getAttribute(s.toLowerCase()+w).split(_),e=/([.?@])?(.*)/.exec(s);r.push({type:1,index:i,name:e[2],strings:t,ctor:"."===e[1]?J:"?"===e[1]?Q:"@"===e[1]?X:W})}else r.push({type:6,index:i})}for(const e of t)n.removeAttribute(e)}if(D.test(n.tagName)){const t=n.textContent.split(_),e=t.length-1;if(e>0){n.textContent=y?y.emptyScript:"";for(let s=0;s<e;s++)n.append(t[s],M()),B.nextNode(),r.push({type:2,index:++i});n.append(t[e],M())}}}else if(8===n.nodeType)if(n.data===k)r.push({type:2,index:i});else{let t=-1;for(;-1!==(t=n.data.indexOf(_,t+1));)r.push({type:7,index:i}),t+=_.length-1}i++}}static createElement(t,e){const s=A.createElement("template");return s.innerHTML=t,s}}function F(t,e,s=t,n){var i,a,o,r;if(e===P)return e;let l=void 0!==n?null===(i=s._$Co)||void 0===i?void 0:i[n]:s._$Cl;const d=E(e)?void 0:e._$litDirective$;return(null==l?void 0:l.constructor)!==d&&(null===(a=null==l?void 0:l._$AO)||void 0===a||a.call(l,!1),void 0===d?l=void 0:(l=new d(t),l._$AT(t,s,n)),void 0!==n?(null!==(o=(r=s)._$Co)&&void 0!==o?o:r._$Co=[])[n]=l:s._$Cl=l),void 0!==l&&(e=F(t,l._$AS(t,e.values),l,n)),e}class V{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){var e;const{el:{content:s},parts:n}=this._$AD,i=(null!==(e=null==t?void 0:t.creationScope)&&void 0!==e?e:A).importNode(s,!0);B.currentNode=i;let a=B.nextNode(),o=0,r=0,l=n[0];for(;void 0!==l;){if(o===l.index){let e;2===l.type?e=new Z(a,a.nextSibling,this,t):1===l.type?e=new l.ctor(a,l.name,l.strings,this,t):6===l.type&&(e=new tt(a,this,t)),this._$AV.push(e),l=n[++r]}o!==(null==l?void 0:l.index)&&(a=B.nextNode(),o++)}return B.currentNode=A,i}v(t){let e=0;for(const s of this._$AV)void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,e),e+=s.strings.length-2):s._$AI(t[e])),e++}}class Z{constructor(t,e,s,n){var i;this.type=2,this._$AH=H,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=s,this.options=n,this._$Cp=null===(i=null==n?void 0:n.isConnected)||void 0===i||i}get _$AU(){var t,e;return null!==(e=null===(t=this._$AM)||void 0===t?void 0:t._$AU)&&void 0!==e?e:this._$Cp}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return void 0!==e&&11===(null==t?void 0:t.nodeType)&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=F(this,t,e),E(t)?t===H||null==t||""===t?(this._$AH!==H&&this._$AR(),this._$AH=H):t!==this._$AH&&t!==P&&this._(t):void 0!==t._$litType$?this.g(t):void 0!==t.nodeType?this.$(t):(t=>C(t)||"function"==typeof(null==t?void 0:t[Symbol.iterator]))(t)?this.T(t):this._(t)}k(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}$(t){this._$AH!==t&&(this._$AR(),this._$AH=this.k(t))}_(t){this._$AH!==H&&E(this._$AH)?this._$AA.nextSibling.data=t:this.$(A.createTextNode(t)),this._$AH=t}g(t){var e;const{values:s,_$litType$:n}=t,i="number"==typeof n?this._$AC(t):(void 0===n.el&&(n.el=G.createElement(q(n.h,n.h[0]),this.options)),n);if((null===(e=this._$AH)||void 0===e?void 0:e._$AD)===i)this._$AH.v(s);else{const t=new V(i,this),e=t.u(this.options);t.v(s),this.$(e),this._$AH=t}}_$AC(t){let e=j.get(t.strings);return void 0===e&&j.set(t.strings,e=new G(t)),e}T(t){C(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let s,n=0;for(const i of t)n===e.length?e.push(s=new Z(this.k(M()),this.k(M()),this,this.options)):s=e[n],s._$AI(i),n++;n<e.length&&(this._$AR(s&&s._$AB.nextSibling,n),e.length=n)}_$AR(t=this._$AA.nextSibling,e){var s;for(null===(s=this._$AP)||void 0===s||s.call(this,!1,!0,e);t&&t!==this._$AB;){const e=t.nextSibling;t.remove(),t=e}}setConnected(t){var e;void 0===this._$AM&&(this._$Cp=t,null===(e=this._$AP)||void 0===e||e.call(this,t))}}class W{constructor(t,e,s,n,i){this.type=1,this._$AH=H,this._$AN=void 0,this.element=t,this.name=e,this._$AM=n,this.options=i,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=H}get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}_$AI(t,e=this,s,n){const i=this.strings;let a=!1;if(void 0===i)t=F(this,t,e,0),a=!E(t)||t!==this._$AH&&t!==P,a&&(this._$AH=t);else{const n=t;let o,r;for(t=i[0],o=0;o<i.length-1;o++)r=F(this,n[s+o],e,o),r===P&&(r=this._$AH[o]),a||(a=!E(r)||r!==this._$AH[o]),r===H?t=H:t!==H&&(t+=(null!=r?r:"")+i[o+1]),this._$AH[o]=r}a&&!n&&this.j(t)}j(t){t===H?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"")}}class J extends W{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===H?void 0:t}}const Y=y?y.emptyScript:"";class Q extends W{constructor(){super(...arguments),this.type=4}j(t){t&&t!==H?this.element.setAttribute(this.name,Y):this.element.removeAttribute(this.name)}}class X extends W{constructor(t,e,s,n,i){super(t,e,s,n,i),this.type=5}_$AI(t,e=this){var s;if((t=null!==(s=F(this,t,e,0))&&void 0!==s?s:H)===P)return;const n=this._$AH,i=t===H&&n!==H||t.capture!==n.capture||t.once!==n.once||t.passive!==n.passive,a=t!==H&&(n===H||i);i&&this.element.removeEventListener(this.name,this,n),a&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){var e,s;"function"==typeof this._$AH?this._$AH.call(null!==(s=null===(e=this.options)||void 0===e?void 0:e.host)&&void 0!==s?s:this.element,t):this._$AH.handleEvent(t)}}class tt{constructor(t,e,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=s}get _$AU(){return this._$AM._$AU}_$AI(t){F(this,t)}}const et=x.litHtmlPolyfillSupport;null==et||et(G,Z),(null!==(b=x.litHtmlVersions)&&void 0!==b?b:x.litHtmlVersions=[]).push("2.8.0");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const ot=t=>e=>"function"==typeof e?((t,e)=>(customElements.define(t,e),e))(t,e):((t,e)=>{const{kind:n,elements:s}=e;return{kind:n,elements:s,finisher(e){customElements.define(t,e)}}})(t,e)
+var st,nt;class it extends f{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){var t,e;const s=super.createRenderRoot();return null!==(t=(e=this.renderOptions).renderBefore)&&void 0!==t||(e.renderBefore=s.firstChild),s}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=((t,e,s)=>{var n,i;const a=null!==(n=null==s?void 0:s.renderBefore)&&void 0!==n?n:e;let o=a._$litPart$;if(void 0===o){const t=null!==(i=null==s?void 0:s.renderBefore)&&void 0!==i?i:null;a._$litPart$=o=new Z(e.insertBefore(M(),t),t,void 0,null!=s?s:{})}return o._$AI(t),o})(e,this.renderRoot,this.renderOptions)}connectedCallback(){var t;super.connectedCallback(),null===(t=this._$Do)||void 0===t||t.setConnected(!0)}disconnectedCallback(){var t;super.disconnectedCallback(),null===(t=this._$Do)||void 0===t||t.setConnected(!1)}render(){return P}}it.finalized=!0,it._$litElement$=!0,null===(st=globalThis.litElementHydrateSupport)||void 0===st||st.call(globalThis,{LitElement:it});const at=globalThis.litElementPolyfillSupport;null==at||at({LitElement:it}),(null!==(nt=globalThis.litElementVersions)&&void 0!==nt?nt:globalThis.litElementVersions=[]).push("3.3.3");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */,at=(t,e)=>"method"===e.kind&&e.descriptor&&!("value"in e.descriptor)?{...e,finisher(n){n.createProperty(e.key,t)}}:{kind:"field",key:Symbol(),placement:"own",descriptor:{},originalKey:e.key,initializer(){"function"==typeof e.initializer&&(this[e.key]=e.initializer.call(this))},finisher(n){n.createProperty(e.key,t)}},lt=(t,e,n)=>{e.constructor.createProperty(n,t)};function dt(t){return(e,n)=>void 0!==n?lt(t,e,n):at(t,e)}
+ */
+const ot=t=>e=>"function"==typeof e?((t,e)=>(customElements.define(t,e),e))(t,e):((t,e)=>{const{kind:s,elements:n}=e;return{kind:s,elements:n,finisher(e){customElements.define(t,e)}}})(t,e)
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */,rt=(t,e)=>"method"===e.kind&&e.descriptor&&!("value"in e.descriptor)?{...e,finisher(s){s.createProperty(e.key,t)}}:{kind:"field",key:Symbol(),placement:"own",descriptor:{},originalKey:e.key,initializer(){"function"==typeof e.initializer&&(this[e.key]=e.initializer.call(this))},finisher(s){s.createProperty(e.key,t)}},lt=(t,e,s)=>{e.constructor.createProperty(s,t)};function dt(t){return(e,s)=>void 0!==s?lt(t,e,s):rt(t,e)}
 /**
  * @license
  * Copyright 2017 Google LLC
@@ -41,297 +41,500 @@ const ot=t=>e=>"function"==typeof e?((t,e)=>(customElements.define(t,e),e))(t,e)
  * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */var ht;null===(ht=window.HTMLSlotElement)||void 0===ht||ht.prototype.assignedElements;let pt=class extends it{constructor(){super(...arguments),this.messages=[],this.sortOrder="asc",this.groupMessages=!0}createRenderRoot(){return this}handleEdit(t){this.dispatchEvent(new CustomEvent("edit",{detail:t}))}loadConfig(){const t=localStorage.getItem("messages-store-config");t&&(this.groupMessages=JSON.parse(t).groupMessages)}handleDelete(t){this.loadConfig();const e=t.originalMessage.length>1;if(confirm(`Are you sure you want to delete the message with slug "${t.slug}"?`))if(e&&!this.groupMessages){const e=t.originalMessage.filter((e=>e!==t.message));this.dispatchEvent(new CustomEvent("save",{detail:{slug:t.slug,messages:e,service:"edit_message"}}))}else this.dispatchEvent(new CustomEvent("delete",{detail:t.slug}))}formatMessage(t){const e="bg-zinc-700 p-0 px-0 font-semibold rounded shadow";return t.replace(/\(state:[^)]+\)/g,(t=>`<span class="${e}">${t}</span>`)).replace(/\(slug:[^)]+\)/g,(t=>`<span class="${e}">${t}</span>`)).replace(/%s/g,(t=>`<span class="${e}">${t}</span>`))}handleSortClick(){this.sortOrder="asc"===this.sortOrder?"desc":"asc",this.dispatchEvent(new CustomEvent("sort",{detail:this.sortOrder}))}render(){return j`
-			<table class="min-w-full text-sm border-collapse">
-				<thead>
-					<tr>
-						<th
-							class="px-4 py-3 text-left border-b border-zinc-600 w-1/5 cursor-pointer"
-							@click=${this.handleSortClick}
-						>
-							Slug ${"asc"===this.sortOrder?"↑":"↓"}
-						</th>
-						<th
-							class="px-4 py-3 text-left border-b border-zinc-600"
-						>
-							Message
-						</th>
-						<th
-							class="px-4 py-3 text-left border-b border-zinc-600"
-						></th>
-					</tr>
-				</thead>
-				<tbody>
-					${this.messages.map(((t,e)=>j`
-							<tr
-								class="hover:bg-zinc-800"
-								key="${t.slug+e}"
-							>
-								<td class="border-b border-zinc-600 px-4 py-3">
-									<span
-										class="bg-zinc-700 p-1 px-3 font-semibold rounded shadow"
-									>
-										${t.slug}
-									</span>
-								</td>
-								<td class="border-b border-zinc-600 px-4 py-3">
-									${t.message.split("| ").map((t=>j`
-												<div
-													.innerHTML=${this.formatMessage(t)}
-												></div>
-											`))}
-								</td>
-								<td
-									class="border-b border-zinc-600 px-4 py-3 text-right"
+ */var ht;null===(ht=window.HTMLSlotElement)||void 0===ht||ht.prototype.assignedElements;let pt=class extends it{constructor(){super(...arguments),this.messages=[],this.sortOrder="asc",this.groupMessages=!0}createRenderRoot(){return this}handleEdit(t){this.dispatchEvent(new CustomEvent("edit",{detail:t}))}handleDelete(t){const e=!this.groupMessages&&t.originalMessage.length>1;this.dispatchEvent(new CustomEvent("confirm-delete",{detail:Object.assign(Object.assign({},t),{removeSingleMessage:e})}))}formatMessage(t){return t.split(/(\(state:[^)]+\)|\(slug:[^)]+\)|%s)/g).map((t=>/^\(state:[^)]+\)$|^\(slug:[^)]+\)$|^%s$/.test(t)?R`<span class="ms-message-token">${t}</span>`:t))}resolveStateMessage(t){return t.replace(/\(state:([a-zA-Z0-9_\.]+)(?:\((.*?)\))?\)/g,((t,e,s)=>{var n,i,a;const o=null===(i=null===(n=this.hass)||void 0===n?void 0:n.states)||void 0===i?void 0:i[e];if(!o)return t;const r=s?s.split(",").map((t=>t.trim())):[],l=Number.parseFloat(o.state);let d=o.state;if(Number.isFinite(l)){const t=r.find((t=>t.startsWith("round")));if(r.includes("round"))d=Math.round(l);else if(t){const e=Number.parseInt(t.replace("round",""),10);Number.isFinite(e)&&(d=l.toFixed(e))}}return r.includes("unit")&&(null===(a=o.attributes)||void 0===a?void 0:a.unit_of_measurement)&&(d=`${d} ${o.attributes.unit_of_measurement}`),String(d)}))}resolveMessage(t,e=[]){const s=t.replace(/\(slug:([^)]+)\)/g,((t,s)=>{if(e.includes(s))return t;const n=this.messages.find((t=>t.slug===s));return n?this.resolveMessage(n.message,[...e,s]):t}));return this.resolveStateMessage(s)}handleSortClick(){this.sortOrder="asc"===this.sortOrder?"desc":"asc",this.dispatchEvent(new CustomEvent("sort",{detail:this.sortOrder}))}render(){return R`
+			<div class="ms-table-wrap">
+				<table class="ms-table">
+					<thead>
+						<tr>
+							<th scope="col">
+								<button
+									class="ms-sort-button"
+									@click=${this.handleSortClick}
+									aria-label="Sort by slug"
 								>
-									<button
-										class="text-zinc-300 hover:text-zinc-400 px-2 py-1"
-										@click=${()=>this.handleEdit(t)}
-										title="Edit Message"
+									<span>Slug</span>
+									<svg
+										class="${"desc"===this.sortOrder?"is-desc":""}"
+										viewBox="0 0 24 24"
+										aria-hidden="true"
 									>
-										Edit
-									</button>
-									<button
-										class="text-red-300 hover:text-red-400 ml-4 px-2 py-1"
-										@click=${()=>this.handleDelete(t)}
-										title="Delete Message"
+										<path d="m7 10 5 5 5-5" />
+									</svg>
+								</button>
+							</th>
+							<th scope="col">Message</th>
+							<th scope="col" class="ms-actions-heading">
+								<span class="sr-only">Actions</span>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						${this.messages.map(((t,e)=>R`
+								<tr
+									class="ms-message-row"
+									key="${t.slug+e}"
+								>
+									<td data-label="Slug">
+										<div class="ms-slug">${t.slug}</div>
+										${this.groupMessages&&t.originalMessage.length>1?R`<div class="ms-row-meta">
+													${t.originalMessage.length}
+													messages
+												</div>`:H}
+									</td>
+					<td data-label="Message">
+							<div
+								class="ms-message-hover ${/\((state|slug):[^)]+\)/.test(t.message)?"has-state-tooltip":""}"
+								tabindex="${/\((state|slug):[^)]+\)/.test(t.message)?"0":"-1"}"
+							>
+								<div class="ms-message-preview">
+									${t.message.split("| ").map((t=>R`<div>
+												${this.formatMessage(t)}
+											</div>`))}
+								</div>
+								${/\((state|slug):[^)]+\)/.test(t.message)?R`<div class="ms-message-tooltip" role="tooltip">
+											<strong>${t.slug}</strong>
+											<span>${this.resolveMessage(t.message,[t.slug])}</span>
+										</div>`:H}
+							</div>
+									</td>
+									<td
+										data-label="Actions"
+										class="ms-row-actions"
 									>
-										Delete
-									</button>
-								</td>
-							</tr>
-						`))}
-				</tbody>
-			</table>
-		`}};t([dt({type:Array})],pt.prototype,"messages",void 0),t([dt({type:String})],pt.prototype,"sortOrder",void 0),t([ct()],pt.prototype,"groupMessages",void 0),pt=t([ot("messages-store-list")],pt);let ut=class extends it{constructor(){super(...arguments),this.instructions="",this.quantity=5,this.taskName="",this.slug="",this.loading=!1,this.error="",this.initialSlug=""}createRenderRoot(){return this}firstUpdated(){var t;this.focusInput(),this.slug=null!==(t=this.initialSlug)&&void 0!==t?t:"",this.taskName=`AI Task ${this.initialSlug}`,this.instructions=this.initialSlug?"Generate messages for slug":""}focusInput(){if(this.initialSlug){const t=this.renderRoot.querySelector("#save");t&&t.focus()}else{const t=this.renderRoot.querySelector("textarea");t&&t.focus()}}handleClose(){this.dispatchEvent(new CustomEvent("close"))}async handleGenerate(){var t;if(this.error="",!this.instructions||!this.taskName||!this.quantity)return void(this.error="Fill all required fields.");this.loading=!0;const n=await e(this.hass,"messages_store","generate_ai_messages",{instructions:this.instructions,quantity:Number(this.quantity),task_name:this.taskName,slug:this.slug||void 0});return"error"==(null==n?void 0:n.status)?(this.error=(null===(t=null==n?void 0:n.error)||void 0===t?void 0:t.message)||"Service call failed",void(this.loading=!1)):n&&!n.status?(this.error=(null==n?void 0:n.message)||"Unknown error",void(this.loading=!1)):void(n&&n.status&&(this.dispatchEvent(new CustomEvent("aiMessages",{detail:{slug:n.slug,messages:n.messages}})),this.handleClose(),this.loading=!1))}render(){return j`
-			<div
-				class="fixed inset-0 flex items-center justify-center z-90 bg-zinc-900 bg-opacity-50 backdrop-blur-sm" style="z-index: 9999;"
-			>
-				<div
-						class="bg-zinc-800 text-white p-6 rounded-lg shadow-2xl w-full max-w-lg mx-4 sm:mx-6 md:w-2/3 lg:w-1/3 border-[1px] border-zinc-700 relative" 
-				>
-					<h2 class="text-xl mb-5 font-bold">
-						Generate Messages with AI
-					</h2>
-					<div class="mb-3">
-						<label class="block mb-1 text-sm">Task Name *</label>
-						<input
-							type="text"
-							class="w-full p-2 bg-zinc-700 border-b-2 border-zinc-600 text-white"
-							.value=${this.taskName}
-							@input=${t=>this.taskName=t.target.value}
-						/>
-                    </div>    
-                    <div class="mb-3">
-                        <label class="block mb-1 text-sm">Instructions *</label>
-						<textarea
-							class="w-full p-2 bg-zinc-700 border-b-2 border-zinc-600 text-white"
-							.value=${this.instructions}
-							@input=${t=>this.instructions=t.target.value}
-						></textarea>
-                        <div
-                            class="text-sm text-zinc-400 mt-2 mb-2"
-                        >
-                            <span class="text-zinc-300"
-                                >Ex: generates messages for when I get home, I will use it for tts</span
-                            >
-                        </div>
-					</div>
-					<div class="mb-3">
-						<label class="block mb-1 text-sm">Quantity messages *</label>
-						<input
-							type="number"
-							min="1"
-							class="w-full p-2 bg-zinc-700 border-b-2 border-zinc-600 text-white"
-							.value=${this.quantity}
-							@input=${t=>this.quantity=t.target.value}
-						/>
-					</div>
-					<div class="mb-3">
-						<label class="block mb-1 text-sm"
-							>Slug base (optional)</label
-						>
-						<input
-							type="text"
-							class="w-full p-2 bg-zinc-700 border-b-2 border-zinc-600 text-white"
-							.value=${this.slug}
-							@input=${t=>this.slug=t.target.value}
-						/>
-					</div>
-					${this.error?j`<div class="text-red-400 mb-2">
-								${this.error}
-							</div>`:""}
-					<div class="flex justify-end mt-4">
-						<button id="save"
-							class="bg-green-500 text-white font-bold px-6 py-2 rounded mr-2"
-							@click=${this.handleGenerate}
-							?disabled=${this.loading}
-						>
-							${this.loading?"Generating...":"Generate"}
-						</button>
-						<button
-							class="bg-zinc-500 font-bold text-white px-6 py-2 rounded"
-							@click=${this.handleClose}
-						>
-							Cancel
-						</button>
-					</div>
-				</div>
+										<button
+								class="ms-icon-button ms-tooltip-trigger"
+								data-tooltip="Edit message"
+											@click=${()=>this.handleEdit(t)}
+											aria-label="Edit ${t.slug}"
+										>
+											<svg
+												viewBox="0 0 24 24"
+												aria-hidden="true"
+											>
+												<path d="M12 20h9" />
+												<path
+													d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"
+												/>
+											</svg>
+										</button>
+										<button
+								class="ms-icon-button ms-icon-danger ms-tooltip-trigger"
+								data-tooltip="Delete message"
+											@click=${()=>this.handleDelete(t)}
+											aria-label="Delete ${t.slug}"
+										>
+											<svg
+												viewBox="0 0 24 24"
+												aria-hidden="true"
+											>
+												<path
+													d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6"
+												/>
+											</svg>
+										</button>
+									</td>
+								</tr>
+							`))}
+					</tbody>
+				</table>
 			</div>
-		`}};t([ct()],ut.prototype,"instructions",void 0),t([ct()],ut.prototype,"quantity",void 0),t([ct()],ut.prototype,"taskName",void 0),t([ct()],ut.prototype,"slug",void 0),t([ct()],ut.prototype,"loading",void 0),t([ct()],ut.prototype,"error",void 0),t([dt({type:Object})],ut.prototype,"hass",void 0),t([dt({type:String})],ut.prototype,"initialSlug",void 0),ut=t([ot("messages-store-ai-modal")],ut);let gt=class extends it{constructor(){super(...arguments),this.messages=[],this.initialSlug="",this.initialMessages=[],this.slug="",this.messageList=[""],this.isAIModalOpen=!1,this.handleKeyDown=t=>{"Escape"===t.key&&this.closeModal(),t.ctrlKey&&t.altKey&&"s"===t.key.toLowerCase()&&this.handleSave()}}createRenderRoot(){return this}connectedCallback(){var t,e;super.connectedCallback(),this.slug=null!==(t=this.initialSlug)&&void 0!==t?t:"",this.messageList=null!==(e=this.initialMessages)&&void 0!==e?e:[""],document.addEventListener("keydown",this.handleKeyDown)}disconnectedCallback(){document.removeEventListener("keydown",this.handleKeyDown),super.disconnectedCallback()}firstUpdated(){this.initialSlug?this.focusMessage(0):this.focusSlug()}handleAddMessage(){this.messageList=[...this.messageList,""],setTimeout((()=>this.focusMessage(this.messageList.length-1)),0)}handleRemoveMessage(t){this.messageList=this.messageList.filter(((e,n)=>n!==t))}handleSave(){const t=this.initialSlug?"edit_message":"add_message";this.dispatchEvent(new CustomEvent("save",{detail:{slug:this.slug,messages:this.messageList,service:t}}))}closeModal(){this.dispatchEvent(new CustomEvent("close"))}focusSlug(){const t=this.renderRoot.querySelector('input[type="text"]');t&&t.focus()}focusMessage(t){const e=this.renderRoot.querySelectorAll("textarea");e&&e[t]&&e[t].focus()}aiMessages(t){const{slug:e,messages:n}=t.detail;this.slug||(this.slug=e);let s=[...this.messageList,...n];s.length>0&&""===s[0]&&(s=s.slice(1)),this.messageList=s}previewMessage(t){return t.replace(/\(slug:([^)]+)\)/g,((t,e)=>{if(e===this.slug)return t;const n=this.messages.filter((t=>t.slug===e));if(0===n.length)return t;const s=n[0].message;return/\(slug:[^)]+\)/.test(s)?t:s})).replace(/\(state:([a-zA-Z0-9_\.]+)(?:\((.*?)\))?\)/g,((t,e,n)=>{const s=this.hass.states[e];if(!s)return t;let i=s.state;const r=s.attributes.unit_of_measurement||"";let o=i;const a=!isNaN(parseFloat(i))&&isFinite(i);if(n=n?n.split(",").map((t=>t.trim())):[],a)if(i=parseFloat(i),n.includes("round"))o=Math.round(i);else{const t=n.find((t=>t.startsWith("round")));if(t){const e=parseInt(t.replace("round",""),10);o=i.toFixed(e)}}return n.includes("unit")&&r&&(o=`${o} ${r}`),o}))}render(){return j`
+		`}};t([dt({type:Array})],pt.prototype,"messages",void 0),t([dt({type:String})],pt.prototype,"sortOrder",void 0),t([dt({type:Boolean})],pt.prototype,"groupMessages",void 0),t([dt({type:Object})],pt.prototype,"hass",void 0),pt=t([ot("messages-store-list")],pt);let gt=class extends it{constructor(){super(...arguments),this.instructions="",this.quantity=5,this.taskName="",this.slug="",this.loading=!1,this.error="",this.initialSlug=""}createRenderRoot(){return this}firstUpdated(){var t;this.slug=null!==(t=this.initialSlug)&&void 0!==t?t:"",this.taskName=`AI Task ${this.initialSlug}`,this.instructions=this.initialSlug?"Generate messages for slug":"",this.focusInput()}focusInput(){const t=this.renderRoot.querySelector("textarea");t&&t.focus()}handleClose(){this.dispatchEvent(new CustomEvent("close"))}async handleGenerate(){var t;if(this.error="",this.instructions&&this.taskName&&this.quantity){this.loading=!0;try{const s=await e(this.hass,"messages_store","generate_ai_messages",{instructions:this.instructions,quantity:Number(this.quantity),task_name:this.taskName,slug:this.slug||void 0});if("error"===(null==s?void 0:s.status))throw new Error((null===(t=null==s?void 0:s.error)||void 0===t?void 0:t.message)||"Service call failed.");if(!(null==s?void 0:s.status))throw new Error((null==s?void 0:s.message)||"Unable to generate messages.");this.dispatchEvent(new CustomEvent("aiMessages",{detail:{slug:s.slug,messages:s.messages}})),this.handleClose()}catch(t){this.error=t instanceof Error?t.message:"Unable to generate messages."}finally{this.loading=!1}}else this.error="Fill all required fields."}handleSubmit(t){t.preventDefault(),this.handleGenerate()}handleBackdropClick(t){t.target===t.currentTarget&&this.handleClose()}render(){return R`
 			<div
-				class="fixed inset-0 flex items-center justify-center z-50 bg-zinc-900 bg-opacity-50 backdrop-blur-sm"
+				class="ms-dialog-backdrop ms-dialog-nested"
+				@click=${this.handleBackdropClick}
 			>
-				<div
-					class="bg-zinc-800 text-white p-6 rounded-lg shadow-2xl w-full max-w-lg mx-4 sm:mx-6 md:w-2/3 lg:w-1/3 border-[1px] border-zinc-700 relative"
+				<section
+					class="ms-dialog ms-ai-form"
+					role="dialog"
+					aria-modal="true"
+					aria-labelledby="ms-ai-dialog-title"
+					@click=${t=>t.stopPropagation()}
 				>
-					<h2 class="text-xl mb-5 font-bold flex justify-between items-center">
-						${this.initialSlug?"Edit Message":"Add Message"}
+					<header class="ms-dialog-header">
+						<div class="ms-dialog-heading">
+							<h2 id="ms-ai-dialog-title">
+								Generate messages with AI
+							</h2>
+							<p>
+								Describe the messages you want. You can review
+								them before saving.
+							</p>
+						</div>
 						<button
-							class="bg-blue-600 text-white font-bold px-3 py-1 rounded ml-2 text-sm"
-							style="position:absolute;top:18px;right:18px;"
-							@click=${()=>this.isAIModalOpen=!0}
+							class="ms-dialog-close"
+							@click=${this.handleClose}
+							aria-label="Close dialog"
+							title="Close"
 						>
-							Generate with AI
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="m6 6 12 12M18 6 6 18" />
+							</svg>
 						</button>
-					</h2>
-					<div class="mb-4">
-						<label class="block mb-2 text-sm">Slug</label>
-						<input
-							type="text"
-							class="text-sm outline-none border-b-2 border-zinc-600 bg-zinc-700 focus:border-zinc-400 focus:outline-none w-full p-2 text-white"
-							.value=${this.slug}
-							@input=${t=>this.slug=t.target.value}
-							?disabled=${!!this.initialSlug}
-						/>
-					</div>
-					<div class="mb-4">
-						<label class="block mb-2 text-sm">Message</label>
-						${this.messageList.map(((t,e)=>j`
-								<div class="flex flex-col mb-2">
-									<div class="flex items-center">
+					</header>
+					<form @submit=${this.handleSubmit}>
+						<div class="ms-dialog-body">
+							<div class="ms-field">
+								<label for="ms-ai-task-name"
+									>Task name
+									<span class="ms-required">*</span></label
+								>
+								<input
+									id="ms-ai-task-name"
+									class="ms-input"
+									type="text"
+									required
+									.value=${this.taskName}
+									@input=${t=>this.taskName=t.target.value}
+								/>
+							</div>
+							<div class="ms-field">
+								<label for="ms-ai-instructions"
+									>Instructions
+									<span class="ms-required">*</span></label
+								>
+								<textarea
+									id="ms-ai-instructions"
+									class="ms-textarea"
+									required
+									.value=${this.instructions}
+									@input=${t=>this.instructions=t.target.value}
+								></textarea>
+								<p class="ms-ai-hint">
+									For example: Generate friendly messages for
+									when I get home. I will use them for TTS.
+								</p>
+							</div>
+							<div class="ms-field">
+								<label for="ms-ai-quantity"
+									>Number of messages
+									<span class="ms-required">*</span></label
+								>
+								<input
+									id="ms-ai-quantity"
+									class="ms-input"
+									type="number"
+									min="1"
+									required
+									.value=${String(this.quantity)}
+									@input=${t=>this.quantity=t.target.value}
+								/>
+							</div>
+							<div class="ms-field">
+								<label for="ms-ai-slug"
+									>Base slug
+									<span class="ms-ai-hint"
+										>(optional)</span
+									></label
+								>
+								<input
+									id="ms-ai-slug"
+									class="ms-input"
+									type="text"
+									.value=${this.slug}
+									@input=${t=>this.slug=t.target.value}
+								/>
+							</div>
+							${this.error?R`<p class="ms-form-error" role="alert">
+										${this.error}
+									</p>`:H}
+						</div>
+						<footer class="ms-dialog-footer">
+							<button
+								class="ms-button ms-button-secondary"
+								type="button"
+								@click=${this.handleClose}
+							>
+								Cancel
+							</button>
+							<button
+								class="ms-button ms-button-primary"
+								type="submit"
+								?disabled=${this.loading}
+							>
+								${this.loading?"Generating…":"Generate messages"}
+							</button>
+						</footer>
+					</form>
+				</section>
+			</div>
+		`}};t([ct()],gt.prototype,"instructions",void 0),t([ct()],gt.prototype,"quantity",void 0),t([ct()],gt.prototype,"taskName",void 0),t([ct()],gt.prototype,"slug",void 0),t([ct()],gt.prototype,"loading",void 0),t([ct()],gt.prototype,"error",void 0),t([dt({type:Object})],gt.prototype,"hass",void 0),t([dt({type:String})],gt.prototype,"initialSlug",void 0),gt=t([ot("messages-store-ai-modal")],gt);let mt=class extends it{constructor(){super(...arguments),this.messages=[],this.initialSlug="",this.initialMessages=[],this.slug="",this.messageList=[""],this.isAIModalOpen=!1,this.aiTaskConfigured=!1,this.handleKeyDown=t=>{if("Escape"===t.key){if(this.isAIModalOpen)return void(this.isAIModalOpen=!1);this.closeModal()}t.ctrlKey&&t.altKey&&"s"===t.key.toLowerCase()&&this.handleSave()}}createRenderRoot(){return this}connectedCallback(){var t,e;super.connectedCallback(),this.slug=null!==(t=this.initialSlug)&&void 0!==t?t:"",this.messageList=null!==(e=this.initialMessages)&&void 0!==e?e:[""],document.addEventListener("keydown",this.handleKeyDown)}disconnectedCallback(){document.removeEventListener("keydown",this.handleKeyDown),super.disconnectedCallback()}firstUpdated(){this.checkAITaskConfiguration(),this.initialSlug?this.focusMessage(0):this.focusSlug()}async checkAITaskConfiguration(){try{const t=await e(this.hass,"messages_store","get_ai_task_configured");this.aiTaskConfigured=!0===(null==t?void 0:t.configured)}catch(t){this.aiTaskConfigured=!1}}handleAddMessage(){this.messageList=[...this.messageList,""],setTimeout((()=>this.focusMessage(this.messageList.length-1)),0)}handleRemoveMessage(t){this.messageList=this.messageList.filter(((e,s)=>s!==t))}handleSave(){const t=this.initialSlug?"edit_message":"add_message";this.dispatchEvent(new CustomEvent("save",{detail:{slug:this.slug,messages:this.messageList,service:t}}))}closeModal(){this.dispatchEvent(new CustomEvent("close"))}handleBackdropClick(t){t.target===t.currentTarget&&this.closeModal()}focusSlug(){const t=this.renderRoot.querySelector('input[type="text"]');t&&t.focus()}focusMessage(t){const e=this.renderRoot.querySelectorAll("textarea");e&&e[t]&&e[t].focus()}aiMessages(t){const{slug:e,messages:s}=t.detail;this.slug||(this.slug=e);let n=[...this.messageList,...s];n.length>0&&""===n[0]&&(n=n.slice(1)),this.messageList=n}previewMessage(t){return t.replace(/\(slug:([^)]+)\)/g,((t,e)=>{if(e===this.slug)return t;const s=this.messages.filter((t=>t.slug===e));if(0===s.length)return t;const n=s[0].message;return/\(slug:[^)]+\)/.test(n)?t:n})).replace(/\(state:([a-zA-Z0-9_\.]+)(?:\((.*?)\))?\)/g,((t,e,s)=>{const n=this.hass.states[e];if(!n)return t;let i=n.state;const a=n.attributes.unit_of_measurement||"";let o=i;const r=!isNaN(parseFloat(i))&&isFinite(i);if(s=s?s.split(",").map((t=>t.trim())):[],r)if(i=parseFloat(i),s.includes("round"))o=Math.round(i);else{const t=s.find((t=>t.startsWith("round")));if(t){const e=parseInt(t.replace("round",""),10);o=i.toFixed(e)}}return s.includes("unit")&&a&&(o=`${o} ${a}`),o}))}render(){return R`
+			<div class="ms-dialog-backdrop" @click=${this.handleBackdropClick}>
+				<section
+					class="ms-dialog"
+					role="dialog"
+					aria-modal="true"
+					aria-labelledby="ms-message-dialog-title"
+					@click=${t=>t.stopPropagation()}
+				>
+					<header class="ms-dialog-header">
+						<div class="ms-dialog-heading">
+							<h2 id="ms-message-dialog-title">
+								${this.initialSlug?"Edit message":"Add message"}
+							</h2>
+							<p>
+								${this.initialSlug?"Update the messages stored under this slug.":"Create a reusable message for your automations."}
+							</p>
+						</div>
+						<button
+							class="ms-dialog-close"
+							@click=${this.closeModal}
+							aria-label="Close dialog"
+							title="Close"
+						>
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="m6 6 12 12M18 6 6 18" />
+							</svg>
+						</button>
+					</header>
+					<div class="ms-dialog-body">
+						<div class="ms-field">
+							<label for="ms-message-slug">Slug</label>
+							<input
+								id="ms-message-slug"
+								type="text"
+								class="ms-input"
+								.value=${this.slug}
+								@input=${t=>this.slug=t.target.value}
+								?disabled=${!!this.initialSlug}
+								autocomplete="off"
+							/>
+						</div>
+						<div class="ms-field">
+							<div class="ms-message-editor-top">
+								<span class="ms-field-label">Messages</span
+								><button
+									class="ms-inline-button"
+									@click=${this.handleAddMessage}
+								>
+									Add another
+								</button>
+							</div>
+							${this.messageList.map(((t,e)=>R`
+									<div class="ms-message-editor">
+										<div class="ms-message-editor-top">
+											<span>Message ${e+1}</span>
+											${this.messageList.length>1?R`<button
+														class="ms-inline-button ms-inline-button-danger"
+														@click=${()=>this.handleRemoveMessage(e)}
+														aria-label="Remove message ${e+1}"
+													>
+														Remove
+													</button>`:H}
+										</div>
 										<textarea
-											class="text-sm outline-none border-b-2 border-zinc-600 bg-zinc-700 focus:border-zinc-400 focus:outline-none w-full p-2 text-white mr-2"
+											class="ms-textarea"
+											aria-label="Message ${e+1}"
 											.value=${t}
 											@input=${t=>{this.messageList[e]=t.target.value,this.requestUpdate()}}
 										></textarea>
-										${this.messageList.length>1?j`
-													<button
-														class="bg-zinc-600 text-white px-3 py-1 font-bold rounded"
-														@click=${()=>this.handleRemoveMessage(e)}
-													>
-														x
-													</button>
-												`:""}
+										${/(\(slug:[^)]+\)|\(state:[^)]+\))/.test(t)?R`<div class="ms-preview">
+													<strong>Preview</strong
+													>${this.previewMessage(t)}
+												</div>`:H}
 									</div>
-									${/\(slug:[^)]+\)/.test(t)||/\(state:[^)]+\)/.test(t)?j`
-												<div
-													class="text-sm text-zinc-400 mt-2 mb-2"
-												>
-													<span class="text-zinc-300"
-														>Preview:</span
-													>
-													${this.previewMessage(t)}
-												</div>
-											`:""}
-								</div>
-							`))}
-						<button
-							class="bg-zinc-500 text-white font-bold px-3 py-1 rounded mt-2"
-							@click=${this.handleAddMessage}
-						>
-							+
-						</button>
+								`))}
+						</div>
+					${this.aiTaskConfigured?R`<button
+								class="ms-button ms-button-secondary ms-ai-trigger"
+								@click=${()=>this.isAIModalOpen=!0}
+								aria-haspopup="dialog"
+							>
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<path d="m12 2 1.7 6.3L20 10l-6.3 1.7L12 18l-1.7-6.3L4 10l6.3-1.7L12 2Z" />
+									<path d="m19 15 .8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z" />
+								</svg>
+								<span>Generate with AI</span>
+							</button>`:H}
 					</div>
-					<div class="flex justify-end">
+					<footer class="ms-dialog-footer">
 						<button
-							class="bg-green-500 text-white font-bold px-7 py-2 rounded mr-2"
-							@click=${this.handleSave}
-						>
-							Save
-						</button>
-						<button
-							class="bg-zinc-500 font-bold text-white px-7 py-2 rounded"
+							class="ms-button ms-button-secondary"
 							@click=${this.closeModal}
 						>
 							Cancel
 						</button>
-					</div>
-				</div>
-				${this.isAIModalOpen?j`
-						<messages-store-ai-modal
-							.hass=${this.hass}
-							.initialSlug=${this.initialSlug}
-							@close=${()=>this.isAIModalOpen=!1}
-							@aiMessages=${this.aiMessages}
-						></messages-store-ai-modal>
-					`:""}
-			</div>
-		`}};t([dt({type:Array})],gt.prototype,"messages",void 0),t([dt({type:String})],gt.prototype,"initialSlug",void 0),t([dt({type:Array})],gt.prototype,"initialMessages",void 0),t([dt({type:Object})],gt.prototype,"hass",void 0),t([dt({type:Object})],gt.prototype,"callService",void 0),t([ct()],gt.prototype,"slug",void 0),t([ct()],gt.prototype,"messageList",void 0),t([ct()],gt.prototype,"isAIModalOpen",void 0),gt=t([ot("messages-store-modal")],gt);let mt=class extends it{constructor(){super(...arguments),this.message="",this.type="success"}closeNotification(){this.dispatchEvent(new CustomEvent("close"))}createRenderRoot(){return this}render(){return j`
-			${this.message?j`
-						<div
-							class="fixed bottom-4 right-4 px-4 py-2 rounded shadow-lg z-50 ${"error"===this.type?"bg-red-500":"bg-green-500"} text-white"
+						<button
+							class="ms-button ms-button-primary"
+							@click=${this.handleSave}
 						>
-							<div class="flex items-center">
-								<span class="flex-grow">${this.message}</span>
-								<button
-									@click=${this.closeNotification}
-									class="ml-4 text-white"
-								>
-									x
-								</button>
-							</div>
+							Save message
+						</button>
+					</footer>
+				</section>
+				${this.isAIModalOpen?R`
+							<messages-store-ai-modal
+								.hass=${this.hass}
+								.initialSlug=${this.initialSlug}
+								@close=${()=>this.isAIModalOpen=!1}
+								@aiMessages=${this.aiMessages}
+							></messages-store-ai-modal>
+						`:""}
+			</div>
+		`}};t([dt({type:Array})],mt.prototype,"messages",void 0),t([dt({type:String})],mt.prototype,"initialSlug",void 0),t([dt({type:Array})],mt.prototype,"initialMessages",void 0),t([dt({type:Object})],mt.prototype,"hass",void 0),t([dt({type:Object})],mt.prototype,"callService",void 0),t([ct()],mt.prototype,"slug",void 0),t([ct()],mt.prototype,"messageList",void 0),t([ct()],mt.prototype,"isAIModalOpen",void 0),t([ct()],mt.prototype,"aiTaskConfigured",void 0),mt=t([ot("messages-store-modal")],mt);let ut=class extends it{constructor(){super(...arguments),this.message="",this.type="success"}closeNotification(){this.dispatchEvent(new CustomEvent("close"))}createRenderRoot(){return this}render(){return R`
+			${this.message?R`
+						<div
+							class="ms-toast ${"error"===this.type?"ms-toast-error":""}"
+							role="${"error"===this.type?"alert":"status"}"
+						>
+							<span class="ms-toast-message"
+								>${this.message}</span
+							>
+							<button
+								class="ms-dialog-close"
+								@click=${this.closeNotification}
+								aria-label="Dismiss notification"
+								title="Dismiss"
+							>
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<path d="m6 6 12 12M18 6 6 18" />
+								</svg>
+							</button>
 						</div>
 					`:""}
-		`}};t([dt({type:String})],mt.prototype,"message",void 0),t([dt({type:String})],mt.prototype,"type",void 0),mt=t([ot("messages-store-notification")],mt);let bt=class extends it{constructor(){super(...arguments),this.allMessages=[],this.messages=[],this.message={slug:"",message:"",originalMessage:[""]},this.isModalOpen=!1,this.notification=null,this.searchTerm="",this.sortOrder="asc",this.groupMessages=!0,this.handleKeyDown=t=>{t.ctrlKey&&t.altKey&&"+"===t.key&&this.addModal()}}createRenderRoot(){return this}async connectedCallback(){super.connectedCallback(),this.loadConfig(),await this.loadMessages(),document.addEventListener("keydown",this.handleKeyDown)}disconnectedCallback(){document.removeEventListener("keydown",this.handleKeyDown),super.disconnectedCallback()}loadConfig(){const t=localStorage.getItem("messages-store-config");t&&(this.groupMessages=JSON.parse(t).groupMessages)}saveConfig(){localStorage.setItem("messages-store-config",JSON.stringify({groupMessages:this.groupMessages}))}async loadMessages(){const t=await this.callService("messages_store","get_messages");this.allMessages=this.processMessages(null==t?void 0:t.data),this.filterMessages()}processMessages(t){let e=[];return Array.isArray(t)&&t.forEach((t=>{Array.isArray(t.message)&&(this.groupMessages?e.push({slug:t.slug,message:t.message[0],originalMessage:t.message}):t.message.forEach((n=>{e.push({slug:t.slug,message:n.trim(),originalMessage:t.message})})))})),e}sortMessages(){this.messages.sort(((t,e)=>{const n=t.slug.localeCompare(e.slug);return"asc"===this.sortOrder?n:-n}))}toggleSortOrder(){this.sortOrder="asc"===this.sortOrder?"desc":"asc",this.sortMessages()}toggleGroupMessages(){this.groupMessages=!this.groupMessages,this.saveConfig(),this.loadMessages()}async callService(t,n,s={},i={}){var r;const o=await e(this.hass,t,n,s,i);if("error"!=(null==o?void 0:o.status))return o;this.showNotification((null===(r=null==o?void 0:o.error)||void 0===r?void 0:r.message)||"Unknown error","error")}handleSearch(t){this.searchTerm=t.target.value,this.filterMessages()}filterMessages(){const t=this.searchTerm.toLowerCase();this.messages=t?this.allMessages.filter((e=>e.slug.toLowerCase().includes(t)||e.message.toLowerCase().includes(t))):[...this.allMessages],this.sortMessages()}editModal(t){t=t.detail,this.message=t,this.isModalOpen=!0}addModal(){this.message={slug:"",message:"",originalMessage:[""]},this.isModalOpen=!0}closeModal(){this.isModalOpen=!1}async saveMessage(t){const{slug:e,messages:n,service:s}=t.detail,i=await this.callService("messages_store",s,{slug:e,message:n});this.showNotification(i.message,i.status?"success":"error"),i.status&&(this.closeModal(),await this.loadMessages(),this.filterMessages())}async deleteMessage(t){const e=t.detail,n=await this.callService("messages_store","delete_message",{slug:e});this.showNotification(n.message,n.status?"success":"error"),n.status&&(await this.loadMessages(),this.filterMessages())}showNotification(t,e){this.notification={message:t,type:e},setTimeout((()=>this.notification=null),1e4)}render(){return j`
-			<div class="min-h-screen p-4 dark:bg-zinc-900 dark:text-white">
-				<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4">
-					<h1 class="text-2xl font-bold mb-4 sm:mb-0">Messages Store</h1>
-					<div class="flex flex-col sm:flex-row sm:items-center">
-						<label class="inline-flex items-center mb-4 sm:mb-0 sm:mr-4">
-							<input
-								type="checkbox"
-								class="form-checkbox"
-								.checked=${this.groupMessages}
-								@click=${this.toggleGroupMessages}
-							/>
-							<span class="ml-2">Group slugs</span>
-						</label>
+		`}};t([dt({type:String})],ut.prototype,"message",void 0),t([dt({type:String})],ut.prototype,"type",void 0),ut=t([ot("messages-store-notification")],ut);let vt=class extends it{constructor(){super(...arguments),this.allMessages=[],this.messages=[],this.message={slug:"",message:"",originalMessage:[""]},this.isModalOpen=!1,this.notification=null,this.searchTerm="",this.sortOrder="asc",this.groupMessages=!0,this.isLoading=!0,this.loadError="",this.pendingDelete=null,this.isAISettingsOpen=!1,this.aiSettingsLoading=!1,this.aiSettingsSaving=!1,this.aiSettingsError="",this.aiTaskEntityId="",this.aiInstructions="",this.aiTaskEntities=[],this.handleKeyDown=t=>{"Escape"===t.key&&this.pendingDelete?this.cancelDelete():"Escape"===t.key&&this.isAISettingsOpen?this.closeAISettings():t.ctrlKey&&t.altKey&&"+"===t.key&&this.addModal()}}createRenderRoot(){return this}async connectedCallback(){super.connectedCallback(),this.loadConfig(),await this.loadMessages(),document.addEventListener("keydown",this.handleKeyDown)}disconnectedCallback(){document.removeEventListener("keydown",this.handleKeyDown),super.disconnectedCallback()}loadConfig(){const t=localStorage.getItem("messages-store-config");t&&(this.groupMessages=JSON.parse(t).groupMessages)}saveConfig(){localStorage.setItem("messages-store-config",JSON.stringify({groupMessages:this.groupMessages}))}async loadMessages(){this.isLoading=!0,this.loadError="";try{const t=await this.callService("messages_store","get_messages");if(!t||!1===t.status)throw new Error((null==t?void 0:t.message)||"Unable to load messages.");this.allMessages=this.processMessages(t.data),this.filterMessages()}catch(t){this.loadError=t instanceof Error?t.message:"Unable to load messages.",this.allMessages=[],this.messages=[]}finally{this.isLoading=!1}}processMessages(t){let e=[];return Array.isArray(t)&&t.forEach((t=>{Array.isArray(t.message)&&(this.groupMessages?e.push({slug:t.slug,message:t.message[0],originalMessage:t.message}):t.message.forEach(((s,n)=>{e.push({slug:t.slug,message:s.trim(),originalMessage:t.message,messageIndex:n})})))})),e}sortMessages(){this.messages.sort(((t,e)=>{const s=t.slug.localeCompare(e.slug);return"asc"===this.sortOrder?s:-s}))}toggleSortOrder(){this.sortOrder="asc"===this.sortOrder?"desc":"asc",this.sortMessages()}toggleGroupMessages(){this.groupMessages=!this.groupMessages,this.saveConfig(),this.loadMessages()}async callService(t,s,n={},i={}){var a;const o=await e(this.hass,t,s,n,i);if("error"!=(null==o?void 0:o.status))return o;this.showNotification((null===(a=null==o?void 0:o.error)||void 0===a?void 0:a.message)||"Unknown error","error")}handleSearch(t){this.searchTerm=t.target.value,this.filterMessages()}filterMessages(){const t=this.searchTerm.toLowerCase();this.messages=t?this.allMessages.filter((e=>e.slug.toLowerCase().includes(t)||e.message.toLowerCase().includes(t)||this.groupMessages&&e.originalMessage.some((e=>e.toLowerCase().includes(t))))):[...this.allMessages],this.sortMessages()}editModal(t){t=t.detail,this.message=t,this.isModalOpen=!0}addModal(){this.message={slug:"",message:"",originalMessage:[""]},this.isModalOpen=!0}closeModal(){this.isModalOpen=!1}async openAISettings(){this.isAISettingsOpen=!0,this.aiSettingsLoading=!0,this.aiSettingsError="";const t=await this.callService("messages_store","get_ai_task_settings");if(this.aiSettingsLoading=!1,!(null==t?void 0:t.status))return void(this.aiSettingsError=(null==t?void 0:t.message)||"Unable to load AI settings.");this.aiTaskEntityId=t.ai_task_entity_id||"",this.aiInstructions=t.instructions||"",this.aiTaskEntities=t.entities||[],await this.updateComplete;const e=this.querySelector("#ai-task-entity");e&&(e.value=this.aiTaskEntityId)}closeAISettings(){this.isAISettingsOpen=!1,this.aiSettingsError=""}async saveAISettings(t){t.preventDefault(),this.aiSettingsSaving=!0,this.aiSettingsError="";const e=await this.callService("messages_store","set_ai_task_settings",{ai_task_entity_id:this.aiTaskEntityId||null,instructions:this.aiInstructions});this.aiSettingsSaving=!1,(null==e?void 0:e.status)?(this.showNotification(e.message||"AI settings saved.","success"),this.closeAISettings()):this.aiSettingsError=(null==e?void 0:e.message)||"Unable to save AI settings."}async saveMessage(t){const{slug:e,messages:s,service:n}=t.detail,i=await this.callService("messages_store",n,{slug:e,message:s});this.showNotification((null==i?void 0:i.message)||"Unable to save the message.",(null==i?void 0:i.status)?"success":"error"),(null==i?void 0:i.status)&&(this.closeModal(),await this.loadMessages(),this.filterMessages())}async deleteMessage(t){const e=t.detail,s=await this.callService("messages_store","delete_message",{slug:e});this.showNotification((null==s?void 0:s.message)||"Unable to delete the message.",(null==s?void 0:s.status)?"success":"error"),(null==s?void 0:s.status)&&(await this.loadMessages(),this.filterMessages())}requestDelete(t){this.pendingDelete=t.detail}cancelDelete(){this.pendingDelete=null}async confirmDelete(){const t=this.pendingDelete;if(t)if(this.pendingDelete=null,t.removeSingleMessage){const e=t.originalMessage.filter(((e,s)=>s!==t.messageIndex));await this.saveMessage({detail:{slug:t.slug,messages:e,service:"edit_message"}})}else await this.deleteMessage({detail:t.slug})}showNotification(t,e){this.notification={message:t,type:e},setTimeout((()=>this.notification=null),1e4)}render(){return R`
+			<div class="ms-page">
+				<header class="ms-page-header">
+					<div class="ms-heading-copy">
+						<h1>Messages Store</h1>
+						<p>
+							Manage reusable messages for automations,
+							notifications, and TTS.
+						</p>
+					</div>
+					<div class="ms-header-actions">
 						<button
-							class="bg-zinc-500 text-white font-bold px-4 py-2 rounded"
+							class="ms-button ms-button-secondary"
+							@click=${this.openAISettings}
+						>
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" />
+								<path d="m19.4 15 .1.1a1.8 1.8 0 1 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3.1 1.3v.2a1.8 1.8 0 1 1-3.6 0v-.2a1.8 1.8 0 0 0-3.1-1.3l-.1.1a1.8 1.8 0 1 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-1.3-3.1h-.2a1.8 1.8 0 1 1 0-3.6h.2a1.8 1.8 0 0 0 1.3-3.1l-.1-.1a1.8 1.8 0 1 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3.1-1.3v-.2a1.8 1.8 0 1 1 3.6 0v.2a1.8 1.8 0 0 0 3.1 1.3l.1-.1a1.8 1.8 0 1 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 1.3 3.1h.2a1.8 1.8 0 1 1 0 3.6h-.2a1.8 1.8 0 0 0-1.3 3.1Z" />
+							</svg>
+							<span>AI settings</span>
+						</button>
+						<button
+							class="ms-button ms-button-primary"
 							@click=${this.addModal}
 						>
-							Add Message
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M12 5v14M5 12h14" />
+							</svg>
+							<span>Add message</span>
 						</button>
 					</div>
-				</div>
-				<input
-					class="w-full text-sm outline-none border-b-2 border-zinc-600 bg-zinc-800 focus:border-zinc-500 focus:outline-none p-2 text-white mb-4"
-					type="text"
-					placeholder="Search messages..."
-					@input=${this.handleSearch}
-				/>
+				</header>
 
-				<div class="overflow-x-auto">
-					${this.messages.length>0?j`
-								<messages-store-list
+				<section class="ms-toolbar" aria-label="Message list controls">
+					<label class="ms-search">
+						<svg viewBox="0 0 24 24" aria-hidden="true">
+							<circle cx="11" cy="11" r="7" />
+							<path d="m16 16 4 4" />
+						</svg>
+						<input
+							type="search"
+							aria-label="Search messages"
+							placeholder="Search messages"
+							.value=${this.searchTerm}
+							@input=${this.handleSearch}
+						/>
+					</label>
+					<label class="ms-group-toggle">
+						<input
+							type="checkbox"
+							.checked=${this.groupMessages}
+							@change=${this.toggleGroupMessages}
+						/>
+						<span>Group slugs</span>
+					</label>
+				</section>
+
+				<div class="ms-list-heading">
+					<h2>Messages</h2>
+					${this.isLoading||this.loadError||!this.allMessages.length?"":R`<span class="ms-count"
+								>${this.messages.length}
+								${this.groupMessages?1===this.messages.length?"slug":"slugs":1===this.messages.length?"message":"messages"}</span
+							>`}
+				</div>
+
+				${this.isLoading?R`<div class="ms-state-card" role="status">
+							<span class="ms-spinner" aria-hidden="true"></span
+							><span>Loading messages…</span>
+						</div>`:this.loadError?R`<section
+								class="ms-state-card ms-state-error"
+								role="alert"
+							>
+								<div class="ms-state-icon" aria-hidden="true">
+									!
+								</div>
+								<h2>Messages could not be loaded</h2>
+								<p>${this.loadError}</p>
+								<button
+									class="ms-button ms-button-secondary"
+									@click=${this.loadMessages}
+								>
+									Try again
+								</button>
+							</section>`:this.messages.length?R`<messages-store-list
+									.hass=${this.hass}
 									.messages=${this.messages}
+									.groupMessages=${this.groupMessages}
 									@edit=${this.editModal}
-									@delete=${this.deleteMessage}
+								@confirm-delete=${this.requestDelete}
 									@save=${this.saveMessage}
 									@sort=${this.toggleSortOrder}
 									.sortOrder=${this.sortOrder}
-								></messages-store-list>
-								<div class="mt-4 text-sm text-gray-500">
-									Total Messages: ${this.messages.length}
-								</div>
-							`:j`
-								<div class="mt-4 text-sm text-gray-500">
-									No messages found.
-								</div>
-							`}
-				</div>
-				${this.isModalOpen?j`
+								></messages-store-list>`:this.searchTerm?R`<section class="ms-state-card">
+										<div
+											class="ms-state-icon"
+											aria-hidden="true"
+										>
+											<svg viewBox="0 0 24 24">
+												<circle cx="11" cy="11" r="7" />
+												<path d="m16 16 4 4" />
+											</svg>
+										</div>
+										<h2>No messages match your search</h2>
+										<p>Try another search term.</p>
+										<button
+											class="ms-button ms-button-secondary"
+											@click=${()=>{this.searchTerm="",this.filterMessages()}}
+										>
+											Clear search
+										</button>
+									</section>`:R`<section class="ms-state-card">
+										<div
+											class="ms-state-icon"
+											aria-hidden="true"
+										>
+											<svg viewBox="0 0 24 24">
+												<path
+													d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21z"
+												/>
+												<path
+													d="M4 5.5v13A2.5 2.5 0 0 1 6.5 16H20M8 7h8M8 10h8"
+												/>
+											</svg>
+										</div>
+										<h2>No messages yet</h2>
+										<p>
+											Add your first message to use it in
+											automations, notifications, or TTS.
+										</p>
+										<button
+											class="ms-button ms-button-primary"
+											@click=${this.addModal}
+										>
+											<svg
+												viewBox="0 0 24 24"
+												aria-hidden="true"
+											>
+												<path
+													d="M12 5v14M5 12h14"
+												/></svg
+											><span>Add message</span>
+										</button>
+									</section>`}
+				${this.isModalOpen?R`
 							<messages-store-modal
 								.hass=${this.hass}
 								.messages=${this.allMessages}
@@ -341,12 +544,95 @@ const ot=t=>e=>"function"==typeof e?((t,e)=>(customElements.define(t,e),e))(t,e)
 								@close=${this.closeModal}
 							></messages-store-modal>
 						`:""}
-				${this.notification?j`
+				${this.isAISettingsOpen?R`<div
+							class="ms-dialog-backdrop"
+							@click=${t=>{t.target===t.currentTarget&&this.closeAISettings()}}
+						>
+							<section class="ms-dialog" role="dialog" aria-modal="true" aria-labelledby="ai-settings-title">
+								<header class="ms-dialog-header">
+									<div class="ms-dialog-heading">
+										<h2 id="ai-settings-title">AI Task settings</h2>
+										<p>These settings are shared with the Messages Store integration configuration.</p>
+									</div>
+									<button class="ms-icon-button ms-dialog-close" aria-label="Close" @click=${this.closeAISettings}>
+										<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+									</button>
+								</header>
+								<form @submit=${this.saveAISettings}>
+									<div class="ms-dialog-body">
+										${this.aiSettingsError?R`<p class="ms-form-error" role="alert">${this.aiSettingsError}</p>`:""}
+										${this.aiSettingsLoading?R`<div class="ms-state-card" role="status">Loading AI settings…</div>`:R`
+											<div class="ms-field">
+												<label for="ai-task-entity">AI Task entity</label>
+												<select id="ai-task-entity" class="ms-input" .value=${this.aiTaskEntityId} @change=${t=>{this.aiTaskEntityId=t.target.value}}>
+													<option value="" ?selected=${!this.aiTaskEntityId}>No AI Task selected</option>
+													${this.aiTaskEntities.map((t=>R`<option value=${t.entity_id} ?selected=${t.entity_id===this.aiTaskEntityId}>${t.name} (${t.entity_id})</option>`))}
+												</select>
+												<p class="ms-ai-hint">Clearing the selection also disables AI generation in the message editor.</p>
+											</div>
+											<div class="ms-field">
+												<label for="ai-general-prompt">General prompt</label>
+												<textarea id="ai-general-prompt" class="ms-textarea" rows="8" .value=${this.aiInstructions} @input=${t=>{this.aiInstructions=t.target.value}}></textarea>
+												<p class="ms-ai-hint">This prompt is added to the specific instructions entered each time you generate messages.</p>
+											</div>
+										`}
+									</div>
+									<footer class="ms-dialog-footer">
+										<button type="button" class="ms-button ms-button-secondary" @click=${this.closeAISettings}>Cancel</button>
+										<button type="submit" class="ms-button ms-button-primary" ?disabled=${this.aiSettingsLoading||this.aiSettingsSaving}>${this.aiSettingsSaving?"Saving…":"Save settings"}</button>
+									</footer>
+								</form>
+							</section>
+						</div>`:""}
+				${this.notification?R`
 							<messages-store-notification
 								.message=${this.notification.message}
 								.type=${this.notification.type}
 								@close=${()=>this.notification=null}
 							></messages-store-notification>
 						`:""}
+				${this.pendingDelete?R`<div
+							class="ms-dialog-backdrop ms-confirm-backdrop"
+							@click=${t=>{t.target===t.currentTarget&&this.cancelDelete()}}
+						>
+							<section
+								class="ms-confirm-dialog"
+								role="alertdialog"
+								aria-modal="true"
+								aria-labelledby="ms-delete-title"
+								aria-describedby="ms-delete-description"
+							>
+								<div class="ms-confirm-icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24">
+										<path d="M12 3 2.8 20h18.4L12 3Z" />
+										<path d="M12 9v5m0 3h.01" />
+									</svg>
+								</div>
+								<h2 id="ms-delete-title">
+									${this.pendingDelete.removeSingleMessage?"Remove this message?":"Delete this slug?"}
+								</h2>
+								<p id="ms-delete-description">
+									${this.pendingDelete.removeSingleMessage?R`This message will be removed from
+											<strong>${this.pendingDelete.slug}</strong>.`:R`<strong>${this.pendingDelete.slug}</strong>
+											and all messages stored under it will be
+											deleted.`}
+								</p>
+								<footer class="ms-confirm-actions">
+									<button
+										class="ms-button ms-button-secondary"
+										autofocus
+										@click=${this.cancelDelete}
+									>
+										Cancel
+									</button>
+									<button
+										class="ms-button ms-button-danger"
+										@click=${this.confirmDelete}
+									>
+										${this.pendingDelete.removeSingleMessage?"Remove message":"Delete slug"}
+									</button>
+								</footer>
+							</section>
+						</div>`:""}
 			</div>
-		`}};t([ct()],bt.prototype,"allMessages",void 0),t([ct()],bt.prototype,"messages",void 0),t([ct()],bt.prototype,"message",void 0),t([ct()],bt.prototype,"isModalOpen",void 0),t([ct()],bt.prototype,"notification",void 0),t([ct()],bt.prototype,"searchTerm",void 0),t([ct()],bt.prototype,"sortOrder",void 0),t([ct()],bt.prototype,"groupMessages",void 0),t([dt({type:Object})],bt.prototype,"hass",void 0),bt=t([ot("messages-store")],bt);export{bt as MessagesStore};
+		`}};t([ct()],vt.prototype,"allMessages",void 0),t([ct()],vt.prototype,"messages",void 0),t([ct()],vt.prototype,"message",void 0),t([ct()],vt.prototype,"isModalOpen",void 0),t([ct()],vt.prototype,"notification",void 0),t([ct()],vt.prototype,"searchTerm",void 0),t([ct()],vt.prototype,"sortOrder",void 0),t([ct()],vt.prototype,"groupMessages",void 0),t([ct()],vt.prototype,"isLoading",void 0),t([ct()],vt.prototype,"loadError",void 0),t([ct()],vt.prototype,"pendingDelete",void 0),t([ct()],vt.prototype,"isAISettingsOpen",void 0),t([ct()],vt.prototype,"aiSettingsLoading",void 0),t([ct()],vt.prototype,"aiSettingsSaving",void 0),t([ct()],vt.prototype,"aiSettingsError",void 0),t([ct()],vt.prototype,"aiTaskEntityId",void 0),t([ct()],vt.prototype,"aiInstructions",void 0),t([ct()],vt.prototype,"aiTaskEntities",void 0),t([dt({type:Object})],vt.prototype,"hass",void 0),vt=t([ot("messages-store")],vt);export{vt as MessagesStore};

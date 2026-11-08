@@ -1,6 +1,6 @@
 module.exports = {
 	content: ["./src/**/*.ts"],
-	darkMode: false,
+	darkMode: "media",
 	theme: {
 		extend: {},
 	},

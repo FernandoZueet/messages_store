@@ -20,20 +20,24 @@ export class MessagesStoreNotification extends LitElement {
 			${this.message
 				? html`
 						<div
-							class="fixed bottom-4 right-4 px-4 py-2 rounded shadow-lg z-50 ${this
-								.type === "error"
-								? "bg-red-500"
-								: "bg-green-500"} text-white"
+							class="ms-toast ${this.type === "error"
+								? "ms-toast-error"
+								: ""}"
+							role="${this.type === "error" ? "alert" : "status"}"
 						>
-							<div class="flex items-center">
-								<span class="flex-grow">${this.message}</span>
-								<button
-									@click=${this.closeNotification}
-									class="ml-4 text-white"
-								>
-									x
-								</button>
-							</div>
+							<span class="ms-toast-message"
+								>${this.message}</span
+							>
+							<button
+								class="ms-dialog-close"
+								@click=${this.closeNotification}
+								aria-label="Dismiss notification"
+								title="Dismiss"
+							>
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<path d="m6 6 12 12M18 6 6 18" />
+								</svg>
+							</button>
 						</div>
 					`
 				: ""}

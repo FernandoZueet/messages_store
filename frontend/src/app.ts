@@ -14,14 +14,34 @@ declare global {
 
 @customElement("messages-store")
 export class MessagesStore extends LitElement {
-	@state() allMessages: Array<{ slug: string; message: string; originalMessage: string[] }> = [];
-	@state() messages: Array<{ slug: string; message: string; originalMessage: string[] }> = [];
+	@state() allMessages: Array<{
+		slug: string;
+		message: string;
+		originalMessage: string[];
+		messageIndex?: number;
+	}> = [];
+	@state() messages: Array<{
+		slug: string;
+		message: string;
+		originalMessage: string[];
+		messageIndex?: number;
+	}> = [];
 	@state() message = { slug: "", message: "", originalMessage: [""] };
 	@state() isModalOpen = false;
 	@state() notification: { message: string; type: string } | null = null;
 	@state() searchTerm = "";
 	@state() sortOrder: "asc" | "desc" = "asc";
 	@state() groupMessages = true;
+	@state() isLoading = true;
+	@state() loadError = "";
+	@state() pendingDelete: any = null;
+	@state() isAISettingsOpen = false;
+	@state() aiSettingsLoading = false;
+	@state() aiSettingsSaving = false;
+	@state() aiSettingsError = "";
+	@state() aiTaskEntityId = "";
+	@state() aiInstructions = "";
+	@state() aiTaskEntities: Array<{ entity_id: string; name: string }> = [];
 
 	@property({ type: Object }) hass;
 
@@ -42,9 +62,17 @@ export class MessagesStore extends LitElement {
 	}
 
 	handleKeyDown = (e: KeyboardEvent) => {
+		if (e.key === "Escape" && this.pendingDelete) {
+			this.cancelDelete();
+			return;
+		}
+		if (e.key === "Escape" && this.isAISettingsOpen) {
+			this.closeAISettings();
+			return;
+		}
 		if (e.ctrlKey && e.altKey && e.key === "+") {
-			this.addModal(); 
-		} 
+			this.addModal();
+		}
 	};
 
 	loadConfig() {
@@ -62,13 +90,39 @@ export class MessagesStore extends LitElement {
 	}
 
 	async loadMessages() {
-		const response = await this.callService("messages_store", "get_messages");
-		this.allMessages = this.processMessages(response?.data);
-		this.filterMessages();
+		this.isLoading = true;
+		this.loadError = "";
+		try {
+			const response = await this.callService(
+				"messages_store",
+				"get_messages"
+			);
+			if (!response || response.status === false) {
+				throw new Error(
+					response?.message || "Unable to load messages."
+				);
+			}
+			this.allMessages = this.processMessages(response.data);
+			this.filterMessages();
+		} catch (error) {
+			this.loadError =
+				error instanceof Error
+					? error.message
+					: "Unable to load messages.";
+			this.allMessages = [];
+			this.messages = [];
+		} finally {
+			this.isLoading = false;
+		}
 	}
 
 	processMessages(data) {
-		let processedMessages: Array<{ slug: string; message: string; originalMessage: string[] }> = [];
+		let processedMessages: Array<{
+			slug: string;
+			message: string;
+			originalMessage: string[];
+			messageIndex?: number;
+		}> = [];
 
 		if (Array.isArray(data)) {
 			data.forEach((msg) => {
@@ -80,11 +134,12 @@ export class MessagesStore extends LitElement {
 							originalMessage: msg.message,
 						});
 					} else {
-						msg.message.forEach((message) => {
+						msg.message.forEach((message, messageIndex) => {
 							processedMessages.push({
 								slug: msg.slug,
 								message: message.trim(),
 								originalMessage: msg.message,
+								messageIndex,
 							});
 						});
 					}
@@ -114,10 +169,19 @@ export class MessagesStore extends LitElement {
 	}
 
 	async callService(domain, service, data = {}, target = {}) {
-		const response = await utils.callService(this.hass, domain, service, data, target);
+		const response = await utils.callService(
+			this.hass,
+			domain,
+			service,
+			data,
+			target
+		);
 
-		if(response?.status == 'error') {
-			this.showNotification(response?.error?.message || "Unknown error", "error");
+		if (response?.status == "error") {
+			this.showNotification(
+				response?.error?.message || "Unknown error",
+				"error"
+			);
 			return;
 		}
 
@@ -135,9 +199,13 @@ export class MessagesStore extends LitElement {
 			this.messages = [...this.allMessages];
 		} else {
 			this.messages = this.allMessages.filter(
-				(msg: { slug: string; message: string }) =>
+				(msg) =>
 					msg.slug.toLowerCase().includes(term) ||
-					msg.message.toLowerCase().includes(term)
+					msg.message.toLowerCase().includes(term) ||
+					(this.groupMessages &&
+						msg.originalMessage.some((message) =>
+							message.toLowerCase().includes(term)
+						))
 			);
 		}
 		this.sortMessages();
@@ -158,6 +226,55 @@ export class MessagesStore extends LitElement {
 		this.isModalOpen = false;
 	}
 
+	async openAISettings() {
+		this.isAISettingsOpen = true;
+		this.aiSettingsLoading = true;
+		this.aiSettingsError = "";
+		const response = await this.callService(
+			"messages_store",
+			"get_ai_task_settings"
+		);
+		this.aiSettingsLoading = false;
+		if (!response?.status) {
+			this.aiSettingsError = response?.message || "Unable to load AI settings.";
+			return;
+		}
+		this.aiTaskEntityId = response.ai_task_entity_id || "";
+		this.aiInstructions = response.instructions || "";
+		this.aiTaskEntities = response.entities || [];
+		await this.updateComplete;
+		const taskSelect = this.querySelector(
+			"#ai-task-entity"
+		) as HTMLSelectElement | null;
+		if (taskSelect) taskSelect.value = this.aiTaskEntityId;
+	}
+
+	closeAISettings() {
+		this.isAISettingsOpen = false;
+		this.aiSettingsError = "";
+	}
+
+	async saveAISettings(event) {
+		event.preventDefault();
+		this.aiSettingsSaving = true;
+		this.aiSettingsError = "";
+		const response = await this.callService(
+			"messages_store",
+			"set_ai_task_settings",
+			{
+				ai_task_entity_id: this.aiTaskEntityId || null,
+				instructions: this.aiInstructions,
+			}
+		);
+		this.aiSettingsSaving = false;
+		if (!response?.status) {
+			this.aiSettingsError = response?.message || "Unable to save AI settings.";
+			return;
+		}
+		this.showNotification(response.message || "AI settings saved.", "success");
+		this.closeAISettings();
+	}
+
 	async saveMessage(e) {
 		const { slug, messages, service } = e.detail;
 		const response = await this.callService("messages_store", service, {
@@ -165,10 +282,10 @@ export class MessagesStore extends LitElement {
 			message: messages,
 		});
 		this.showNotification(
-			response.message,
-			response.status ? "success" : "error"
+			response?.message || "Unable to save the message.",
+			response?.status ? "success" : "error"
 		);
-		if (response.status) {
+		if (response?.status) {
 			this.closeModal();
 			await this.loadMessages();
 			this.filterMessages();
@@ -183,13 +300,42 @@ export class MessagesStore extends LitElement {
 			{ slug }
 		);
 		this.showNotification(
-			response.message,
-			response.status ? "success" : "error"
+			response?.message || "Unable to delete the message.",
+			response?.status ? "success" : "error"
 		);
-		if (response.status) {
+		if (response?.status) {
 			await this.loadMessages();
 			this.filterMessages();
 		}
+	}
+
+	requestDelete(e) {
+		this.pendingDelete = e.detail;
+	}
+
+	cancelDelete() {
+		this.pendingDelete = null;
+	}
+
+	async confirmDelete() {
+		const message = this.pendingDelete;
+		if (!message) return;
+		this.pendingDelete = null;
+
+		if (message.removeSingleMessage) {
+			const newMessages = message.originalMessage.filter(
+				(_, index) => index !== message.messageIndex
+			);
+			await this.saveMessage({
+				detail: {
+					slug: message.slug,
+					messages: newMessages,
+					service: "edit_message",
+				},
+			});
+			return;
+		}
+		await this.deleteMessage({ detail: message.slug });
 	}
 
 	showNotification(message, type) {
@@ -199,55 +345,169 @@ export class MessagesStore extends LitElement {
 
 	render() {
 		return html`
-			<div class="min-h-screen p-4 dark:bg-zinc-900 dark:text-white">
-				<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4">
-					<h1 class="text-2xl font-bold mb-4 sm:mb-0">Messages Store</h1>
-					<div class="flex flex-col sm:flex-row sm:items-center">
-						<label class="inline-flex items-center mb-4 sm:mb-0 sm:mr-4">
-							<input
-								type="checkbox"
-								class="form-checkbox"
-								.checked=${this.groupMessages}
-								@click=${this.toggleGroupMessages}
-							/>
-							<span class="ml-2">Group slugs</span>
-						</label>
+			<div class="ms-page">
+				<header class="ms-page-header">
+					<div class="ms-heading-copy">
+						<h1>Messages Store</h1>
+						<p>
+							Manage reusable messages for automations,
+							notifications, and TTS.
+						</p>
+					</div>
+					<div class="ms-header-actions">
 						<button
-							class="bg-zinc-500 text-white font-bold px-4 py-2 rounded"
+							class="ms-button ms-button-secondary"
+							@click=${this.openAISettings}
+						>
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" />
+								<path d="m19.4 15 .1.1a1.8 1.8 0 1 1-2.5 2.5l-.1-.1a1.8 1.8 0 0 0-3.1 1.3v.2a1.8 1.8 0 1 1-3.6 0v-.2a1.8 1.8 0 0 0-3.1-1.3l-.1.1a1.8 1.8 0 1 1-2.5-2.5l.1-.1a1.8 1.8 0 0 0-1.3-3.1h-.2a1.8 1.8 0 1 1 0-3.6h.2a1.8 1.8 0 0 0 1.3-3.1l-.1-.1a1.8 1.8 0 1 1 2.5-2.5l.1.1a1.8 1.8 0 0 0 3.1-1.3v-.2a1.8 1.8 0 1 1 3.6 0v.2a1.8 1.8 0 0 0 3.1 1.3l.1-.1a1.8 1.8 0 1 1 2.5 2.5l-.1.1a1.8 1.8 0 0 0 1.3 3.1h.2a1.8 1.8 0 1 1 0 3.6h-.2a1.8 1.8 0 0 0-1.3 3.1Z" />
+							</svg>
+							<span>AI settings</span>
+						</button>
+						<button
+							class="ms-button ms-button-primary"
 							@click=${this.addModal}
 						>
-							Add Message
+							<svg viewBox="0 0 24 24" aria-hidden="true">
+								<path d="M12 5v14M5 12h14" />
+							</svg>
+							<span>Add message</span>
 						</button>
 					</div>
-				</div>
-				<input
-					class="w-full text-sm outline-none border-b-2 border-zinc-600 bg-zinc-800 focus:border-zinc-500 focus:outline-none p-2 text-white mb-4"
-					type="text"
-					placeholder="Search messages..."
-					@input=${this.handleSearch}
-				/>
+				</header>
 
-				<div class="overflow-x-auto">
-					${this.messages.length > 0
-						? html`
-								<messages-store-list
+				<section class="ms-toolbar" aria-label="Message list controls">
+					<label class="ms-search">
+						<svg viewBox="0 0 24 24" aria-hidden="true">
+							<circle cx="11" cy="11" r="7" />
+							<path d="m16 16 4 4" />
+						</svg>
+						<input
+							type="search"
+							aria-label="Search messages"
+							placeholder="Search messages"
+							.value=${this.searchTerm}
+							@input=${this.handleSearch}
+						/>
+					</label>
+					<label class="ms-group-toggle">
+						<input
+							type="checkbox"
+							.checked=${this.groupMessages}
+							@change=${this.toggleGroupMessages}
+						/>
+						<span>Group slugs</span>
+					</label>
+				</section>
+
+				<div class="ms-list-heading">
+					<h2>Messages</h2>
+					${!this.isLoading &&
+					!this.loadError &&
+					this.allMessages.length
+						? html`<span class="ms-count"
+								>${this.messages.length}
+								${this.groupMessages
+									? this.messages.length === 1
+										? "slug"
+										: "slugs"
+									: this.messages.length === 1
+										? "message"
+										: "messages"}</span
+							>`
+						: ""}
+				</div>
+
+				${this.isLoading
+					? html`<div class="ms-state-card" role="status">
+							<span class="ms-spinner" aria-hidden="true"></span
+							><span>Loading messages…</span>
+						</div>`
+					: this.loadError
+						? html`<section
+								class="ms-state-card ms-state-error"
+								role="alert"
+							>
+								<div class="ms-state-icon" aria-hidden="true">
+									!
+								</div>
+								<h2>Messages could not be loaded</h2>
+								<p>${this.loadError}</p>
+								<button
+									class="ms-button ms-button-secondary"
+									@click=${this.loadMessages}
+								>
+									Try again
+								</button>
+							</section>`
+						: this.messages.length
+							? html`<messages-store-list
+									.hass=${this.hass}
 									.messages=${this.messages}
+									.groupMessages=${this.groupMessages}
 									@edit=${this.editModal}
-									@delete=${this.deleteMessage}
+								@confirm-delete=${this.requestDelete}
 									@save=${this.saveMessage}
 									@sort=${this.toggleSortOrder}
 									.sortOrder=${this.sortOrder}
-								></messages-store-list>
-								<div class="mt-4 text-sm text-gray-500">
-									Total Messages: ${this.messages.length}
-								</div>
-							`
-						: html`
-								<div class="mt-4 text-sm text-gray-500">
-									No messages found.
-								</div>
-							`}
-				</div>
+								></messages-store-list>`
+							: this.searchTerm
+								? html`<section class="ms-state-card">
+										<div
+											class="ms-state-icon"
+											aria-hidden="true"
+										>
+											<svg viewBox="0 0 24 24">
+												<circle cx="11" cy="11" r="7" />
+												<path d="m16 16 4 4" />
+											</svg>
+										</div>
+										<h2>No messages match your search</h2>
+										<p>Try another search term.</p>
+										<button
+											class="ms-button ms-button-secondary"
+											@click=${() => {
+												this.searchTerm = "";
+												this.filterMessages();
+											}}
+										>
+											Clear search
+										</button>
+									</section>`
+								: html`<section class="ms-state-card">
+										<div
+											class="ms-state-icon"
+											aria-hidden="true"
+										>
+											<svg viewBox="0 0 24 24">
+												<path
+													d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21z"
+												/>
+												<path
+													d="M4 5.5v13A2.5 2.5 0 0 1 6.5 16H20M8 7h8M8 10h8"
+												/>
+											</svg>
+										</div>
+										<h2>No messages yet</h2>
+										<p>
+											Add your first message to use it in
+											automations, notifications, or TTS.
+										</p>
+										<button
+											class="ms-button ms-button-primary"
+											@click=${this.addModal}
+										>
+											<svg
+												viewBox="0 0 24 24"
+												aria-hidden="true"
+											>
+												<path
+													d="M12 5v14M5 12h14"
+												/></svg
+											><span>Add message</span>
+										</button>
+									</section>`}
 				${this.isModalOpen
 					? html`
 							<messages-store-modal
@@ -260,6 +520,50 @@ export class MessagesStore extends LitElement {
 							></messages-store-modal>
 						`
 					: ""}
+				${this.isAISettingsOpen
+					? html`<div
+							class="ms-dialog-backdrop"
+							@click=${(event) => {
+								if (event.target === event.currentTarget) this.closeAISettings();
+							}}
+						>
+							<section class="ms-dialog" role="dialog" aria-modal="true" aria-labelledby="ai-settings-title">
+								<header class="ms-dialog-header">
+									<div class="ms-dialog-heading">
+										<h2 id="ai-settings-title">AI Task settings</h2>
+										<p>These settings are shared with the Messages Store integration configuration.</p>
+									</div>
+									<button class="ms-icon-button ms-dialog-close" aria-label="Close" @click=${this.closeAISettings}>
+										<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+									</button>
+								</header>
+								<form @submit=${this.saveAISettings}>
+									<div class="ms-dialog-body">
+										${this.aiSettingsError ? html`<p class="ms-form-error" role="alert">${this.aiSettingsError}</p>` : ""}
+										${this.aiSettingsLoading ? html`<div class="ms-state-card" role="status">Loading AI settings…</div>` : html`
+											<div class="ms-field">
+												<label for="ai-task-entity">AI Task entity</label>
+												<select id="ai-task-entity" class="ms-input" .value=${this.aiTaskEntityId} @change=${(event) => { this.aiTaskEntityId = event.target.value; }}>
+													<option value="" ?selected=${!this.aiTaskEntityId}>No AI Task selected</option>
+													${this.aiTaskEntities.map((entity) => html`<option value=${entity.entity_id} ?selected=${entity.entity_id === this.aiTaskEntityId}>${entity.name} (${entity.entity_id})</option>`)}
+												</select>
+												<p class="ms-ai-hint">Clearing the selection also disables AI generation in the message editor.</p>
+											</div>
+											<div class="ms-field">
+												<label for="ai-general-prompt">General prompt</label>
+												<textarea id="ai-general-prompt" class="ms-textarea" rows="8" .value=${this.aiInstructions} @input=${(event) => { this.aiInstructions = event.target.value; }}></textarea>
+												<p class="ms-ai-hint">This prompt is added to the specific instructions entered each time you generate messages.</p>
+											</div>
+										`}
+									</div>
+									<footer class="ms-dialog-footer">
+										<button type="button" class="ms-button ms-button-secondary" @click=${this.closeAISettings}>Cancel</button>
+										<button type="submit" class="ms-button ms-button-primary" ?disabled=${this.aiSettingsLoading || this.aiSettingsSaving}>${this.aiSettingsSaving ? "Saving…" : "Save settings"}</button>
+									</footer>
+								</form>
+							</section>
+						</div>`
+					: ""}
 				${this.notification
 					? html`
 							<messages-store-notification
@@ -268,6 +572,59 @@ export class MessagesStore extends LitElement {
 								@close=${() => (this.notification = null)}
 							></messages-store-notification>
 						`
+					: ""}
+				${this.pendingDelete
+					? html`<div
+							class="ms-dialog-backdrop ms-confirm-backdrop"
+							@click=${(e) => {
+								if (e.target === e.currentTarget) this.cancelDelete();
+							}}
+						>
+							<section
+								class="ms-confirm-dialog"
+								role="alertdialog"
+								aria-modal="true"
+								aria-labelledby="ms-delete-title"
+								aria-describedby="ms-delete-description"
+							>
+								<div class="ms-confirm-icon" aria-hidden="true">
+									<svg viewBox="0 0 24 24">
+										<path d="M12 3 2.8 20h18.4L12 3Z" />
+										<path d="M12 9v5m0 3h.01" />
+									</svg>
+								</div>
+								<h2 id="ms-delete-title">
+									${this.pendingDelete.removeSingleMessage
+										? "Remove this message?"
+										: "Delete this slug?"}
+								</h2>
+								<p id="ms-delete-description">
+									${this.pendingDelete.removeSingleMessage
+										? html`This message will be removed from
+											<strong>${this.pendingDelete.slug}</strong>.`
+										: html`<strong>${this.pendingDelete.slug}</strong>
+											and all messages stored under it will be
+											deleted.`}
+								</p>
+								<footer class="ms-confirm-actions">
+									<button
+										class="ms-button ms-button-secondary"
+										autofocus
+										@click=${this.cancelDelete}
+									>
+										Cancel
+									</button>
+									<button
+										class="ms-button ms-button-danger"
+										@click=${this.confirmDelete}
+									>
+										${this.pendingDelete.removeSingleMessage
+											? "Remove message"
+											: "Delete slug"}
+									</button>
+								</footer>
+							</section>
+						</div>`
 					: ""}
 			</div>
 		`;
